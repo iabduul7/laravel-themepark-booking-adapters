@@ -3,115 +3,223 @@
 namespace Iabduul7\ThemeParkAdapters\Providers\Universal;
 
 use Iabduul7\ThemeParkAdapters\Abstracts\BaseThemeParkAdapter;
-use Iabduul7\ThemeParkAdapters\DataTransferObjects\Order;
-use Iabduul7\ThemeParkAdapters\DataTransferObjects\Product;
+use Iabduul7\ThemeParkAdapters\Contracts\TokenRepositoryInterface;
 use Iabduul7\ThemeParkAdapters\Exceptions\ThemeParkApiException;
+use Iabduul7\ThemeParkAdapters\TokenRepository\CacheTokenRepository;
 
 class UniversalSmartOrder2Adapter extends BaseThemeParkAdapter
 {
     protected string $baseUrl;
+    protected int $customerId;
+    protected string $approvedSuffix;
+    protected TokenRepositoryInterface $tokenRepository;
 
-    public function __construct(array $config = [])
+    public function __construct(array $config = [], ?TokenRepositoryInterface $tokenRepository = null)
     {
         parent::__construct($config);
 
-        if (! $this->hasRequiredConfig(['username', 'password', 'base_url'])) {
+        if (! $this->hasRequiredConfig(['client_username', 'client_secret'])) {
             throw ThemeParkApiException::invalidCredentials();
         }
 
-        $this->baseUrl = $this->getConfig('base_url');
+        $host = $this->getConfig('host', 'QACorpAPI.ucdp.net');
+        $this->baseUrl = "https://{$host}";
+        $this->customerId = (int) $this->getConfig('customer_id', 0);
+        $this->approvedSuffix = $this->getConfig('approved_suffix', '');
+        $this->tokenRepository = $tokenRepository ?? new CacheTokenRepository('smartorder');
     }
 
-    public function getProducts(array $filters = []): array
+    /**
+     * Get all products (catalog)
+     */
+    public function getAllProducts(array $parameters = []): array
     {
-        // TODO: Implement Universal SmartOrder2 API call
-        // This is a stub implementation
-        // Replace with actual SmartOrder2 API integration
-
-        $response = $this->makeRequest('POST', $this->baseUrl . '/api/products', [
+        $response = $this->makeRequest('POST', "{$this->baseUrl}/Product/GetAll", [
             'headers' => $this->getAuthHeaders(),
-            'json' => $filters,
+            'json' => $parameters,
+        ]);
+
+        return $this->parseJsonResponse($response);
+    }
+
+    /**
+     * Get available months for booking (next 12 months)
+     */
+    public function getAvailableMonths(): array
+    {
+        $months = [];
+        $currentDate = now();
+
+        for ($i = 0; $i < 12; $i++) {
+            $months[] = $currentDate->copy()->addMonths($i)->format('Y-m');
+        }
+
+        return $months;
+    }
+
+    /**
+     * Find events/availability
+     */
+    public function findEvents(array $parameters = []): array
+    {
+        $response = $this->makeRequest('POST', "{$this->baseUrl}/Event/Find", [
+            'headers' => $this->getAuthHeaders(),
+            'json' => $parameters,
+        ]);
+
+        return $this->parseJsonResponse($response);
+    }
+
+    /**
+     * Place an order
+     */
+    public function placeOrder(array $parameters = []): array
+    {
+        $response = $this->makeRequest('POST', "{$this->baseUrl}/Order/Place", [
+            'headers' => $this->getAuthHeaders(),
+            'json' => $parameters,
+        ]);
+
+        return $this->parseJsonResponse($response);
+    }
+
+    /**
+     * Get existing order details
+     */
+    public function getExistingOrder(array $parameters = []): array
+    {
+        $response = $this->makeRequest('POST', "{$this->baseUrl}/Order/GetExistingOrder", [
+            'headers' => $this->getAuthHeaders(),
+            'json' => $parameters,
+        ]);
+
+        return $this->parseJsonResponse($response);
+    }
+
+    /**
+     * Check if an order can be cancelled
+     */
+    public function canCancelOrder(array $parameters = []): bool
+    {
+        $response = $this->makeRequest('POST', "{$this->baseUrl}/Order/CanCancelOrder", [
+            'headers' => $this->getAuthHeaders(),
+            'json' => $parameters,
         ]);
 
         $data = $this->parseJsonResponse($response);
 
-        return array_map(fn ($item) => $this->mapToProduct($item), $data['data'] ?? []);
+        return $data['canCancel'] ?? false;
     }
 
-    public function getProduct(string $productId): Product
+    /**
+     * Cancel an order
+     */
+    public function cancelOrder(array $parameters = []): array
     {
-        // TODO: Implement Universal SmartOrder2 API call
-        throw new \RuntimeException('Method not yet implemented. Awaiting SmartOrder2 API integration.');
+        $response = $this->makeRequest('POST', "{$this->baseUrl}/Order/CancelOrder", [
+            'headers' => $this->getAuthHeaders(),
+            'json' => $parameters,
+        ]);
+
+        return $this->parseJsonResponse($response);
     }
 
-    public function createOrder(array $orderData): Order
-    {
-        // TODO: Implement Universal SmartOrder2 API call
-        throw new \RuntimeException('Method not yet implemented. Awaiting SmartOrder2 API integration.');
-    }
-
-    public function getOrder(string $orderId): Order
-    {
-        // TODO: Implement Universal SmartOrder2 API call
-        throw new \RuntimeException('Method not yet implemented. Awaiting SmartOrder2 API integration.');
-    }
-
-    public function cancelOrder(string $orderId): bool
-    {
-        // TODO: Implement Universal SmartOrder2 API call
-        throw new \RuntimeException('Method not yet implemented. Awaiting SmartOrder2 API integration.');
-    }
-
-    public function getAvailability(string $productId, array $filters = []): array
-    {
-        // TODO: Implement Universal SmartOrder2 API call
-        throw new \RuntimeException('Method not yet implemented. Awaiting SmartOrder2 API integration.');
-    }
-
+    /**
+     * Validate API credentials
+     */
     public function validateCredentials(): bool
     {
         try {
-            // SmartOrder2 uses basic auth
-            $response = $this->makeRequest('POST', $this->baseUrl . '/api/auth/validate', [
-                'headers' => $this->getAuthHeaders(),
-            ]);
+            // Try to get a token
+            $token = $this->getToken();
 
-            return $response->getStatusCode() === 200;
+            return ! empty($token);
         } catch (ThemeParkApiException $e) {
             return false;
         }
     }
 
+    /**
+     * Get the provider name
+     */
     public function getProviderName(): string
     {
         return 'Universal (SmartOrder2)';
     }
 
+    /**
+     * Get or refresh OAuth token
+     */
+    protected function getToken(): string
+    {
+        // Check if we have a valid cached token
+        $token = $this->tokenRepository->getValidToken();
+
+        if ($token) {
+            return $token;
+        }
+
+        // Refresh the token
+        return $this->refreshToken();
+    }
+
+    /**
+     * Refresh OAuth token using client credentials
+     */
+    protected function refreshToken(): string
+    {
+        $response = $this->httpClient->request('POST', "{$this->baseUrl}/connect/token", [
+            'form_params' => [
+                'grant_type' => 'client_credentials',
+                'client_id' => $this->getConfig('client_username'),
+                'client_secret' => $this->getConfig('client_secret'),
+                'scope' => 'SmartOrder',
+            ],
+            'timeout' => $this->getConfig('timeout', 600),
+        ]);
+
+        $data = json_decode((string) $response->getBody(), true);
+
+        if (! isset($data['access_token'])) {
+            throw ThemeParkApiException::apiError('Failed to obtain OAuth token');
+        }
+
+        $token = $data['access_token'];
+        $expiresIn = $data['expires_in'] ?? 3600;
+
+        // Store the token
+        $this->tokenRepository->storeToken($token, $expiresIn);
+
+        return $token;
+    }
+
+    /**
+     * Get authentication headers with OAuth token
+     */
     protected function getAuthHeaders(): array
     {
-        $credentials = base64_encode(
-            $this->getConfig('username') . ':' . $this->getConfig('password')
-        );
+        $token = $this->getToken();
 
         return [
-            'Authorization' => 'Basic ' . $credentials,
+            'Authorization' => "Bearer {$token}",
             'Content-Type' => 'application/json',
             'Accept' => 'application/json',
         ];
     }
 
-    protected function mapToProduct(array $data): Product
+    /**
+     * Get customer ID
+     */
+    public function getCustomerId(): int
     {
-        // TODO: Map SmartOrder2 response to Product DTO
-        // This is a placeholder mapping
-        return Product::fromArray([
-            'id' => $data['productId'] ?? $data['id'] ?? '',
-            'name' => $data['productName'] ?? $data['name'] ?? '',
-            'description' => $data['description'] ?? '',
-            'price' => $data['unitPrice'] ?? $data['price'] ?? 0,
-            'currency' => $data['currency'] ?? 'USD',
-            'image_url' => $data['imageUrl'] ?? null,
-            'metadata' => $data,
-        ]);
+        return $this->customerId;
+    }
+
+    /**
+     * Get approved suffix
+     */
+    public function getApprovedSuffix(): string
+    {
+        return $this->approvedSuffix;
     }
 }
