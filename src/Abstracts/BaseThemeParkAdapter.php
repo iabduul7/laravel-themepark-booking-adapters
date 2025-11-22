@@ -84,7 +84,7 @@ abstract class BaseThemeParkAdapter implements ThemeParkAdapterInterface
     protected function hasRequiredConfig(array $requiredKeys): bool
     {
         foreach ($requiredKeys as $key) {
-            if (!isset($this->config[$key]) || empty($this->config[$key])) {
+            if (! isset($this->config[$key]) || empty($this->config[$key])) {
                 return false;
             }
         }

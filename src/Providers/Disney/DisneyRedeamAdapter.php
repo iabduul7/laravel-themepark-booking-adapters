@@ -15,7 +15,7 @@ class DisneyRedeamAdapter extends BaseThemeParkAdapter
     {
         parent::__construct($config);
 
-        if (!$this->hasRequiredConfig(['api_key', 'api_secret', 'base_url'])) {
+        if (! $this->hasRequiredConfig(['api_key', 'api_secret', 'base_url'])) {
             throw ThemeParkApiException::invalidCredentials();
         }
 
@@ -35,7 +35,7 @@ class DisneyRedeamAdapter extends BaseThemeParkAdapter
 
         $data = $this->parseJsonResponse($response);
 
-        return array_map(fn($item) => $this->mapToProduct($item), $data['products'] ?? []);
+        return array_map(fn ($item) => $this->mapToProduct($item), $data['products'] ?? []);
     }
 
     public function getProduct(string $productId): Product
