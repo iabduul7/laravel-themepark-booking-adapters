@@ -8,88 +8,131 @@ A Laravel package for seamlessly integrating with major theme park APIs includin
 ## Features
 
 - 🎢 **Multiple Theme Park Support**: Disney, SeaWorld, and Universal Studios
-- 🔌 **Unified API Interface**: Work with different providers using the same methods
-- 🎫 **Complete Ticketing Operations**: Search products, create orders, manage tickets
+- 🔌 **Unified API Interface**: Work with different providers using consistent methods
+- 🎫 **Complete Ticketing Operations**: Products, rates, availability, holds, and bookings
 - 🔧 **Easy Configuration**: Simple .env-based configuration
+- 🔐 **OAuth 2.0 Support**: Automatic token management for SmartOrder2
 - 🧩 **Extensible Architecture**: Easy to add new providers
 - 📦 **Laravel Integration**: Native Laravel support with facades and service providers
 
 ## Supported Providers
 
-| Theme Park | API System | Status |
-|------------|------------|--------|
-| Disney | Redeam | Ready for integration |
-| SeaWorld | Redeam | Ready for integration |
-| Universal Studios | SmartOrder2 | Ready for integration |
+| Theme Park | API System | Authentication | Status |
+|------------|------------|----------------|--------|
+| Disney | Redeam v1.2 | API Key + Secret | ✅ Production Ready |
+| SeaWorld/United Parks | Redeam v1.2 | API Key + Secret | ✅ Production Ready |
+| Universal Studios | SmartOrder2 | OAuth 2.0 | ✅ Production Ready |
+
+## Table of Contents
+
+- [Installation](#installation)
+- [Configuration](#configuration)
+- [Basic Usage](#basic-usage)
+- [Redeam API (Disney & SeaWorld)](#redeam-api-disney--seaworld)
+- [SmartOrder2 API (Universal)](#smartorder2-api-universal)
+- [Advanced Usage](#advanced-usage)
+- [Error Handling](#error-handling)
+- [Testing](#testing)
+- [Contributing](#contributing)
 
 ## Installation
 
-You can install the package via composer:
+### Requirements
+
+- PHP 8.0 or higher
+- Laravel 8.x, 9.x, 10.x, or 11.x
+- Guzzle HTTP client 7.0+
+
+### Install via Composer
 
 ```bash
 composer require iabduul7/themepark-adapters
 ```
 
+The package will automatically register its service provider.
+
 ## Configuration
 
-### Publish Configuration File
+### Step 1: Publish Configuration File
 
 ```bash
 php artisan vendor:publish --tag="themepark-adapters-config"
 ```
 
-### Environment Variables
+This will create a `config/themepark-adapters.php` file in your Laravel application.
+
+### Step 2: Set Environment Variables
 
 Add the following to your `.env` file:
 
 ```env
-# Default provider
+# Default provider (disney, seaworld, universal)
 THEMEPARK_DEFAULT_PROVIDER=disney
 
-# Disney (Redeam)
+# Redeam API Configuration (Shared by Disney and SeaWorld/United Parks)
+REDEAM_API_HOST=booking.redeam.io
+REDEAM_API_VERSION=v1.2
+REDEAM_TIMEOUT=600
+REDEAM_VERIFY_SSL=true
+
+# Disney Configuration (Redeam)
 DISNEY_ENABLED=true
-DISNEY_API_BASE_URL=https://api.redeam.com/disney
-DISNEY_API_KEY=your_disney_api_key
-DISNEY_API_SECRET=your_disney_api_secret
+REDEAM_DISNEY_SUPPLIER_ID=your_disney_supplier_id_here
+REDEAM_DISNEY_API_KEY=your_disney_api_key_here
+REDEAM_DISNEY_API_SECRET=your_disney_api_secret_here
 
-# SeaWorld (Redeam)
+# SeaWorld/United Parks Configuration (Redeam)
 SEAWORLD_ENABLED=true
-SEAWORLD_API_BASE_URL=https://api.redeam.com/seaworld
-SEAWORLD_API_KEY=your_seaworld_api_key
-SEAWORLD_API_SECRET=your_seaworld_api_secret
+REDEAM_UNITED_PARKS_SUPPLIER_ID=  # May be empty for United Parks
+REDEAM_UNITED_PARKS_API_KEY=your_seaworld_api_key_here
+REDEAM_UNITED_PARKS_API_SECRET=your_seaworld_api_secret_here
 
-# Universal Studios (SmartOrder2)
+# Universal Studios Configuration (SmartOrder2)
 UNIVERSAL_ENABLED=true
-UNIVERSAL_API_BASE_URL=https://api.universalstudios.com/smartorder2
-UNIVERSAL_API_USERNAME=your_universal_username
-UNIVERSAL_API_PASSWORD=your_universal_password
+SMARTORDER_API_HOST=QACorpAPI.ucdp.net
+SMARTORDER_CUSTOMER_ID=your_customer_id_here
+SMARTORDER_APPROVED_SUFFIX=
+SMARTORDER_CLIENT_USERNAME=your_client_username_here
+SMARTORDER_CLIENT_SECRET=your_client_secret_here
+SMARTORDER_TIMEOUT=600
+SMARTORDER_VERIFY_SSL=true
 
 # Cache Configuration
 THEMEPARK_CACHE_ENABLED=true
 THEMEPARK_CACHE_TTL=3600
 
-# Logging
+# Logging Configuration
 THEMEPARK_LOGGING_ENABLED=false
 THEMEPARK_LOG_CHANNEL=stack
 ```
 
-## Usage
+### Step 3: Clear Configuration Cache
+
+```bash
+php artisan config:clear
+```
+
+## Basic Usage
 
 ### Using the Facade
+
+The easiest way to use the package is through the `ThemePark` facade:
 
 ```php
 use Iabduul7\ThemeParkAdapters\Facades\ThemePark;
 
 // Use default provider (from config)
-$products = ThemePark::getProducts();
+$products = ThemePark::getAllProducts();
 
 // Use specific provider
-$products = ThemePark::provider('disney')->getProducts();
-$products = ThemePark::provider('seaworld')->getProducts();
-$products = ThemePark::provider('universal')->getProducts();
+$disneyProducts = ThemePark::provider('disney')->getAllProducts();
+$seaworldProducts = ThemePark::provider('seaworld')->getAllProducts();
+$universalProducts = ThemePark::provider('universal')->getAllProducts();
 ```
 
 ### Using Dependency Injection
+
+Inject the `ThemeParkManager` into your controllers or services:
 
 ```php
 use Iabduul7\ThemeParkAdapters\ThemeParkManager;
@@ -102,7 +145,7 @@ class TicketController extends Controller
 
     public function index()
     {
-        $products = $this->themePark->provider('disney')->getProducts();
+        $products = $this->themePark->provider('disney')->getAllProducts();
 
         return view('tickets.index', compact('products'));
     }
@@ -111,159 +154,386 @@ class TicketController extends Controller
 
 ### Direct Adapter Usage
 
+You can also instantiate adapters directly:
+
 ```php
 use Iabduul7\ThemeParkAdapters\Providers\Disney\DisneyRedeamAdapter;
 
 $adapter = new DisneyRedeamAdapter([
+    'supplier_id' => 'your_supplier_id',
+    'host' => 'booking.redeam.io',
+    'version' => 'v1.2',
     'api_key' => 'your_api_key',
     'api_secret' => 'your_api_secret',
-    'base_url' => 'https://api.redeam.com/disney',
+    'timeout' => 600,
 ]);
 
-$products = $adapter->getProducts();
+$products = $adapter->getAllProducts();
 ```
 
-## API Methods
+## Redeam API (Disney & SeaWorld)
 
-All adapters implement the following methods:
+Both Disney and SeaWorld/United Parks use the Redeam API system. The methods are identical across both providers.
 
-### Get Products
+### Get All Products
+
+Retrieve all available products for the supplier:
 
 ```php
-// Get all products
-$products = ThemePark::getProducts();
+$products = ThemePark::provider('disney')->getAllProducts();
 
-// Get products with filters
-$products = ThemePark::getProducts([
-    'category' => 'admission',
-    'date' => '2024-12-25',
+// With filters
+$products = ThemePark::provider('disney')->getAllProducts([
+    'category' => 'tickets',
 ]);
 ```
 
-### Get Single Product
+### Get Specific Product
+
+Get detailed information about a specific product:
 
 ```php
-$product = ThemePark::getProduct('product-id-123');
+$productId = 'prod_12345';
+$product = ThemePark::provider('disney')->getProduct($productId);
 
-// Access product details
-echo $product->name;
-echo $product->price;
-echo $product->description;
+// Product details
+echo $product['name'];
+echo $product['description'];
+echo $product['base_price'];
+```
+
+### Get Product Rates
+
+Retrieve available rates for a product:
+
+```php
+$rates = ThemePark::provider('disney')->getProductRates($productId);
+
+foreach ($rates as $rate) {
+    echo $rate['name'];
+    echo $rate['price'];
+}
+```
+
+### Get Specific Rate
+
+Get details of a specific rate:
+
+```php
+$rateId = 'rate_67890';
+$rate = ThemePark::provider('disney')->getProductRate($productId, $rateId);
 ```
 
 ### Check Availability
 
+Check availability for a single date:
+
 ```php
-$availability = ThemePark::getAvailability('product-id-123', [
-    'start_date' => '2024-12-01',
-    'end_date' => '2024-12-31',
-]);
+$availability = ThemePark::provider('disney')->checkAvailability(
+    productId: $productId,
+    date: '2024-12-25',
+    quantity: 2
+);
+
+if ($availability['available']) {
+    echo "Tickets available!";
+}
 ```
 
-### Create Order
+### Check Date Range Availability
+
+Check availability across multiple dates:
 
 ```php
-$order = ThemePark::createOrder([
-    'product_id' => 'product-id-123',
-    'quantity' => 2,
-    'visit_date' => '2024-12-25',
-    'customer' => [
-        'name' => 'John Doe',
-        'email' => 'john@example.com',
+$availabilities = ThemePark::provider('disney')->checkAvailabilities(
+    productId: $productId,
+    startDate: '2024-12-01',
+    endDate: '2024-12-31'
+);
+
+foreach ($availabilities as $date => $availability) {
+    echo "{$date}: " . ($availability['available'] ? 'Available' : 'Sold Out');
+}
+```
+
+### Get Pricing Schedule
+
+Retrieve pricing information for a date range:
+
+```php
+$pricingSchedule = ThemePark::provider('disney')->getProductPricingSchedule(
+    productId: $productId,
+    startDate: '2024-12-01',
+    endDate: '2024-12-31'
+);
+```
+
+### Create a Hold (Reservation)
+
+Create a temporary hold before confirming a booking:
+
+```php
+$holdData = [
+    'hold' => [
+        'items' => [
+            [
+                'product_id' => $productId,
+                'rate_id' => $rateId,
+                'quantity' => 2,
+                'date' => '2024-12-25',
+            ],
+        ],
+        'customer' => [
+            'first_name' => 'John',
+            'last_name' => 'Doe',
+            'email' => 'john@example.com',
+        ],
     ],
-]);
+];
 
-// Access order details
-echo $order->id;
-echo $order->confirmationNumber;
-echo $order->totalAmount;
+$hold = ThemePark::provider('disney')->createNewHold($holdData);
+$holdId = $hold['id'];
 ```
 
-### Get Order
+### Get Hold Details
+
+Retrieve information about an existing hold:
 
 ```php
-$order = ThemePark::getOrder('order-id-456');
+$hold = ThemePark::provider('disney')->getHold($holdId);
 
-foreach ($order->tickets as $ticket) {
-    echo $ticket->ticketNumber;
-    echo $ticket->barcode;
+echo $hold['status'];
+echo $hold['expires_at'];
+```
+
+### Delete Hold
+
+Release a hold:
+
+```php
+$result = ThemePark::provider('disney')->deleteHold($holdId);
+```
+
+### Create Booking
+
+Convert a hold into a confirmed booking:
+
+```php
+$bookingData = [
+    'booking' => [
+        'hold_id' => $holdId,
+        'payment' => [
+            'method' => 'credit_card',
+            'amount' => 150.00,
+            'currency' => 'USD',
+        ],
+    ],
+];
+
+$booking = ThemePark::provider('disney')->createNewBooking($bookingData);
+$bookingId = $booking['id'];
+$confirmationNumber = $booking['confirmation_number'];
+```
+
+### Get Booking Details
+
+Retrieve booking information:
+
+```php
+$booking = ThemePark::provider('disney')->getBooking($bookingId);
+
+echo $booking['confirmation_number'];
+echo $booking['status'];
+
+foreach ($booking['tickets'] as $ticket) {
+    echo $ticket['ticket_number'];
+    echo $ticket['barcode'];
+}
+```
+
+### Cancel Booking
+
+Cancel a confirmed booking:
+
+```php
+$result = ThemePark::provider('disney')->deleteBooking($bookingId);
+```
+
+## SmartOrder2 API (Universal)
+
+Universal Studios uses the SmartOrder2 API system with OAuth 2.0 authentication.
+
+### Get All Products
+
+Retrieve the product catalog:
+
+```php
+$products = ThemePark::provider('universal')->getAllProducts([
+    'ProductTypeId' => 1, // Optional filter
+]);
+```
+
+### Get Available Months
+
+Get the next 12 months available for booking:
+
+```php
+$months = ThemePark::provider('universal')->getAvailableMonths();
+
+// Returns: ['2024-11', '2024-12', '2025-01', ...]
+```
+
+### Find Events
+
+Search for available events:
+
+```php
+$events = ThemePark::provider('universal')->findEvents([
+    'ProductId' => 123,
+    'EventDate' => '2024-12-25',
+    'Quantity' => 2,
+]);
+```
+
+### Place Order
+
+Create a new order:
+
+```php
+$orderData = [
+    'CustomerId' => config('themepark-adapters.providers.universal.customer_id'),
+    'OrderItems' => [
+        [
+            'ProductId' => 123,
+            'EventId' => 456,
+            'Quantity' => 2,
+            'UnitPrice' => 75.00,
+        ],
+    ],
+    'Customer' => [
+        'FirstName' => 'John',
+        'LastName' => 'Doe',
+        'Email' => 'john@example.com',
+        'Phone' => '555-1234',
+    ],
+];
+
+$order = ThemePark::provider('universal')->placeOrder($orderData);
+$orderId = $order['OrderId'];
+```
+
+### Get Existing Order
+
+Retrieve order details:
+
+```php
+$order = ThemePark::provider('universal')->getExistingOrder([
+    'OrderId' => $orderId,
+]);
+
+echo $order['OrderStatus'];
+echo $order['TotalAmount'];
+```
+
+### Check if Order Can Be Cancelled
+
+Verify if an order is eligible for cancellation:
+
+```php
+$canCancel = ThemePark::provider('universal')->canCancelOrder([
+    'OrderId' => $orderId,
+]);
+
+if ($canCancel) {
+    echo "Order can be cancelled";
 }
 ```
 
 ### Cancel Order
 
-```php
-$cancelled = ThemePark::cancelOrder('order-id-456');
+Cancel an existing order:
 
-if ($cancelled) {
-    echo "Order cancelled successfully";
+```php
+$result = ThemePark::provider('universal')->cancelOrder([
+    'OrderId' => $orderId,
+    'Reason' => 'Customer request',
+]);
+```
+
+### Access Customer ID and Suffix
+
+Get configuration values:
+
+```php
+$adapter = ThemePark::provider('universal');
+
+$customerId = $adapter->getCustomerId();
+$suffix = $adapter->getApprovedSuffix();
+```
+
+## Advanced Usage
+
+### Custom Token Repository
+
+For SmartOrder2, you can implement your own token storage:
+
+```php
+use Iabduul7\ThemeParkAdapters\Contracts\TokenRepositoryInterface;
+
+class DatabaseTokenRepository implements TokenRepositoryInterface
+{
+    public function getValidToken(): ?string
+    {
+        $token = DB::table('oauth_tokens')
+            ->where('provider', 'smartorder')
+            ->where('expires_at', '>', now())
+            ->latest()
+            ->value('token');
+
+        return $token;
+    }
+
+    public function storeToken(string $token, int $expiresIn): void
+    {
+        DB::table('oauth_tokens')->insert([
+            'provider' => 'smartorder',
+            'token' => $token,
+            'expires_at' => now()->addSeconds($expiresIn),
+        ]);
+    }
+}
+
+// Register in AppServiceProvider
+use Iabduul7\ThemeParkAdapters\Contracts\TokenRepositoryInterface;
+
+public function register()
+{
+    $this->app->bind(TokenRepositoryInterface::class, DatabaseTokenRepository::class);
 }
 ```
 
 ### Validate Credentials
 
+Test if your API credentials are valid:
+
 ```php
 if (ThemePark::provider('disney')->validateCredentials()) {
-    echo "Disney credentials are valid";
+    echo "Disney credentials are valid!";
+} else {
+    echo "Invalid credentials";
 }
 ```
 
-## Data Transfer Objects (DTOs)
+### Get Provider Name
 
-The package uses DTOs for type-safe data handling:
-
-### Product
+Retrieve the provider's display name:
 
 ```php
-$product = ThemePark::getProduct('product-id');
+$name = ThemePark::provider('disney')->getProviderName();
+// Returns: "Disney (Redeam)"
 
-$product->id;           // string
-$product->name;         // string
-$product->description;  // string
-$product->price;        // float
-$product->currency;     // string
-$product->imageUrl;     // ?string
-$product->metadata;     // array
-
-// Convert to array
-$array = $product->toArray();
-```
-
-### Order
-
-```php
-$order = ThemePark::getOrder('order-id');
-
-$order->id;                    // string
-$order->status;                // string
-$order->tickets;               // array
-$order->totalAmount;           // float
-$order->currency;              // string
-$order->confirmationNumber;    // ?string
-$order->createdAt;            // ?string
-$order->metadata;             // array
-
-// Convert to array
-$array = $order->toArray();
-```
-
-### Ticket
-
-```php
-$ticket = $order->tickets[0];
-
-$ticket->id;            // string
-$ticket->productId;     // string
-$ticket->productName;   // string
-$ticket->ticketNumber;  // string
-$ticket->barcode;       // ?string
-$ticket->qrCode;        // ?string
-$ticket->validFrom;     // ?string
-$ticket->validUntil;    // ?string
-$ticket->metadata;      // array
-
-// Convert to array
-$array = $ticket->toArray();
+$name = ThemePark::provider('universal')->getProviderName();
+// Returns: "Universal (SmartOrder2)"
 ```
 
 ## Error Handling
@@ -274,70 +544,172 @@ The package throws `ThemeParkApiException` for API errors:
 use Iabduul7\ThemeParkAdapters\Exceptions\ThemeParkApiException;
 
 try {
-    $product = ThemePark::getProduct('invalid-id');
+    $product = ThemePark::provider('disney')->getProduct('invalid-id');
 } catch (ThemeParkApiException $e) {
+    // Get error message
     echo $e->getMessage();
 
-    // Get response data if available
+    // Get HTTP status code
+    echo $e->getCode();
+
+    // Get response data (if available)
     $responseData = $e->getResponseData();
+    Log::error('Theme Park API Error', $responseData);
 }
 ```
 
-## Example Integration
+### Common Error Scenarios
 
-### Controller Example
+```php
+// Handle specific errors
+try {
+    $booking = ThemePark::provider('disney')->createNewBooking($data);
+} catch (ThemeParkApiException $e) {
+    if ($e->getCode() === 401) {
+        // Invalid credentials
+        return response()->json(['error' => 'Invalid API credentials'], 401);
+    }
+
+    if ($e->getCode() === 404) {
+        // Resource not found
+        return response()->json(['error' => 'Product not found'], 404);
+    }
+
+    if ($e->getCode() === 422) {
+        // Validation error
+        $errors = $e->getResponseData();
+        return response()->json(['error' => 'Validation failed', 'details' => $errors], 422);
+    }
+
+    // Generic error
+    return response()->json(['error' => 'An error occurred'], 500);
+}
+```
+
+## Complete Example
+
+Here's a complete example of a ticket booking flow:
 
 ```php
 namespace App\Http\Controllers;
 
 use Iabduul7\ThemeParkAdapters\Facades\ThemePark;
 use Iabduul7\ThemeParkAdapters\Exceptions\ThemeParkApiException;
+use Illuminate\Http\Request;
 
-class ThemeParkTicketController extends Controller
+class DisneyTicketController extends Controller
 {
-    public function index(string $provider = 'disney')
+    public function index()
     {
         try {
-            $products = ThemePark::provider($provider)->getProducts();
+            $products = ThemePark::provider('disney')->getAllProducts();
 
-            return view('tickets.index', [
-                'products' => $products,
-                'provider' => $provider,
-            ]);
+            return view('tickets.index', compact('products'));
         } catch (ThemeParkApiException $e) {
-            return back()->withError('Failed to fetch tickets: ' . $e->getMessage());
+            return back()->withError('Failed to load products: ' . $e->getMessage());
         }
     }
 
-    public function show(string $provider, string $productId)
+    public function show($productId)
     {
         try {
-            $product = ThemePark::provider($provider)->getProduct($productId);
-            $availability = ThemePark::provider($provider)->getAvailability($productId);
+            $product = ThemePark::provider('disney')->getProduct($productId);
+            $rates = ThemePark::provider('disney')->getProductRates($productId);
 
-            return view('tickets.show', compact('product', 'availability'));
+            return view('tickets.show', compact('product', 'rates'));
         } catch (ThemeParkApiException $e) {
             return back()->withError('Product not found');
         }
     }
 
-    public function store(string $provider)
+    public function checkAvailability(Request $request, $productId)
     {
         try {
-            $order = ThemePark::provider($provider)->createOrder([
-                'product_id' => request('product_id'),
-                'quantity' => request('quantity'),
-                'visit_date' => request('visit_date'),
-                'customer' => request('customer'),
-            ]);
+            $availability = ThemePark::provider('disney')->checkAvailability(
+                productId: $productId,
+                date: $request->date,
+                quantity: $request->quantity
+            );
 
-            return redirect()
-                ->route('orders.show', $order->id)
-                ->withSuccess('Order created successfully!');
+            return response()->json($availability);
+        } catch (ThemeParkApiException $e) {
+            return response()->json(['error' => $e->getMessage()], 400);
+        }
+    }
+
+    public function createHold(Request $request)
+    {
+        try {
+            $holdData = [
+                'hold' => [
+                    'items' => [
+                        [
+                            'product_id' => $request->product_id,
+                            'rate_id' => $request->rate_id,
+                            'quantity' => $request->quantity,
+                            'date' => $request->visit_date,
+                        ],
+                    ],
+                    'customer' => [
+                        'first_name' => $request->first_name,
+                        'last_name' => $request->last_name,
+                        'email' => $request->email,
+                    ],
+                ],
+            ];
+
+            $hold = ThemePark::provider('disney')->createNewHold($holdData);
+
+            // Store hold ID in session
+            session(['hold_id' => $hold['id']]);
+
+            return redirect()->route('checkout');
         } catch (ThemeParkApiException $e) {
             return back()
                 ->withInput()
-                ->withError('Failed to create order: ' . $e->getMessage());
+                ->withError('Failed to create reservation: ' . $e->getMessage());
+        }
+    }
+
+    public function confirmBooking(Request $request)
+    {
+        try {
+            $holdId = session('hold_id');
+
+            $bookingData = [
+                'booking' => [
+                    'hold_id' => $holdId,
+                    'payment' => [
+                        'method' => 'credit_card',
+                        'amount' => $request->amount,
+                        'currency' => 'USD',
+                    ],
+                ],
+            ];
+
+            $booking = ThemePark::provider('disney')->createNewBooking($bookingData);
+
+            // Clear hold from session
+            session()->forget('hold_id');
+
+            return redirect()
+                ->route('booking.confirmation', $booking['id'])
+                ->with('success', 'Booking confirmed! Confirmation #' . $booking['confirmation_number']);
+        } catch (ThemeParkApiException $e) {
+            return back()
+                ->withInput()
+                ->withError('Booking failed: ' . $e->getMessage());
+        }
+    }
+
+    public function showBooking($bookingId)
+    {
+        try {
+            $booking = ThemePark::provider('disney')->getBooking($bookingId);
+
+            return view('booking.confirmation', compact('booking'));
+        } catch (ThemeParkApiException $e) {
+            abort(404, 'Booking not found');
         }
     }
 }
@@ -345,8 +717,35 @@ class ThemeParkTicketController extends Controller
 
 ## Testing
 
+Run the package tests:
+
 ```bash
 composer test
+```
+
+### Testing with Fake Data
+
+For testing, you can mock the adapters:
+
+```php
+use Iabduul7\ThemeParkAdapters\Facades\ThemePark;
+use Mockery;
+
+public function test_can_get_products()
+{
+    $mock = Mockery::mock('Iabduul7\ThemeParkAdapters\Providers\Disney\DisneyRedeamAdapter');
+    $mock->shouldReceive('getAllProducts')
+        ->once()
+        ->andReturn([
+            ['id' => '1', 'name' => 'Test Product'],
+        ]);
+
+    ThemePark::swap($mock);
+
+    $products = ThemePark::getAllProducts();
+
+    $this->assertCount(1, $products);
+}
 ```
 
 ## Contributing
@@ -356,23 +755,19 @@ Contributions are welcome! Please see [CONTRIBUTING](.github/CONTRIBUTING.md) fo
 ### Adding a New Provider
 
 1. Create a new adapter class extending `BaseThemeParkAdapter`
-2. Implement all methods from `ThemeParkAdapterInterface`
+2. Implement all required methods from `ThemeParkAdapterInterface`
 3. Add configuration in `config/themepark-adapters.php`
 4. Add driver creation method in `ThemeParkManager`
 5. Write tests for the new provider
+6. Update documentation
 
 ## Security
 
 If you discover any security-related issues, please email the maintainer instead of using the issue tracker.
 
-## Roadmap
+## Changelog
 
-- [ ] Complete Redeam API integration for Disney
-- [ ] Complete Redeam API integration for SeaWorld
-- [ ] Complete SmartOrder2 API integration for Universal
-- [ ] Add response caching support
-- [ ] Add webhook support for order updates
-- [ ] Add more theme park providers (Six Flags, Busch Gardens, etc.)
+Please see [CHANGELOG](CHANGELOG.md) for more information on what has changed recently.
 
 ## Credits
 
@@ -386,3 +781,7 @@ The MIT License (MIT). Please see [License File](LICENSE.md) for more informatio
 ## Acknowledgements
 
 This package was created to simplify theme park API integrations for the [KnowBeforeUGo](https://github.com/iabduul7/knowbeforeugo-backend) project.
+
+## Support
+
+For support, please open an issue on GitHub or contact the maintainer.
