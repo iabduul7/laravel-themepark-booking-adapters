@@ -2,7 +2,6 @@
 
 namespace Iabduul7\ThemeParkAdapters\Contracts;
 
-use Iabduul7\ThemeParkAdapters\DataTransferObjects\Ticket;
 use Iabduul7\ThemeParkAdapters\DataTransferObjects\Order;
 use Iabduul7\ThemeParkAdapters\DataTransferObjects\Product;
 

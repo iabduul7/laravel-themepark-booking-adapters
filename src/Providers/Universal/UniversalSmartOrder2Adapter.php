@@ -15,7 +15,7 @@ class UniversalSmartOrder2Adapter extends BaseThemeParkAdapter
     {
         parent::__construct($config);
 
-        if (!$this->hasRequiredConfig(['username', 'password', 'base_url'])) {
+        if (! $this->hasRequiredConfig(['username', 'password', 'base_url'])) {
             throw ThemeParkApiException::invalidCredentials();
         }
 
@@ -35,7 +35,7 @@ class UniversalSmartOrder2Adapter extends BaseThemeParkAdapter
 
         $data = $this->parseJsonResponse($response);
 
-        return array_map(fn($item) => $this->mapToProduct($item), $data['data'] ?? []);
+        return array_map(fn ($item) => $this->mapToProduct($item), $data['data'] ?? []);
     }
 
     public function getProduct(string $productId): Product

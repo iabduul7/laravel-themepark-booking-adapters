@@ -2,11 +2,11 @@
 
 namespace Iabduul7\ThemeParkAdapters;
 
-use Illuminate\Support\Manager;
 use Iabduul7\ThemeParkAdapters\Contracts\ThemeParkAdapterInterface;
 use Iabduul7\ThemeParkAdapters\Providers\Disney\DisneyRedeamAdapter;
 use Iabduul7\ThemeParkAdapters\Providers\SeaWorld\SeaWorldRedeamAdapter;
 use Iabduul7\ThemeParkAdapters\Providers\Universal\UniversalSmartOrder2Adapter;
+use Illuminate\Support\Manager;
 
 class ThemeParkManager extends Manager
 {

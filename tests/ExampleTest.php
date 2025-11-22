@@ -1,9 +1,9 @@
 <?php
 
+use Iabduul7\ThemeParkAdapters\Exceptions\ThemeParkApiException;
 use Iabduul7\ThemeParkAdapters\Providers\Disney\DisneyRedeamAdapter;
 use Iabduul7\ThemeParkAdapters\Providers\SeaWorld\SeaWorldRedeamAdapter;
 use Iabduul7\ThemeParkAdapters\Providers\Universal\UniversalSmartOrder2Adapter;
-use Iabduul7\ThemeParkAdapters\Exceptions\ThemeParkApiException;
 
 it('can instantiate disney adapter with valid config', function () {
     $adapter = new DisneyRedeamAdapter([
