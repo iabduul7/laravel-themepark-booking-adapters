@@ -272,4 +272,3 @@ class SeaWorldRedeamAdapter extends BaseThemeParkAdapter
         ];
     }
 }
-
