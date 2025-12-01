@@ -21,7 +21,7 @@ class LaravelRedeamForWaltDisney
 
     public function __construct()
     {
-        $this->client = new RedeamApiClientForDisney;
+        $this->client = new RedeamApiClientForDisney();
         $this->supplier_id = config('redeam.disney.supplier_id');
     }
 
@@ -573,8 +573,8 @@ class LaravelRedeamForWaltDisney
                     'availability' => $count == 4 ? 'none' : $status,
                     'date' => $key,
                     'nice_date' => \Carbon\Carbon::parse($key)
-                        ->format('Y M, d').'<strong>'.Carbon::parse($key)
-                        ->format('D').'</strong>',
+                        ->format('Y M, d') . '<strong>' . Carbon::parse($key)
+                        ->format('D') . '</strong>',
                     'parks' => $parks,
                 ];
             })

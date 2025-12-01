@@ -30,7 +30,7 @@ class AdapterIntegrationTest extends TestCase
             $this->assertIsArray($syncResult->errors);
             // Log errors for debugging but don't fail the test
             foreach ($syncResult->errors as $error) {
-                echo "Sync Error: " . $error . "\n";
+                echo 'Sync Error: ' . $error . "\n";
             }
         }
     }

@@ -25,8 +25,7 @@ class Price
         public readonly array $ageGroups = [],
         public readonly array $metadata = [],
         public readonly array $rawData = []
-    ) {
-    }
+    ) {}
 
     public static function fromRedeamPriceData(array $data): self
     {

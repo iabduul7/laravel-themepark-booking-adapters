@@ -16,7 +16,7 @@ class LaravelSmartOrder
 
     public function __construct()
     {
-        $this->client = new SmartOrderClient;
+        $this->client = new SmartOrderClient();
     }
 
     /**

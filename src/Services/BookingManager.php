@@ -86,14 +86,14 @@ class BookingManager
     {
         $adapter = $this->getAdapter($adapterName);
 
-        Log::info("Starting product sync", [
+        Log::info('Starting product sync', [
             'adapter' => $adapterName,
             'provider' => $adapter->getProvider(),
         ]);
 
         $result = $adapter->syncProducts();
 
-        Log::info("Product sync completed", [
+        Log::info('Product sync completed', [
             'adapter' => $adapterName,
             'success' => $result->success,
             'summary' => $result->getSummary(),
@@ -141,7 +141,7 @@ class BookingManager
         string $adapterName,
         string $productId,
         string $date,
-        string $time = null,
+        ?string $time = null,
         int $quantity = 1
     ): bool {
         $adapter = $this->getAdapter($adapterName);
@@ -167,7 +167,7 @@ class BookingManager
     {
         $adapter = $this->getAdapter($adapterName);
 
-        Log::info("Creating booking", [
+        Log::info('Creating booking', [
             'adapter' => $adapterName,
             'product_id' => $request->productId,
             'date' => $request->date->format('Y-m-d'),
@@ -176,7 +176,7 @@ class BookingManager
 
         $response = $adapter->createBooking($request);
 
-        Log::info("Booking creation result", [
+        Log::info('Booking creation result', [
             'adapter' => $adapterName,
             'success' => $response->success,
             'booking_id' => $response->bookingId,
@@ -191,14 +191,14 @@ class BookingManager
     {
         $adapter = $this->getAdapter($adapterName);
 
-        Log::info("Confirming booking", [
+        Log::info('Confirming booking', [
             'adapter' => $adapterName,
             'reservation_id' => $reservationId,
         ]);
 
         $response = $adapter->confirmBooking($reservationId, $paymentData);
 
-        Log::info("Booking confirmation result", [
+        Log::info('Booking confirmation result', [
             'adapter' => $adapterName,
             'reservation_id' => $reservationId,
             'success' => $response->success,
@@ -213,7 +213,7 @@ class BookingManager
     {
         $adapter = $this->getAdapter($adapterName);
 
-        Log::info("Cancelling booking", [
+        Log::info('Cancelling booking', [
             'adapter' => $adapterName,
             'booking_id' => $bookingId,
             'reason' => $reason,
@@ -221,7 +221,7 @@ class BookingManager
 
         $response = $adapter->cancelBooking($bookingId, $reason);
 
-        Log::info("Booking cancellation result", [
+        Log::info('Booking cancellation result', [
             'adapter' => $adapterName,
             'booking_id' => $bookingId,
             'success' => $response->success,
@@ -241,7 +241,7 @@ class BookingManager
     {
         $adapter = $this->getAdapter($adapterName);
 
-        Log::info("Generating voucher", [
+        Log::info('Generating voucher', [
             'adapter' => $adapterName,
             'booking_id' => $bookingId,
         ]);

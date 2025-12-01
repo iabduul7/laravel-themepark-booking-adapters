@@ -47,7 +47,7 @@ class InstallCommand extends Command
     }
 
     /**
-     * Publish configuration files
+     * Publish configuration files.
      */
     protected function publishConfig(): void
     {
@@ -66,7 +66,7 @@ class InstallCommand extends Command
     }
 
     /**
-     * Run package migrations
+     * Run package migrations.
      */
     protected function runMigrations(): void
     {
@@ -87,7 +87,7 @@ class InstallCommand extends Command
     }
 
     /**
-     * Display post-installation instructions
+     * Display post-installation instructions.
      */
     protected function displayPostInstallInstructions(): void
     {

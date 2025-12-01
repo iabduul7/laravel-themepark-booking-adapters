@@ -13,8 +13,7 @@ class Order
         public readonly ?string $confirmationNumber = null,
         public readonly ?string $createdAt = null,
         public readonly array $metadata = [],
-    ) {
-    }
+    ) {}
 
     public function toArray(): array
     {

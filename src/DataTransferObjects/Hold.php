@@ -10,8 +10,7 @@ class Hold
         public readonly array $items,
         public readonly ?string $expiresAt = null,
         public readonly array $metadata = [],
-    ) {
-    }
+    ) {}
 
     public function toArray(): array
     {
