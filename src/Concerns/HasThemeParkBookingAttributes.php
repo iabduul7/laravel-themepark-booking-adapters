@@ -10,7 +10,7 @@ use Illuminate\Support\Arr;
 trait HasThemeParkBookingAttributes
 {
     /**
-     * Boot the trait
+     * Boot the trait.
      */
     protected static function bootHasThemeParkBookingAttributes()
     {
@@ -18,7 +18,7 @@ trait HasThemeParkBookingAttributes
     }
 
     /**
-     * Check if order has SmartOrder items
+     * Check if order has SmartOrder items.
      */
     public function getHasSmartorderItemsAttribute(): bool
     {
@@ -26,7 +26,7 @@ trait HasThemeParkBookingAttributes
     }
 
     /**
-     * Get SmartOrder items
+     * Get SmartOrder items.
      */
     public function getSmartorderItemsAttribute()
     {
@@ -38,7 +38,7 @@ trait HasThemeParkBookingAttributes
     }
 
     /**
-     * Get SmartOrder external order IDs
+     * Get SmartOrder external order IDs.
      */
     public function getSmartorderExternalOrderIdAttribute(): array
     {
@@ -52,7 +52,7 @@ trait HasThemeParkBookingAttributes
     }
 
     /**
-     * Get SmartOrder galaxy order IDs
+     * Get SmartOrder galaxy order IDs.
      */
     public function getSmartorderGalaxyOrderIdAttribute(): array
     {
@@ -66,7 +66,7 @@ trait HasThemeParkBookingAttributes
     }
 
     /**
-     * Get SmartOrder booking data
+     * Get SmartOrder booking data.
      */
     public function getSmartorderBookingDataAttribute(): array
     {
@@ -80,7 +80,7 @@ trait HasThemeParkBookingAttributes
     }
 
     /**
-     * Check if order has Disney items
+     * Check if order has Disney items.
      */
     public function getHasDisneyItemsAttribute(): bool
     {
@@ -88,7 +88,7 @@ trait HasThemeParkBookingAttributes
     }
 
     /**
-     * Get Disney items
+     * Get Disney items.
      */
     public function getDisneyItemsAttribute(): ?array
     {
@@ -102,7 +102,7 @@ trait HasThemeParkBookingAttributes
     }
 
     /**
-     * Get Disney hold ID
+     * Get Disney hold ID.
      */
     public function getDisneyHoldIdAttribute(): ?string
     {
@@ -114,7 +114,7 @@ trait HasThemeParkBookingAttributes
     }
 
     /**
-     * Get Disney booking ID
+     * Get Disney booking ID.
      */
     public function getDisneyBookingIdAttribute(): ?string
     {
@@ -126,7 +126,7 @@ trait HasThemeParkBookingAttributes
     }
 
     /**
-     * Get Disney booking data
+     * Get Disney booking data.
      */
     public function getDisneyBookingDataAttribute(): array
     {
@@ -138,7 +138,7 @@ trait HasThemeParkBookingAttributes
     }
 
     /**
-     * Get Disney reference number
+     * Get Disney reference number.
      */
     public function getDisneyReferenceNumberAttribute(): ?string
     {
@@ -150,7 +150,7 @@ trait HasThemeParkBookingAttributes
     }
 
     /**
-     * Get Disney voucher
+     * Get Disney voucher.
      */
     public function getDisneyVoucherAttribute(): ?string
     {
@@ -162,7 +162,7 @@ trait HasThemeParkBookingAttributes
     }
 
     /**
-     * Get Disney reservation number
+     * Get Disney reservation number.
      */
     public function getDisneyReservationNumberAttribute(): ?string
     {
@@ -174,7 +174,7 @@ trait HasThemeParkBookingAttributes
     }
 
     /**
-     * Check if order has United Parks items
+     * Check if order has United Parks items.
      */
     public function getHasUnitedParksItemsAttribute(): bool
     {
@@ -182,7 +182,7 @@ trait HasThemeParkBookingAttributes
     }
 
     /**
-     * Get United Parks items
+     * Get United Parks items.
      */
     public function getUnitedParksItemsAttribute(): ?array
     {
@@ -196,7 +196,7 @@ trait HasThemeParkBookingAttributes
     }
 
     /**
-     * Get United Parks hold ID
+     * Get United Parks hold ID.
      */
     public function getUnitedParksHoldIdAttribute(): ?string
     {
@@ -208,7 +208,7 @@ trait HasThemeParkBookingAttributes
     }
 
     /**
-     * Get United Parks booking ID
+     * Get United Parks booking ID.
      */
     public function getUnitedParksBookingIdAttribute(): ?string
     {
@@ -220,7 +220,7 @@ trait HasThemeParkBookingAttributes
     }
 
     /**
-     * Get United Parks booking data
+     * Get United Parks booking data.
      */
     public function getUnitedParksBookingDataAttribute(): array
     {
@@ -232,7 +232,7 @@ trait HasThemeParkBookingAttributes
     }
 
     /**
-     * Get United Parks reference number
+     * Get United Parks reference number.
      */
     public function getUnitedParksReferenceNumberAttribute(): ?string
     {
@@ -244,7 +244,7 @@ trait HasThemeParkBookingAttributes
     }
 
     /**
-     * Get United Parks voucher
+     * Get United Parks voucher.
      */
     public function getUnitedParksVoucherAttribute(): ?string
     {
@@ -256,7 +256,7 @@ trait HasThemeParkBookingAttributes
     }
 
     /**
-     * Get United Parks reservation number
+     * Get United Parks reservation number.
      */
     public function getUnitedParksReservationNumberAttribute(): ?string
     {
@@ -268,7 +268,7 @@ trait HasThemeParkBookingAttributes
     }
 
     /**
-     * Relationship to Disney/Redeam order details
+     * Relationship to Disney/Redeam order details.
      */
     public function disneyDetails(): HasOne
     {
@@ -276,7 +276,7 @@ trait HasThemeParkBookingAttributes
     }
 
     /**
-     * Relationship to United Parks order details (also Redeam)
+     * Relationship to United Parks order details (also Redeam).
      */
     public function unitedParksDetails(): HasOne
     {
@@ -284,7 +284,7 @@ trait HasThemeParkBookingAttributes
     }
 
     /**
-     * Relationship to Universal/SmartOrder order details
+     * Relationship to Universal/SmartOrder order details.
      */
     public function universalDetails(): HasOne
     {
@@ -292,7 +292,7 @@ trait HasThemeParkBookingAttributes
     }
 
     /**
-     * Check if order is cancelled based on theme park data
+     * Check if order is cancelled based on theme park data.
      */
     public function getIsCancelledByProviderAttribute(): bool
     {
@@ -308,7 +308,7 @@ trait HasThemeParkBookingAttributes
     }
 
     /**
-     * Get all theme park booking references
+     * Get all theme park booking references.
      */
     public function getAllBookingReferencesAttribute(): array
     {

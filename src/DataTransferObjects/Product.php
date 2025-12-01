@@ -12,8 +12,7 @@ class Product
         public readonly string $currency,
         public readonly ?string $imageUrl = null,
         public readonly array $metadata = [],
-    ) {
-    }
+    ) {}
 
     public function toArray(): array
     {

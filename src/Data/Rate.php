@@ -23,8 +23,7 @@ class Rate
         public readonly string $currency = 'USD',
         public readonly array $metadata = [],
         public readonly array $rawData = []
-    ) {
-    }
+    ) {}
 
     public static function fromRedeamData(array $data): self
     {

@@ -49,7 +49,7 @@ class OrderDetailsUniversal extends Model implements Attachable
     ];
 
     /**
-     * Get the voucher URL attribute
+     * Get the voucher URL attribute.
      */
     public function getVoucherUrlAttribute(): string
     {
@@ -71,7 +71,7 @@ class OrderDetailsUniversal extends Model implements Attachable
     }
 
     /**
-     * Check if booking has created ticket responses
+     * Check if booking has created ticket responses.
      */
     public function getHasCreatedTicketResponsesAttribute(): bool
     {
@@ -84,7 +84,7 @@ class OrderDetailsUniversal extends Model implements Attachable
     }
 
     /**
-     * Get booking status
+     * Get booking status.
      */
     public function getBookingStatusAttribute(): ?string
     {
@@ -99,7 +99,7 @@ class OrderDetailsUniversal extends Model implements Attachable
     }
 
     /**
-     * Get ticket count from booking data
+     * Get ticket count from booking data.
      */
     public function getTicketCountAttribute(): int
     {
@@ -113,7 +113,7 @@ class OrderDetailsUniversal extends Model implements Attachable
     }
 
     /**
-     * Get created ticket responses
+     * Get created ticket responses.
      */
     public function getCreatedTicketResponses(): array
     {
@@ -125,7 +125,7 @@ class OrderDetailsUniversal extends Model implements Attachable
     }
 
     /**
-     * Get Galaxy Order details
+     * Get Galaxy Order details.
      */
     public function getGalaxyOrderDetails(): array
     {
@@ -144,7 +144,7 @@ class OrderDetailsUniversal extends Model implements Attachable
     }
 
     /**
-     * Get booking confirmation details
+     * Get booking confirmation details.
      */
     public function getConfirmationDetails(): array
     {
@@ -160,7 +160,7 @@ class OrderDetailsUniversal extends Model implements Attachable
     }
 
     /**
-     * Check if booking is confirmed
+     * Check if booking is confirmed.
      */
     public function isConfirmed(): bool
     {
@@ -170,7 +170,7 @@ class OrderDetailsUniversal extends Model implements Attachable
     }
 
     /**
-     * Check if booking is cancelled
+     * Check if booking is cancelled.
      */
     public function isCancelled(): bool
     {
@@ -180,7 +180,7 @@ class OrderDetailsUniversal extends Model implements Attachable
     }
 
     /**
-     * Check if booking is pending
+     * Check if booking is pending.
      */
     public function isPending(): bool
     {
@@ -190,7 +190,7 @@ class OrderDetailsUniversal extends Model implements Attachable
     }
 
     /**
-     * Get tickets information from booking data
+     * Get tickets information from booking data.
      */
     public function getTicketsInfo(): array
     {
@@ -212,7 +212,7 @@ class OrderDetailsUniversal extends Model implements Attachable
     }
 
     /**
-     * Relationship to order
+     * Relationship to order.
      */
     public function order(): BelongsTo
     {
@@ -223,7 +223,7 @@ class OrderDetailsUniversal extends Model implements Attachable
     }
 
     /**
-     * Mail attachment for voucher
+     * Mail attachment for voucher.
      */
     public function toMailAttachment(): Attachment
     {
@@ -235,17 +235,17 @@ class OrderDetailsUniversal extends Model implements Attachable
     }
 
     /**
-     * Scope for confirmed bookings
+     * Scope for confirmed bookings.
      */
     public function scopeConfirmed($query)
     {
         return $query->whereIn('status', ['confirmed', 'booked', 'completed', 'success'])
-                    ->orWhereJsonContains('booking_data->status', 'CONFIRMED')
-                    ->orWhereJsonContains('booking_data->status', 'SUCCESS');
+            ->orWhereJsonContains('booking_data->status', 'CONFIRMED')
+            ->orWhereJsonContains('booking_data->status', 'SUCCESS');
     }
 
     /**
-     * Scope for bookings with tickets
+     * Scope for bookings with tickets.
      */
     public function scopeWithTickets($query)
     {
@@ -253,7 +253,7 @@ class OrderDetailsUniversal extends Model implements Attachable
     }
 
     /**
-     * Scope for Universal bookings (this is the default for this model)
+     * Scope for Universal bookings (this is the default for this model).
      */
     public function scopeUniversal($query)
     {

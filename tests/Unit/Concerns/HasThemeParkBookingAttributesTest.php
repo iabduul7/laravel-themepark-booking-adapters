@@ -242,7 +242,7 @@ class HasThemeParkBookingAttributesTest extends TestCase
 }
 
 /**
- * Test model that uses the HasThemeParkBookingAttributes trait
+ * Test model that uses the HasThemeParkBookingAttributes trait.
  */
 class TestOrder extends Model
 {

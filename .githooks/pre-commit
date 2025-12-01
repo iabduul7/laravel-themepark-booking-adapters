@@ -1,28 +1,47 @@
 #!/usr/bin/env bash
 
-# Pre-commit hook for final style and quick checks
-# This runs on every commit to catch issues early
+# Pre-commit hook for style checking - prevents commits with style issues
+# This runs on every commit to catch issues before they enter the repository
 
-echo "🔄 Running pre-commit checks..."
+echo "🔄 Running pre-commit style checks..."
 
 # Get list of staged PHP files
-staged_files=$(git diff --cached --name-only --diff-filter=ACM | grep '\.php$')
+staged_files=$(git diff --cached --name-only --diff-filter=ACM | grep -E '\.(php)$' || true)
 
 if [ -z "$staged_files" ]; then
     echo "ℹ️  No PHP files staged for commit."
     exit 0
 fi
 
-echo "📝 Checking staged PHP files with Pint..."
+echo "📝 Checking $(echo "$staged_files" | wc -l) staged PHP files with Pint..."
 
-# Run Pint on staged files only
-if ! echo "$staged_files" | xargs vendor/bin/pint --test; then
+# Get the repository root directory
+repo_root=$(git rev-parse --show-toplevel)
+
+# Check if vendor/bin/pint exists in the repo root
+if [ ! -f "$repo_root/vendor/bin/pint" ]; then
+    echo "❌ Laravel Pint not found at $repo_root/vendor/bin/pint!"
+    echo "💡 Please run 'composer install' in the repository root first."
+    exit 1
+fi
+
+# Change to repo root for running Pint
+cd "$repo_root"
+
+# Run Pint on staged files only - use --test to check without fixing
+if ! echo "$staged_files" | xargs ./vendor/bin/pint --test --quiet; then
     echo ""
     echo "❌ Code style issues detected in staged files!"
-    echo "💡 Run 'composer format' to fix automatically, then stage and commit again."
+    echo "💡 Run the following commands to fix:"
+    echo "   composer format"
+    echo "   git add ."
+    echo "   git commit"
+    echo ""
+    echo "Or fix specific files:"
+    echo "$staged_files" | sed 's/^/   .\/vendor\/bin\/pint /'
     echo ""
     exit 1
 fi
 
-echo "✅ Pre-commit checks passed!"
+echo "✅ Pre-commit style checks passed!"
 echo ""

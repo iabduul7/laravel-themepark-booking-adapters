@@ -25,7 +25,6 @@
         "spatie/laravel-package-tools": "^1.15",
         "illuminate/contracts": "^10.0",
         "guzzlehttp/guzzle": "^7.5",
-        "carbon/carbon": "^2.68",
         "ramsey/uuid": "^4.7"
     },
     "require-dev": {
@@ -56,8 +55,8 @@
         }
     },
     "scripts": {
-        "post-install-cmd": "vendor/bin/simple-git-hooks install",
-        "post-update-cmd": "vendor/bin/simple-git-hooks install",
+        "post-install-cmd": "npx simple-git-hooks",
+        "post-update-cmd": "npx simple-git-hooks",
         "post-autoload-dump": "@composer validate --strict",
         "analyse": "vendor/bin/phpstan analyse",
         "test": "vendor/bin/pest",
@@ -70,8 +69,8 @@
         "format:check": "vendor/bin/pint --test",
         "quality": "vendor/bin/pint --test && vendor/bin/phpstan analyse && vendor/bin/pest",
         "quality:fix": "vendor/bin/pint && vendor/bin/pest",
-        "hooks:install": "vendor/bin/simple-git-hooks install",
-        "hooks:uninstall": "vendor/bin/simple-git-hooks uninstall",
+        "hooks:install": "npx simple-git-hooks",
+        "hooks:uninstall": "git config --unset-all core.hooksPath || true",
         "refactor": "vendor/bin/rector process"
     },
     "config": {

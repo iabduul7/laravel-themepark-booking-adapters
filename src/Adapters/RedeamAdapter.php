@@ -56,8 +56,8 @@ class RedeamAdapter extends BaseAdapter
         }
 
         throw new ConfigurationException(
-            "Neither independent HTTP client nor legacy Redeam client could be initialized. " .
-            "Please ensure proper configuration is provided for the Redeam API."
+            'Neither independent HTTP client nor legacy Redeam client could be initialized. ' .
+            'Please ensure proper configuration is provided for the Redeam API.'
         );
     }
 
@@ -94,8 +94,7 @@ class RedeamAdapter extends BaseAdapter
                 private RedeamHttpClient $httpClient,
                 private string $parkType,
                 private ?string $supplierId
-            ) {
-            }
+            ) {}
 
             public function getAllProducts(array $parameters = []): array
             {
@@ -260,7 +259,7 @@ class RedeamAdapter extends BaseAdapter
 
                 } catch (\Exception $e) {
                     $failedCount++;
-                    Log::warning("Failed to sync product", [
+                    Log::warning('Failed to sync product', [
                         'adapter' => $this->getName(),
                         'product_id' => $productData['id'] ?? 'unknown',
                         'error' => $e->getMessage(),
@@ -357,7 +356,7 @@ class RedeamAdapter extends BaseAdapter
         }
     }
 
-    public function checkAvailability(string $productId, string $date, string $time = null, int $quantity = 1): bool
+    public function checkAvailability(string $productId, string $date, ?string $time = null, int $quantity = 1): bool
     {
         try {
             $result = $this->getAvailabilityProducts(

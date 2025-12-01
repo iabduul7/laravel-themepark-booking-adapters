@@ -29,7 +29,7 @@ class SeaWorldRedeamAdapter extends BaseThemeParkAdapter
     }
 
     /**
-     * Get all products for the supplier
+     * Get all products for the supplier.
      */
     public function getAllProducts(array $parameters = []): array
     {
@@ -46,7 +46,7 @@ class SeaWorldRedeamAdapter extends BaseThemeParkAdapter
     }
 
     /**
-     * Get a specific product by ID
+     * Get a specific product by ID.
      */
     public function getProduct(string $productId, array $parameters = []): array
     {
@@ -63,7 +63,7 @@ class SeaWorldRedeamAdapter extends BaseThemeParkAdapter
     }
 
     /**
-     * Get available rates for a product
+     * Get available rates for a product.
      */
     public function getProductRates(string $productId, array $parameters = []): array
     {
@@ -80,7 +80,7 @@ class SeaWorldRedeamAdapter extends BaseThemeParkAdapter
     }
 
     /**
-     * Get a specific rate for a product
+     * Get a specific rate for a product.
      */
     public function getProductRate(string $productId, string $rateId, array $parameters = []): array
     {
@@ -97,7 +97,7 @@ class SeaWorldRedeamAdapter extends BaseThemeParkAdapter
     }
 
     /**
-     * Check availability for a single date
+     * Check availability for a single date.
      */
     public function checkAvailability(string $productId, string $date, int $quantity, array $parameters = []): array
     {
@@ -119,7 +119,7 @@ class SeaWorldRedeamAdapter extends BaseThemeParkAdapter
     }
 
     /**
-     * Check availability for a date range
+     * Check availability for a date range.
      */
     public function checkAvailabilities(string $productId, string $startDate, string $endDate, array $parameters = []): array
     {
@@ -141,7 +141,7 @@ class SeaWorldRedeamAdapter extends BaseThemeParkAdapter
     }
 
     /**
-     * Get pricing schedule for a product
+     * Get pricing schedule for a product.
      */
     public function getProductPricingSchedule(string $productId, string $startDate, string $endDate, array $parameters = []): array
     {
@@ -163,7 +163,7 @@ class SeaWorldRedeamAdapter extends BaseThemeParkAdapter
     }
 
     /**
-     * Create a new hold/reservation
+     * Create a new hold/reservation.
      */
     public function createNewHold(array $data): array
     {
@@ -176,7 +176,7 @@ class SeaWorldRedeamAdapter extends BaseThemeParkAdapter
     }
 
     /**
-     * Get hold details
+     * Get hold details.
      */
     public function getHold(string $holdId): array
     {
@@ -188,7 +188,7 @@ class SeaWorldRedeamAdapter extends BaseThemeParkAdapter
     }
 
     /**
-     * Delete/release a hold
+     * Delete/release a hold.
      */
     public function deleteHold(string $holdId): array
     {
@@ -200,7 +200,7 @@ class SeaWorldRedeamAdapter extends BaseThemeParkAdapter
     }
 
     /**
-     * Create a confirmed booking
+     * Create a confirmed booking.
      */
     public function createNewBooking(array $data): array
     {
@@ -213,7 +213,7 @@ class SeaWorldRedeamAdapter extends BaseThemeParkAdapter
     }
 
     /**
-     * Get booking details
+     * Get booking details.
      */
     public function getBooking(string $bookingId): array
     {
@@ -225,7 +225,7 @@ class SeaWorldRedeamAdapter extends BaseThemeParkAdapter
     }
 
     /**
-     * Cancel a booking
+     * Cancel a booking.
      */
     public function deleteBooking(string $bookingId)
     {
@@ -237,7 +237,7 @@ class SeaWorldRedeamAdapter extends BaseThemeParkAdapter
     }
 
     /**
-     * Validate API credentials
+     * Validate API credentials.
      */
     public function validateCredentials(): bool
     {
@@ -252,7 +252,7 @@ class SeaWorldRedeamAdapter extends BaseThemeParkAdapter
     }
 
     /**
-     * Get the provider name
+     * Get the provider name.
      */
     public function getProviderName(): string
     {
@@ -260,7 +260,7 @@ class SeaWorldRedeamAdapter extends BaseThemeParkAdapter
     }
 
     /**
-     * Get authentication headers
+     * Get authentication headers.
      */
     protected function getAuthHeaders(): array
     {

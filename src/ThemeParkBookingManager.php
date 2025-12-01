@@ -19,7 +19,7 @@ class ThemeParkBookingManager
     }
 
     /**
-     * Get booking adapter by provider name
+     * Get booking adapter by provider name.
      */
     public function adapter(string $provider): BookingAdapterInterface
     {
@@ -33,7 +33,7 @@ class ThemeParkBookingManager
     }
 
     /**
-     * Create adapter instance
+     * Create adapter instance.
      */
     protected function createAdapter(string $provider): BookingAdapterInterface
     {
@@ -53,7 +53,7 @@ class ThemeParkBookingManager
     }
 
     /**
-     * Get Redeam adapter
+     * Get Redeam adapter.
      */
     public function redeam(): BookingAdapterInterface
     {
@@ -61,7 +61,7 @@ class ThemeParkBookingManager
     }
 
     /**
-     * Get SmartOrder adapter
+     * Get SmartOrder adapter.
      */
     public function smartorder(): BookingAdapterInterface
     {
@@ -69,7 +69,7 @@ class ThemeParkBookingManager
     }
 
     /**
-     * Get Disney adapter (uses Redeam)
+     * Get Disney adapter (uses Redeam).
      */
     public function disney(): BookingAdapterInterface
     {
@@ -77,7 +77,7 @@ class ThemeParkBookingManager
     }
 
     /**
-     * Get Universal adapter (uses SmartOrder)
+     * Get Universal adapter (uses SmartOrder).
      */
     public function universal(): BookingAdapterInterface
     {
@@ -85,7 +85,7 @@ class ThemeParkBookingManager
     }
 
     /**
-     * Get all available providers
+     * Get all available providers.
      */
     public function getAvailableProviders(): array
     {
@@ -93,7 +93,7 @@ class ThemeParkBookingManager
     }
 
     /**
-     * Check if provider is supported
+     * Check if provider is supported.
      */
     public function hasProvider(string $provider): bool
     {

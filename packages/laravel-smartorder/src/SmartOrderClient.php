@@ -8,7 +8,7 @@ class SmartOrderClient
 
     public function __construct()
     {
-        $this->client = new SmartOrderApiClient;
+        $this->client = new SmartOrderApiClient();
     }
 
     /**

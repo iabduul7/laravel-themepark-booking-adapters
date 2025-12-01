@@ -19,12 +19,12 @@ class SmartOrderHttpClient
         private readonly string $clientSecret,
         private readonly int $customerId,
         private readonly int $timeout = 600
-    ) {
-    }
+    ) {}
 
     /**
-     * @param array<string, mixed> $parameters
+     * @param  array<string, mixed>  $parameters
      * @return array<string, mixed>
+     *
      * @throws GuzzleException
      */
     public function get(string $uri, array $parameters = []): array
@@ -39,8 +39,9 @@ class SmartOrderHttpClient
     }
 
     /**
-     * @param array<string, mixed> $data
+     * @param  array<string, mixed>  $data
      * @return array<string, mixed>
+     *
      * @throws GuzzleException
      */
     public function post(string $uri, array $data = []): array
