@@ -1,46 +1,53 @@
 {
-    "name": ":vendor_slug/:package_slug",
-    "description": ":package_description",
+    "name": "iabduul7/themepark-adapters",
+    "description": "Laravel package for integrating theme park APIs (Disney, SeaWorld, Universal) with support for Redeam and SmartOrder2 systems",
     "keywords": [
-        ":vendor_name",
         "laravel",
-        ":package_slug"
+        "theme-park",
+        "disney",
+        "seaworld",
+        "universal",
+        "redeam",
+        "smartorder2",
+        "api",
+        "tickets",
+        "adapter"
     ],
-    "homepage": "https://github.com/:vendor_slug/:package_slug",
+    "homepage": "https://github.com/iabduul7/themepark-adapters",
     "license": "MIT",
     "authors": [
         {
-            "name": ":author_name",
+            "name": "iabduul7",
             "email": "author@domain.com",
             "role": "Developer"
         }
     ],
     "require": {
-        "php": "^8.0",
+        "php": "^8.0|^8.1|^8.2|^8.3",
+        "guzzlehttp/guzzle": "^7.0",
         "spatie/laravel-package-tools": "^1.9.2",
-        "illuminate/contracts": "^8.73"
+        "illuminate/contracts": "^8.73|^9.0|^10.0|^11.0"
     },
     "require-dev": {
-        "nunomaduro/collision": "^5.10",
-        "nunomaduro/larastan": "^1.0",
-        "orchestra/testbench": "^6.22",
-        "pestphp/pest": "^1.21",
-        "pestphp/pest-plugin-laravel": "^1.1",
+        "nunomaduro/collision": "^5.10|^6.0|^7.0",
+        "nunomaduro/larastan": "^1.0|^2.0",
+        "orchestra/testbench": "^6.22|^7.0|^8.0|^9.0",
+        "pestphp/pest": "^1.21|^2.0",
+        "pestphp/pest-plugin-laravel": "^1.1|^2.0",
         "phpstan/extension-installer": "^1.1",
         "phpstan/phpstan-deprecation-rules": "^1.0",
         "phpstan/phpstan-phpunit": "^1.0",
-        "phpunit/phpunit": "^9.5",
+        "phpunit/phpunit": "^9.5|^10.0",
         "spatie/laravel-ray": "^1.26"
     },
     "autoload": {
         "psr-4": {
-            "VendorName\\Skeleton\\": "src",
-            "VendorName\\Skeleton\\Database\\Factories\\": "database/factories"
+            "Iabduul7\\ThemeParkAdapters\\": "src"
         }
     },
     "autoload-dev": {
         "psr-4": {
-            "VendorName\\Skeleton\\Tests\\": "tests"
+            "Iabduul7\\ThemeParkAdapters\\Tests\\": "tests"
         }
     },
     "scripts": {
@@ -54,10 +61,10 @@
     "extra": {
         "laravel": {
             "providers": [
-                "VendorName\\Skeleton\\SkeletonServiceProvider"
+                "Iabduul7\\ThemeParkAdapters\\ThemeParkAdaptersServiceProvider"
             ],
             "aliases": {
-                "Skeleton": "VendorName\\Skeleton\\Facades\\Skeleton"
+                "ThemePark": "Iabduul7\\ThemeParkAdapters\\Facades\\ThemePark"
             }
         }
     },
