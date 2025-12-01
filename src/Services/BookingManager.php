@@ -28,7 +28,7 @@ class BookingManager
     protected function loadAdapters(): void
     {
         foreach ($this->config as $name => $adapterConfig) {
-            if (!isset($adapterConfig['enabled']) || !$adapterConfig['enabled']) {
+            if (! isset($adapterConfig['enabled']) || ! $adapterConfig['enabled']) {
                 continue;
             }
 
@@ -38,13 +38,13 @@ class BookingManager
 
     public function getAdapter(string $name): BookingAdapterInterface
     {
-        if (!isset($this->adapters[$name])) {
+        if (! isset($this->adapters[$name])) {
             throw new AdapterException("Adapter not found or not enabled: {$name}");
         }
 
         $bindingKey = "booking.adapter.{$name}";
-        
-        if (!$this->app->bound($bindingKey)) {
+
+        if (! $this->app->bound($bindingKey)) {
             throw new AdapterException("Adapter binding not found: {$bindingKey}");
         }
 
@@ -60,11 +60,13 @@ class BookingManager
     {
         try {
             $adapter = $this->getAdapter($adapterName);
+
             return $adapter->testConnection();
         } catch (\Exception $e) {
             Log::warning("Connection test failed for adapter {$adapterName}", [
                 'error' => $e->getMessage(),
             ]);
+
             return false;
         }
     }
@@ -72,7 +74,7 @@ class BookingManager
     public function testAllConnections(): array
     {
         $results = [];
-        
+
         foreach ($this->getAvailableAdapters() as $adapterName) {
             $results[$adapterName] = $this->testConnection($adapterName);
         }
@@ -83,7 +85,7 @@ class BookingManager
     public function syncProducts(string $adapterName): ProductSyncResult
     {
         $adapter = $this->getAdapter($adapterName);
-        
+
         Log::info("Starting product sync", [
             'adapter' => $adapterName,
             'provider' => $adapter->getProvider(),
@@ -103,7 +105,7 @@ class BookingManager
     public function syncAllProducts(): array
     {
         $results = [];
-        
+
         foreach ($this->getAvailableAdapters() as $adapterName) {
             try {
                 $results[$adapterName] = $this->syncProducts($adapterName);
@@ -111,9 +113,9 @@ class BookingManager
                 Log::error("Product sync failed for adapter {$adapterName}", [
                     'error' => $e->getMessage(),
                 ]);
-                
+
                 $results[$adapterName] = ProductSyncResult::failure([
-                    $e->getMessage()
+                    $e->getMessage(),
                 ]);
             }
         }
@@ -124,12 +126,14 @@ class BookingManager
     public function getProduct(string $adapterName, string $productId): ?Product
     {
         $adapter = $this->getAdapter($adapterName);
+
         return $adapter->getProduct($productId);
     }
 
     public function searchProducts(string $adapterName, array $criteria = []): Collection
     {
         $adapter = $this->getAdapter($adapterName);
+
         return $adapter->searchProducts($criteria);
     }
 
@@ -141,25 +145,28 @@ class BookingManager
         int $quantity = 1
     ): bool {
         $adapter = $this->getAdapter($adapterName);
+
         return $adapter->checkAvailability($productId, $date, $time, $quantity);
     }
 
     public function getAvailableTimeSlots(string $adapterName, string $productId, string $date): Collection
     {
         $adapter = $this->getAdapter($adapterName);
+
         return $adapter->getAvailableTimeSlots($productId, $date);
     }
 
     public function getPricing(string $adapterName, string $productId, string $date, array $options = []): array
     {
         $adapter = $this->getAdapter($adapterName);
+
         return $adapter->getPricing($productId, $date, $options);
     }
 
     public function createBooking(string $adapterName, BookingRequest $request): BookingResponse
     {
         $adapter = $this->getAdapter($adapterName);
-        
+
         Log::info("Creating booking", [
             'adapter' => $adapterName,
             'product_id' => $request->productId,
@@ -183,7 +190,7 @@ class BookingManager
     public function confirmBooking(string $adapterName, string $reservationId, array $paymentData = []): BookingResponse
     {
         $adapter = $this->getAdapter($adapterName);
-        
+
         Log::info("Confirming booking", [
             'adapter' => $adapterName,
             'reservation_id' => $reservationId,
@@ -205,7 +212,7 @@ class BookingManager
     public function cancelBooking(string $adapterName, string $bookingId, string $reason = ''): BookingResponse
     {
         $adapter = $this->getAdapter($adapterName);
-        
+
         Log::info("Cancelling booking", [
             'adapter' => $adapterName,
             'booking_id' => $bookingId,
@@ -226,13 +233,14 @@ class BookingManager
     public function getBooking(string $adapterName, string $bookingId): ?BookingResponse
     {
         $adapter = $this->getAdapter($adapterName);
+
         return $adapter->getBooking($bookingId);
     }
 
     public function generateVoucher(string $adapterName, string $bookingId)
     {
         $adapter = $this->getAdapter($adapterName);
-        
+
         Log::info("Generating voucher", [
             'adapter' => $adapterName,
             'booking_id' => $bookingId,

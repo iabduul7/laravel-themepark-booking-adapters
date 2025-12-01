@@ -17,11 +17,11 @@ class SmartOrderHttpClientTest extends TestCase
     protected function setUp(): void
     {
         parent::setUp();
-        
+
         $this->mockHandler = new MockHandler();
         $handlerStack = HandlerStack::create($this->mockHandler);
         $guzzleClient = new Client(['handler' => $handlerStack]);
-        
+
         $this->client = new SmartOrderHttpClient(
             'https://QACorpAPI.ucdp.net',
             '134853',
@@ -40,7 +40,7 @@ class SmartOrderHttpClientTest extends TestCase
             new Response(200, [], json_encode([
                 'access_token' => 'test_access_token_123',
                 'token_type' => 'Bearer',
-                'expires_in' => 3600
+                'expires_in' => 3600,
             ]))
         );
 
@@ -57,7 +57,7 @@ class SmartOrderHttpClientTest extends TestCase
             new Response(200, [], json_encode([
                 'access_token' => 'test_token',
                 'token_type' => 'Bearer',
-                'expires_in' => 3600
+                'expires_in' => 3600,
             ]))
         );
 
@@ -73,11 +73,11 @@ class SmartOrderHttpClientTest extends TestCase
                             [
                                 'PriceID' => 'adult',
                                 'BasePrice' => 109.00,
-                                'Currency' => 'USD'
-                            ]
-                        ]
-                    ]
-                ]
+                                'Currency' => 'USD',
+                            ],
+                        ],
+                    ],
+                ],
             ]))
         );
 
@@ -95,7 +95,7 @@ class SmartOrderHttpClientTest extends TestCase
         $this->mockHandler->append(
             new Response(200, [], json_encode([
                 'access_token' => 'test_token',
-                'token_type' => 'Bearer'
+                'token_type' => 'Bearer',
             ]))
         );
 
@@ -107,15 +107,15 @@ class SmartOrderHttpClientTest extends TestCase
                         'Date' => '2024-12-25',
                         'ProductID' => 'UNIV_STUDIOS_1DAY',
                         'AvailableQuantity' => 50,
-                        'IsAvailable' => true
-                    ]
-                ]
+                        'IsAvailable' => true,
+                    ],
+                ],
             ]))
         );
 
         $data = [
             'ProductID' => 'UNIV_STUDIOS_1DAY',
-            'Date' => '2024-12-25'
+            'Date' => '2024-12-25',
         ];
 
         $response = $this->client->get('/api/availability', $data);
@@ -132,7 +132,7 @@ class SmartOrderHttpClientTest extends TestCase
         $this->mockHandler->append(
             new Response(200, [], json_encode([
                 'access_token' => 'test_token',
-                'token_type' => 'Bearer'
+                'token_type' => 'Bearer',
             ]))
         );
 
@@ -148,9 +148,9 @@ class SmartOrderHttpClientTest extends TestCase
                         'Barcode' => '123456789',
                         'ProductName' => 'Universal Studios 1-Day',
                         'GuestName' => 'John Doe',
-                        'VisitDate' => '2024-12-25'
-                    ]
-                ]
+                        'VisitDate' => '2024-12-25',
+                    ],
+                ],
             ]))
         );
 
@@ -160,8 +160,8 @@ class SmartOrderHttpClientTest extends TestCase
             'Quantity' => 1,
             'VisitDate' => '2024-12-25',
             'Guests' => [
-                ['Name' => 'John Doe']
-            ]
+                ['Name' => 'John Doe'],
+            ],
         ];
 
         $response = $this->client->post('/api/bookings', $bookingData);
@@ -179,15 +179,15 @@ class SmartOrderHttpClientTest extends TestCase
         $this->mockHandler->append(
             new Response(200, [], json_encode([
                 'access_token' => 'test_access_token',
-                'token_type' => 'Bearer'
+                'token_type' => 'Bearer',
             ]))
         );
 
         // Mock API request
         $this->mockHandler->append(new Response(200, [], '{}'));
-        
+
         $this->client->get('/api/test');
-        
+
         $requests = $this->mockHandler->getLastRequest();
         $this->assertEquals('Bearer test_access_token', $requests->getHeaderLine('Authorization'));
     }
@@ -198,7 +198,7 @@ class SmartOrderHttpClientTest extends TestCase
         // Mock failed authentication
         $this->mockHandler->append(
             new Response(401, [], json_encode([
-                'error' => 'Invalid credentials'
+                'error' => 'Invalid credentials',
             ]))
         );
 
@@ -215,7 +215,7 @@ class SmartOrderHttpClientTest extends TestCase
         $this->mockHandler->append(
             new Response(200, [], json_encode([
                 'access_token' => 'test_token',
-                'token_type' => 'Bearer'
+                'token_type' => 'Bearer',
             ]))
         );
 
@@ -224,7 +224,7 @@ class SmartOrderHttpClientTest extends TestCase
             new Response(200, [], json_encode([
                 'GalaxyOrderId' => 'GAL123456',
                 'Status' => 'Cancelled',
-                'CancelledAt' => '2024-12-24T10:00:00Z'
+                'CancelledAt' => '2024-12-24T10:00:00Z',
             ]))
         );
 
@@ -241,7 +241,7 @@ class SmartOrderHttpClientTest extends TestCase
         $this->mockHandler->append(
             new Response(200, [], json_encode([
                 'access_token' => 'expired_token',
-                'token_type' => 'Bearer'
+                'token_type' => 'Bearer',
             ]))
         );
 
@@ -254,7 +254,7 @@ class SmartOrderHttpClientTest extends TestCase
         $this->mockHandler->append(
             new Response(200, [], json_encode([
                 'access_token' => 'new_token',
-                'token_type' => 'Bearer'
+                'token_type' => 'Bearer',
             ]))
         );
 

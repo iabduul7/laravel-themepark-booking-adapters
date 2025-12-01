@@ -4,10 +4,7 @@ declare(strict_types=1);
 
 namespace iabduul7\LaravelThemeparkBookingAdapters\Http;
 
-use GuzzleHttp\Client;
 use GuzzleHttp\Exception\GuzzleException;
-use Illuminate\Http\Client\Factory as HttpFactory;
-use Illuminate\Http\Client\Response;
 use Illuminate\Support\Facades\Http;
 
 class RedeamHttpClient
@@ -17,7 +14,8 @@ class RedeamHttpClient
         private readonly string $apiKey,
         private readonly string $apiSecret,
         private readonly int $timeout = 600
-    ) {}
+    ) {
+    }
 
     /**
      * @param array<string, mixed> $parameters

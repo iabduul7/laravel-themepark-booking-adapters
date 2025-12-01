@@ -7,7 +7,6 @@ use iabduul7\ThemeParkBooking\Adapters\SmartOrderAdapter;
 use iabduul7\ThemeParkBooking\Commands\InstallCommand;
 use iabduul7\ThemeParkBooking\Commands\SyncProductsCommand;
 use iabduul7\ThemeParkBooking\Commands\TestConnectionCommand;
-use iabduul7\ThemeParkBooking\Contracts\BookingAdapterInterface;
 use iabduul7\ThemeParkBooking\Services\BookingManager;
 use iabduul7\ThemeParkBooking\Services\VoucherGenerator;
 use Spatie\LaravelPackageTools\Package;
@@ -25,12 +24,12 @@ class ThemeParkBookingServiceProvider extends PackageServiceProvider
                 'create_booking_events_table',
                 'create_booking_metrics_table',
                 'create_order_details_redeam_table',
-                'create_order_details_universal_table'
+                'create_order_details_universal_table',
             ])
             ->hasCommands([
                 SyncProductsCommand::class,
                 InstallCommand::class,
-                TestConnectionCommand::class
+                TestConnectionCommand::class,
             ]);
     }
 

@@ -47,7 +47,7 @@ class BookingRequestTest extends TestCase
             'rate_id' => 'adult',
             'start_date' => '2024-12-25',
             'end_date' => '2024-12-25',
-            'quantity' => 2
+            'quantity' => 2,
         ];
 
         $this->assertEquals($expected, $holdFormat);
@@ -64,11 +64,11 @@ class BookingRequestTest extends TestCase
             quantity: 2,
             guestInfo: [
                 ['name' => 'John Doe', 'age' => 35],
-                ['name' => 'Jane Doe', 'age' => 32]
+                ['name' => 'Jane Doe', 'age' => 32],
             ],
             paymentInfo: [
                 'amount' => 218.00,
-                'currency' => 'USD'
+                'currency' => 'USD',
             ]
         );
 
@@ -82,12 +82,12 @@ class BookingRequestTest extends TestCase
             'quantity' => 2,
             'guests' => [
                 ['name' => 'John Doe', 'age' => 35],
-                ['name' => 'Jane Doe', 'age' => 32]
+                ['name' => 'Jane Doe', 'age' => 32],
             ],
             'payment' => [
                 'amount' => 218.00,
-                'currency' => 'USD'
-            ]
+                'currency' => 'USD',
+            ],
         ];
 
         $this->assertEquals($expected, $bookingFormat);
@@ -104,7 +104,7 @@ class BookingRequestTest extends TestCase
             quantity: 2,
             guestInfo: [
                 ['name' => 'John Doe'],
-                ['name' => 'Jane Doe']
+                ['name' => 'Jane Doe'],
             ]
         );
 
@@ -117,8 +117,8 @@ class BookingRequestTest extends TestCase
             'VisitDate' => '2024-12-25',
             'Guests' => [
                 ['Name' => 'John Doe'],
-                ['Name' => 'Jane Doe']
-            ]
+                ['Name' => 'Jane Doe'],
+            ],
         ];
 
         $this->assertEquals($expected, $smartOrderFormat);
@@ -137,7 +137,7 @@ class BookingRequestTest extends TestCase
 
         $this->assertEquals('2024-12-25', $request->startDate->toDateString());
         $this->assertEquals('2024-12-27', $request->endDate->toDateString());
-        
+
         $format = $request->toRedeamHoldFormat();
         $this->assertEquals('2024-12-25', $format['start_date']);
         $this->assertEquals('2024-12-27', $format['end_date']);

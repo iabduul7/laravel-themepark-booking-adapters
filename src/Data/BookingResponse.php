@@ -31,7 +31,8 @@ class BookingResponse
         public readonly array $metadata = [],
         public readonly ?Carbon $createdAt = null,
         public readonly ?Carbon $updatedAt = null
-    ) {}
+    ) {
+    }
 
     public static function success(array $data): self
     {
@@ -106,20 +107,20 @@ class BookingResponse
     public static function fromRedeamHold(array $holdData): self
     {
         $hold = $holdData['hold'] ?? $holdData;
-        
+
         return self::hold([
             'hold_id' => $hold['id'] ?? null,
             'expires_at' => $hold['expires'] ?? null,
             'quantity' => count($hold['items'] ?? []),
             'provider' => 'redeam',
-            'raw_response' => $holdData
+            'raw_response' => $holdData,
         ]);
     }
 
     public static function fromRedeamBooking(array $bookingData): self
     {
         $booking = $bookingData['booking'] ?? $bookingData;
-        
+
         return self::success([
             'booking_id' => $booking['id'] ?? null,
             'status' => 'confirmed',
@@ -127,7 +128,7 @@ class BookingResponse
             'customer_info' => $booking['customer'] ?? null,
             'timeline' => $booking['timeline'] ?? null,
             'provider' => 'redeam',
-            'raw_response' => $bookingData
+            'raw_response' => $bookingData,
         ]);
     }
 
@@ -140,10 +141,10 @@ class BookingResponse
             'quantity' => $orderData['Quantity'] ?? null,
             'pricing' => [
                 'total' => $orderData['TotalPrice'] ?? null,
-                'currency' => $orderData['Currency'] ?? 'USD'
+                'currency' => $orderData['Currency'] ?? 'USD',
             ],
             'provider' => 'smartorder',
-            'raw_response' => $orderData
+            'raw_response' => $orderData,
         ]);
     }
 
@@ -209,7 +210,7 @@ class BookingResponse
 
     public function hasVouchers(): bool
     {
-        return !empty($this->vouchers);
+        return ! empty($this->vouchers);
     }
 
     public function getTotalPrice(): ?float
@@ -224,11 +225,11 @@ class BookingResponse
 
     public function getCustomerName(): ?string
     {
-        if (!$this->customerInfo) {
+        if (! $this->customerInfo) {
             return null;
         }
 
-        return trim(($this->customerInfo['first_name'] ?? $this->customerInfo['firstName'] ?? '') . ' ' . 
+        return trim(($this->customerInfo['first_name'] ?? $this->customerInfo['firstName'] ?? '') . ' ' .
                    ($this->customerInfo['last_name'] ?? $this->customerInfo['lastName'] ?? ''));
     }
 

@@ -25,7 +25,8 @@ class Price
         public readonly array $ageGroups = [],
         public readonly array $metadata = [],
         public readonly array $rawData = []
-    ) {}
+    ) {
+    }
 
     public static function fromRedeamPriceData(array $data): self
     {
@@ -109,19 +110,20 @@ class Price
     {
         $formatted = number_format($this->totalPrice, 2);
         if ($includeCurrency) {
-                       return $this->currency . ' ' . $formatted;
+            return $this->currency . ' ' . $formatted;
         }
+
         return $formatted;
     }
 
     public function getFormattedBasePrice(bool $includeCurrency = true): string
     {
         $formatted = number_format($this->basePrice, 2);
-        
+
         if ($includeCurrency) {
             return $this->currency . ' ' . $formatted;
         }
-        
+
         return $formatted;
     }
 
@@ -142,33 +144,33 @@ class Price
 
     public function hasTaxes(): bool
     {
-        return !empty($this->taxes);
+        return ! empty($this->taxes);
     }
 
     public function hasFees(): bool
     {
-        return !empty($this->fees);
+        return ! empty($this->fees);
     }
 
     public function hasDiscounts(): bool
     {
-        return !empty($this->discounts);
+        return ! empty($this->discounts);
     }
 
     public function isAvailableForQuantity(int $quantity): bool
     {
-        if (!$this->isAvailable) {
+        if (! $this->isAvailable) {
             return false;
         }
-        
+
         if ($this->available !== null) {
             return $this->available >= $quantity;
         }
-        
+
         if ($this->capacity !== null) {
             return $this->capacity >= $quantity;
         }
-        
+
         return true;
     }
 
@@ -177,7 +179,7 @@ class Price
         if ($this->available !== null) {
             return $this->available;
         }
-        
+
         return $this->capacity;
     }
 
@@ -199,20 +201,20 @@ class Price
             'fee_amount' => $this->getFeeAmount(),
             'discount_amount' => $this->getDiscountAmount(),
             'total_price' => $this->totalPrice,
-            'currency' => $this->currency
+            'currency' => $this->currency,
         ];
     }
 
     public function getDateTime(): ?Carbon
     {
-        if (!$this->date) {
+        if (! $this->date) {
             return null;
         }
-        
+
         if ($this->timeSlot) {
             return $this->date->copy()->setTimeFromTimeString($this->timeSlot);
         }
-        
+
         return $this->date;
     }
 
@@ -223,7 +225,7 @@ class Price
 
     public function hasAgeGroupPricing(): bool
     {
-        return !empty($this->ageGroups);
+        return ! empty($this->ageGroups);
     }
 
     public function getPriceForAgeGroup(string $ageGroup): ?float

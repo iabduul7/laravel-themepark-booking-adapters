@@ -16,7 +16,8 @@ class VoucherData
         public readonly ?string $downloadUrl = null,
         public readonly array $instructions = [],
         public readonly array $metadata = []
-    ) {}
+    ) {
+    }
 
     public function toArray(): array
     {
@@ -62,16 +63,16 @@ class VoucherData
 
     public function hasDownloadUrl(): bool
     {
-        return !empty($this->downloadUrl);
+        return ! empty($this->downloadUrl);
     }
 
     public function hasPdfFile(): bool
     {
-        return !empty($this->pdfPath);
+        return ! empty($this->pdfPath);
     }
 
     public function hasInstructions(): bool
     {
-        return !empty($this->instructions);
+        return ! empty($this->instructions);
     }
 }

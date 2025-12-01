@@ -3,6 +3,7 @@
 namespace iabduul7\ThemeParkBooking\Tests\Unit;
 
 use Illuminate\Support\Facades\Config;
+
 iabduul7\ThemeParkBooking\Tests\TestCase;
 
 class ConfigurationTest extends TestCase
@@ -20,18 +21,18 @@ class ConfigurationTest extends TestCase
     public function redeam_configuration_has_required_keys()
     {
         $redeamConfig = config('themepark-booking.redeam');
-        
+
         $this->assertArrayHasKey('base_url', $redeamConfig);
         $this->assertArrayHasKey('api_key', $redeamConfig);
         $this->assertArrayHasKey('api_secret', $redeamConfig);
         $this->assertArrayHasKey('timeout', $redeamConfig);
         $this->assertArrayHasKey('disney', $redeamConfig);
         $this->assertArrayHasKey('united_parks', $redeamConfig);
-        
+
         // Test nested disney config
         $this->assertArrayHasKey('supplier_id', $redeamConfig['disney']);
         $this->assertArrayHasKey('enabled', $redeamConfig['disney']);
-        
+
         // Test nested united parks config
         $this->assertArrayHasKey('supplier_id', $redeamConfig['united_parks']);
         $this->assertArrayHasKey('enabled', $redeamConfig['united_parks']);
@@ -41,7 +42,7 @@ class ConfigurationTest extends TestCase
     public function smartorder_configuration_has_required_keys()
     {
         $smartOrderConfig = config('themepark-booking.smartorder');
-        
+
         $this->assertArrayHasKey('base_url', $smartOrderConfig);
         $this->assertArrayHasKey('customer_id', $smartOrderConfig);
         $this->assertArrayHasKey('client_username', $smartOrderConfig);
@@ -56,7 +57,7 @@ class ConfigurationTest extends TestCase
         // Test runtime configuration changes
         Config::set('themepark-booking.redeam.timeout', 60);
         Config::set('themepark-booking.smartorder.enabled', false);
-        
+
         $this->assertEquals(60, config('themepark-booking.redeam.timeout'));
         $this->assertFalse(config('themepark-booking.smartorder.enabled'));
     }
@@ -69,7 +70,7 @@ class ConfigurationTest extends TestCase
             'themepark-booking.redeam.api_key' => env('REDEAM_API_KEY', 'test_api_key'),
             'themepark-booking.smartorder.client_username' => env('SMARTORDER_CLIENT_USERNAME', 'test_username'),
         ]);
-        
+
         $this->assertEquals('test_api_key', config('themepark-booking.redeam.api_key'));
         $this->assertEquals('test_username', config('themepark-booking.smartorder.client_username'));
     }
@@ -104,10 +105,10 @@ class ConfigurationTest extends TestCase
     {
         $redeamUrl = config('themepark-booking.redeam.base_url');
         $smartOrderUrl = config('themepark-booking.smartorder.base_url');
-        
+
         $this->assertStringStartsWith('https://', $redeamUrl);
         $this->assertStringStartsWith('https://', $smartOrderUrl);
-        
+
         $this->assertTrue(filter_var($redeamUrl, FILTER_VALIDATE_URL) !== false);
         $this->assertTrue(filter_var($smartOrderUrl, FILTER_VALIDATE_URL) !== false);
     }

@@ -4,7 +4,6 @@ namespace iabduul7\ThemeParkBooking\Commands;
 
 use Illuminate\Console\Command;
 use Illuminate\Support\Facades\Artisan;
-use Illuminate\Support\Facades\File;
 
 class InstallCommand extends Command
 {
@@ -29,7 +28,7 @@ class InstallCommand extends Command
         $this->info('🎢 Installing Theme Park Booking Adapters Package...');
 
         // Publish configuration files
-        if (!$this->option('no-config')) {
+        if (! $this->option('no-config')) {
             $this->publishConfig();
         }
 
@@ -56,13 +55,13 @@ class InstallCommand extends Command
 
         $force = $this->option('force');
         $params = ['--provider' => 'iabduul7\\ThemeParkBooking\\ThemeParkBookingServiceProvider'];
-        
+
         if ($force) {
             $params['--force'] = true;
         }
 
         Artisan::call('vendor:publish', array_merge($params, ['--tag' => 'themepark-booking-config']));
-        
+
         $this->line('   ✓ Config file published to config/themepark-booking.php');
     }
 
@@ -78,7 +77,7 @@ class InstallCommand extends Command
                 '--path' => 'vendor/iabduul7/laravel-themepark-booking-adapters/database/migrations',
                 '--force' => true,
             ]);
-            
+
             $this->line('   ✓ Migrations completed successfully');
         } catch (\Exception $e) {
             $this->error('   ✗ Migration failed: ' . $e->getMessage());
@@ -99,12 +98,12 @@ class InstallCommand extends Command
         $this->line('      use iabduul7\\ThemeParkBooking\\Concerns\\HasThemeParkBookingAttributes;');
         $this->line('   3. Update your Order model\'s $appends array with theme park attributes');
         $this->line('   4. Run migrations if you haven\'t already: php artisan migrate');
-        
+
         $this->newLine();
         $this->info('🔧 Available Commands:');
         $this->line('   • php artisan themepark-booking:test-connection  - Test API connections');
         $this->line('   • php artisan vendor:publish --tag=themepark-booking-migrations  - Publish migrations');
-        
+
         $this->newLine();
         $this->info('📖 Documentation:');
         $this->line('   Check the README.md for detailed usage instructions and examples.');

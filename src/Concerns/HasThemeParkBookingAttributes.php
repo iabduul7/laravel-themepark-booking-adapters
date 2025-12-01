@@ -30,7 +30,7 @@ trait HasThemeParkBookingAttributes
      */
     public function getSmartorderItemsAttribute()
     {
-        if (!$this->has_smartorder_items) {
+        if (! $this->has_smartorder_items) {
             return [];
         }
 
@@ -42,11 +42,12 @@ trait HasThemeParkBookingAttributes
      */
     public function getSmartorderExternalOrderIdAttribute(): array
     {
-        if (!$this->has_smartorder_items) {
+        if (! $this->has_smartorder_items) {
             return [];
         }
 
         $details = $this->universalDetails;
+
         return $details ? [$details->external_order_id] : [];
     }
 
@@ -55,11 +56,12 @@ trait HasThemeParkBookingAttributes
      */
     public function getSmartorderGalaxyOrderIdAttribute(): array
     {
-        if (!$this->has_smartorder_items) {
+        if (! $this->has_smartorder_items) {
             return [];
         }
 
         $details = $this->universalDetails;
+
         return $details ? [$details->galaxy_order_id] : [];
     }
 
@@ -68,11 +70,12 @@ trait HasThemeParkBookingAttributes
      */
     public function getSmartorderBookingDataAttribute(): array
     {
-        if (!$this->has_smartorder_items) {
+        if (! $this->has_smartorder_items) {
             return [];
         }
 
         $details = $this->universalDetails;
+
         return $details ? [$details->booking_data] : [];
     }
 
@@ -89,11 +92,12 @@ trait HasThemeParkBookingAttributes
      */
     public function getDisneyItemsAttribute(): ?array
     {
-        if (!$this->has_disney_items) {
+        if (! $this->has_disney_items) {
             return [];
         }
 
         $details = $this->disneyDetails;
+
         return $details?->toArray();
     }
 
@@ -102,7 +106,7 @@ trait HasThemeParkBookingAttributes
      */
     public function getDisneyHoldIdAttribute(): ?string
     {
-        if (!$this->has_disney_items) {
+        if (! $this->has_disney_items) {
             return null;
         }
 
@@ -114,7 +118,7 @@ trait HasThemeParkBookingAttributes
      */
     public function getDisneyBookingIdAttribute(): ?string
     {
-        if (!$this->has_disney_items) {
+        if (! $this->has_disney_items) {
             return null;
         }
 
@@ -126,7 +130,7 @@ trait HasThemeParkBookingAttributes
      */
     public function getDisneyBookingDataAttribute(): array
     {
-        if (!$this->has_disney_items) {
+        if (! $this->has_disney_items) {
             return [];
         }
 
@@ -138,7 +142,7 @@ trait HasThemeParkBookingAttributes
      */
     public function getDisneyReferenceNumberAttribute(): ?string
     {
-        if (!$this->has_disney_items) {
+        if (! $this->has_disney_items) {
             return null;
         }
 
@@ -150,7 +154,7 @@ trait HasThemeParkBookingAttributes
      */
     public function getDisneyVoucherAttribute(): ?string
     {
-        if (!$this->has_disney_items) {
+        if (! $this->has_disney_items) {
             return null;
         }
 
@@ -162,7 +166,7 @@ trait HasThemeParkBookingAttributes
      */
     public function getDisneyReservationNumberAttribute(): ?string
     {
-        if (!$this->has_disney_items || !$this->disney_booking_data) {
+        if (! $this->has_disney_items || ! $this->disney_booking_data) {
             return null;
         }
 
@@ -182,11 +186,12 @@ trait HasThemeParkBookingAttributes
      */
     public function getUnitedParksItemsAttribute(): ?array
     {
-        if (!$this->has_united_parks_items) {
+        if (! $this->has_united_parks_items) {
             return [];
         }
 
         $details = $this->unitedParksDetails;
+
         return $details?->toArray();
     }
 
@@ -195,7 +200,7 @@ trait HasThemeParkBookingAttributes
      */
     public function getUnitedParksHoldIdAttribute(): ?string
     {
-        if (!$this->has_united_parks_items) {
+        if (! $this->has_united_parks_items) {
             return null;
         }
 
@@ -207,7 +212,7 @@ trait HasThemeParkBookingAttributes
      */
     public function getUnitedParksBookingIdAttribute(): ?string
     {
-        if (!$this->has_united_parks_items) {
+        if (! $this->has_united_parks_items) {
             return null;
         }
 
@@ -219,7 +224,7 @@ trait HasThemeParkBookingAttributes
      */
     public function getUnitedParksBookingDataAttribute(): array
     {
-        if (!$this->has_united_parks_items) {
+        if (! $this->has_united_parks_items) {
             return [];
         }
 
@@ -231,7 +236,7 @@ trait HasThemeParkBookingAttributes
      */
     public function getUnitedParksReferenceNumberAttribute(): ?string
     {
-        if (!$this->has_united_parks_items) {
+        if (! $this->has_united_parks_items) {
             return null;
         }
 
@@ -243,7 +248,7 @@ trait HasThemeParkBookingAttributes
      */
     public function getUnitedParksVoucherAttribute(): ?string
     {
-        if (!$this->has_united_parks_items) {
+        if (! $this->has_united_parks_items) {
             return null;
         }
 
@@ -255,7 +260,7 @@ trait HasThemeParkBookingAttributes
      */
     public function getUnitedParksReservationNumberAttribute(): ?string
     {
-        if (!$this->has_united_parks_items || !$this->united_parks_booking_data) {
+        if (! $this->has_united_parks_items || ! $this->united_parks_booking_data) {
             return null;
         }
 
@@ -317,7 +322,7 @@ trait HasThemeParkBookingAttributes
             $references['united_parks'] = $this->united_parks_reference_number;
         }
 
-        if ($this->has_smartorder_items && !empty($this->smartorder_external_order_id)) {
+        if ($this->has_smartorder_items && ! empty($this->smartorder_external_order_id)) {
             $references['smartorder'] = $this->smartorder_external_order_id;
         }
 

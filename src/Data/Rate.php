@@ -23,7 +23,8 @@ class Rate
         public readonly string $currency = 'USD',
         public readonly array $metadata = [],
         public readonly array $rawData = []
-    ) {}
+    ) {
+    }
 
     public static function fromRedeamData(array $data): self
     {
@@ -90,15 +91,15 @@ class Rate
     public function isValid(?Carbon $date = null): bool
     {
         $checkDate = $date ?? Carbon::now();
-        
+
         if ($this->validFrom && $checkDate->isBefore($this->validFrom)) {
             return false;
         }
-        
+
         if ($this->validUntil && $checkDate->isAfter($this->validUntil)) {
             return false;
         }
-        
+
         return $this->isActive;
     }
 
@@ -107,11 +108,11 @@ class Rate
         if ($this->validFrom && $endDate->isBefore($this->validFrom)) {
             return false;
         }
-        
+
         if ($this->validUntil && $startDate->isAfter($this->validUntil)) {
             return false;
         }
-        
+
         return $this->isActive;
     }
 
@@ -127,17 +128,17 @@ class Rate
 
     public function hasPricing(): bool
     {
-        return !empty($this->pricing);
+        return ! empty($this->pricing);
     }
 
     public function hasRestrictions(): bool
     {
-        return !empty($this->restrictions);
+        return ! empty($this->restrictions);
     }
 
     public function hasCancellationPolicy(): bool
     {
-        return !empty($this->cancellationPolicy);
+        return ! empty($this->cancellationPolicy);
     }
 
     public function getDurationInDays(): ?int
@@ -152,10 +153,10 @@ class Rate
 
     public function getValidityPeriod(): ?string
     {
-        if (!$this->validFrom || !$this->validUntil) {
+        if (! $this->validFrom || ! $this->validUntil) {
             return null;
         }
-        
+
         return sprintf(
             '%s to %s',
             $this->validFrom->format('M j, Y'),

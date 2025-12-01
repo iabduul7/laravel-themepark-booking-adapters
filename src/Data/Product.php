@@ -3,7 +3,6 @@
 namespace iabduul7\ThemeParkBooking\Data;
 
 use Carbon\Carbon;
-use Illuminate\Support\Collection;
 
 class Product
 {
@@ -24,7 +23,8 @@ class Product
         public readonly ?Carbon $availableUntil = null,
         public readonly ?array $metadata = null,
         public readonly ?Carbon $lastUpdated = null
-    ) {}
+    ) {
+    }
 
     public function toArray(): array
     {
@@ -100,7 +100,7 @@ class Product
 
     public function hasLocation(): bool
     {
-        return !empty($this->location);
+        return ! empty($this->location);
     }
 
     public function getLocationName(): ?string
@@ -110,13 +110,13 @@ class Product
 
     public function getLocationCoordinates(): ?array
     {
-        if (!isset($this->location['latitude'], $this->location['longitude'])) {
+        if (! isset($this->location['latitude'], $this->location['longitude'])) {
             return null;
         }
 
         return [
             'latitude' => $this->location['latitude'],
-            'longitude' => $this->location['longitude']
+            'longitude' => $this->location['longitude'],
         ];
     }
 }

@@ -2,13 +2,13 @@
 
 namespace iabduul7\ThemeParkBooking\Tests\Unit\Services;
 
+use Carbon\Carbon;
 use iabduul7\ThemeParkBooking\Data\BookingRequest;
 use iabduul7\ThemeParkBooking\Data\BookingResponse;
 use iabduul7\ThemeParkBooking\Http\RedeamHttpClient;
 use iabduul7\ThemeParkBooking\Services\RedeamBookingService;
 use iabduul7\ThemeParkBooking\Tests\TestCase;
 use Mockery;
-use Carbon\Carbon;
 
 class RedeamBookingServiceTest extends TestCase
 {
@@ -18,7 +18,7 @@ class RedeamBookingServiceTest extends TestCase
     protected function setUp(): void
     {
         parent::setUp();
-        
+
         $this->mockHttpClient = Mockery::mock(RedeamHttpClient::class);
         $this->service = new RedeamBookingService($this->mockHttpClient);
     }
@@ -32,15 +32,15 @@ class RedeamBookingServiceTest extends TestCase
                     'id' => 'disney-magic-kingdom-1day',
                     'name' => 'Magic Kingdom 1-Day Ticket',
                     'supplier_id' => '20',
-                    'description' => 'One day access to Magic Kingdom'
+                    'description' => 'One day access to Magic Kingdom',
                 ],
                 [
                     'id' => 'disney-epcot-1day',
                     'name' => 'EPCOT 1-Day Ticket',
                     'supplier_id' => '20',
-                    'description' => 'One day access to EPCOT'
-                ]
-            ]
+                    'description' => 'One day access to EPCOT',
+                ],
+            ],
         ];
 
         $this->mockHttpClient
@@ -65,9 +65,9 @@ class RedeamBookingServiceTest extends TestCase
                     'id' => '20',
                     'name' => 'Walt Disney World',
                     'octo_id' => 'disney_world',
-                    'active' => true
-                ]
-            ]
+                    'active' => true,
+                ],
+            ],
         ];
 
         $this->mockHttpClient
@@ -91,16 +91,16 @@ class RedeamBookingServiceTest extends TestCase
                     'id' => 'avail-1',
                     'start' => '2024-12-25T09:00:00Z',
                     'capacity' => 100,
-                    'available' => 85
-                ]
-            ]
+                    'available' => 85,
+                ],
+            ],
         ];
 
         $this->mockHttpClient
             ->shouldReceive('get')
             ->with('/products/disney-magic-kingdom-1day/availability', [
                 'start_date' => '2024-12-25',
-                'end_date' => '2024-12-25'
+                'end_date' => '2024-12-25',
             ])
             ->once()
             ->andReturn($mockResponse);
@@ -132,8 +132,8 @@ class RedeamBookingServiceTest extends TestCase
             'status' => 'HELD',
             'booking_data' => [
                 'product_id' => 'disney-magic-kingdom-1day',
-                'quantity' => 2
-            ]
+                'quantity' => 2,
+            ],
         ];
 
         $this->mockHttpClient
@@ -165,7 +165,7 @@ class RedeamBookingServiceTest extends TestCase
             'booking_id' => 'BOOK789',
             'reference_number' => 'REF123456',
             'status' => 'CONFIRMED',
-            'voucher_url' => 'https://vouchers.redeam.io/voucher_123.pdf'
+            'voucher_url' => 'https://vouchers.redeam.io/voucher_123.pdf',
         ];
 
         $this->mockHttpClient
@@ -188,7 +188,7 @@ class RedeamBookingServiceTest extends TestCase
         $mockResponse = [
             'booking_id' => 'BOOK789',
             'status' => 'CANCELLED',
-            'cancelled_at' => '2024-12-24T10:00:00Z'
+            'cancelled_at' => '2024-12-24T10:00:00Z',
         ];
 
         $this->mockHttpClient
@@ -236,7 +236,7 @@ class RedeamBookingServiceTest extends TestCase
             'start_date' => '2024-12-25',
             'end_date' => '2024-12-25',
             'quantity' => 2,
-            'guests' => [['name' => 'John Doe', 'age' => 35]]
+            'guests' => [['name' => 'John Doe', 'age' => 35]],
         ];
 
         $this->mockHttpClient

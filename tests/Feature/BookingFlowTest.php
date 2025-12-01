@@ -3,12 +3,12 @@
 namespace iabduul7\ThemeParkBooking\Tests\Feature;
 
 use Carbon\Carbon;
-use Illuminate\Foundation\Testing\RefreshDatabase;
 use iabduul7\ThemeParkBooking\Data\BookingRequest;
 use iabduul7\ThemeParkBooking\Models\OrderDetailsRedeam;
 use iabduul7\ThemeParkBooking\Models\OrderDetailsUniversal;
 use iabduul7\ThemeParkBooking\Tests\TestCase;
 use iabduul7\ThemeParkBooking\ThemeParkBookingManager;
+use Illuminate\Foundation\Testing\RefreshDatabase;
 
 class BookingFlowTest extends TestCase
 {
@@ -19,7 +19,7 @@ class BookingFlowTest extends TestCase
     protected function setUp(): void
     {
         parent::setUp();
-        
+
         $this->manager = app(ThemeParkBookingManager::class);
     }
 
@@ -39,7 +39,7 @@ class BookingFlowTest extends TestCase
             quantity: 2,
             guestInfo: [
                 ['name' => 'John Doe', 'age' => 35],
-                ['name' => 'Jane Doe', 'age' => 32]
+                ['name' => 'Jane Doe', 'age' => 32],
             ]
         );
 
@@ -56,7 +56,7 @@ class BookingFlowTest extends TestCase
 
         // Test hold booking
         $holdResponse = $adapter->holdBooking($bookingRequest);
-        
+
         $this->assertTrue($holdResponse->isSuccessful());
         $this->assertNotEmpty($holdResponse->holdId);
         $this->assertInstanceOf(Carbon::class, $holdResponse->expiresAt);
@@ -67,29 +67,29 @@ class BookingFlowTest extends TestCase
             'hold_id' => $holdResponse->holdId,
             'hold_expires_at' => $holdResponse->expiresAt,
             'supplier_type' => 'disney',
-            'status' => 'held'
+            'status' => 'held',
         ]);
 
         $this->assertDatabaseHas('order_details_redeam', [
             'hold_id' => $holdResponse->holdId,
-            'supplier_type' => 'disney'
+            'supplier_type' => 'disney',
         ]);
 
         // Test booking confirmation
         $confirmResponse = $adapter->confirmBooking($holdResponse->holdId);
-        
+
         if ($confirmResponse->isSuccessful()) {
             // Update order details
             $orderDetails->update([
                 'booking_id' => $confirmResponse->bookingId,
                 'reference_number' => $confirmResponse->referenceNumber,
                 'booking_data' => $confirmResponse->rawData,
-                'status' => 'confirmed'
+                'status' => 'confirmed',
             ]);
 
             $this->assertDatabaseHas('order_details_redeam', [
                 'booking_id' => $confirmResponse->bookingId,
-                'status' => 'confirmed'
+                'status' => 'confirmed',
             ]);
         }
     }
@@ -109,7 +109,7 @@ class BookingFlowTest extends TestCase
             endDate: Carbon::parse('2024-12-25'),
             quantity: 1,
             guestInfo: [
-                ['name' => 'John Doe']
+                ['name' => 'John Doe'],
             ]
         );
 
@@ -126,7 +126,7 @@ class BookingFlowTest extends TestCase
 
         // Test direct booking (SmartOrder doesn't support holds)
         $bookingResponse = $adapter->makeBooking($bookingRequest);
-        
+
         if ($bookingResponse->isSuccessful()) {
             // Create order details record
             $orderDetails = OrderDetailsUniversal::create([
@@ -134,12 +134,12 @@ class BookingFlowTest extends TestCase
                 'galaxy_order_id' => $bookingResponse->galaxyOrderId,
                 'external_order_id' => $bookingResponse->externalOrderId,
                 'booking_data' => $bookingResponse->rawData,
-                'status' => 'confirmed'
+                'status' => 'confirmed',
             ]);
 
             $this->assertDatabaseHas('order_details_universal', [
                 'galaxy_order_id' => $bookingResponse->galaxyOrderId,
-                'status' => 'confirmed'
+                'status' => 'confirmed',
             ]);
 
             $this->assertTrue($orderDetails->has_created_ticket_responses);
@@ -155,22 +155,22 @@ class BookingFlowTest extends TestCase
             'booking_id' => 'MOCK_BOOKING_123',
             'reference_number' => 'REF123456',
             'supplier_type' => 'disney',
-            'status' => 'confirmed'
+            'status' => 'confirmed',
         ]);
 
         $adapter = $this->manager->disney();
-        
+
         // Test cancellation (will fail with mock data but tests the flow)
         try {
             $cancelResponse = $adapter->cancelBooking($orderDetails->booking_id);
-            
+
             if ($cancelResponse->isSuccessful()) {
                 $orderDetails->update([
                     'status' => 'cancelled',
                     'booking_data' => array_merge(
                         $orderDetails->booking_data ?? [],
                         ['cancelled_at' => now()->toISOString()]
-                    )
+                    ),
                 ]);
 
                 $this->assertTrue($orderDetails->isCancelled());
@@ -203,7 +203,7 @@ class BookingFlowTest extends TestCase
             'hold_id' => 'EXPIRED_HOLD_123',
             'hold_expires_at' => Carbon::now()->subMinutes(30), // Expired 30 mins ago
             'supplier_type' => 'disney',
-            'status' => 'held'
+            'status' => 'held',
         ]);
 
         $this->assertTrue($orderDetails->is_hold_expired);
@@ -218,7 +218,7 @@ class BookingFlowTest extends TestCase
             'order_id' => 1,
             'booking_id' => 'CONFIRMED_123',
             'status' => 'confirmed',
-            'supplier_type' => 'disney'
+            'supplier_type' => 'disney',
         ]);
 
         $this->assertTrue($confirmedBooking->isConfirmed());
@@ -229,7 +229,7 @@ class BookingFlowTest extends TestCase
             'order_id' => 2,
             'booking_id' => 'CANCELLED_123',
             'status' => 'cancelled',
-            'supplier_type' => 'disney'
+            'supplier_type' => 'disney',
         ]);
 
         $this->assertTrue($cancelledBooking->isCancelled());
@@ -243,13 +243,13 @@ class BookingFlowTest extends TestCase
             'timeline' => [
                 [
                     'typeOf' => 'HELD',
-                    'timestamp' => '2024-12-25T10:00:00Z'
+                    'timestamp' => '2024-12-25T10:00:00Z',
                 ],
                 [
                     'typeOf' => 'CONFIRMED',
-                    'timestamp' => '2024-12-25T10:05:00Z'
-                ]
-            ]
+                    'timestamp' => '2024-12-25T10:05:00Z',
+                ],
+            ],
         ];
 
         $orderDetails = OrderDetailsRedeam::create([
@@ -257,11 +257,11 @@ class BookingFlowTest extends TestCase
             'booking_id' => 'TIMELINE_123',
             'booking_data' => $bookingData,
             'supplier_type' => 'disney',
-            'status' => 'confirmed'
+            'status' => 'confirmed',
         ]);
 
         $timeline = $orderDetails->getBookingTimeline();
-        
+
         $this->assertCount(2, $timeline);
         $this->assertEquals('HELD', $timeline[0]['typeOf']);
         $this->assertEquals('CONFIRMED', $timeline[1]['typeOf']);

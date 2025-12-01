@@ -2,17 +2,14 @@
 
 namespace iabduul7\ThemeParkBooking\Adapters;
 
+use GuzzleHttp\Client;
+use GuzzleHttp\Exception\GuzzleException;
 use iabduul7\ThemeParkBooking\Contracts\BookingAdapterInterface;
 use iabduul7\ThemeParkBooking\Data\BookingRequest;
 use iabduul7\ThemeParkBooking\Data\BookingResponse;
 use iabduul7\ThemeParkBooking\Data\Product;
-use iabduul7\ThemeParkBooking\Data\ProductSyncResult;
-use iabduul7\ThemeParkBooking\Data\VoucherData;
 use iabduul7\ThemeParkBooking\Exceptions\AdapterException;
 use iabduul7\ThemeParkBooking\Exceptions\ConfigurationException;
-use GuzzleHttp\Client;
-use GuzzleHttp\Exception\GuzzleException;
-use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\Log;
 
@@ -70,6 +67,7 @@ abstract class BaseAdapter implements BookingAdapterInterface
                 'adapter' => $this->getName(),
                 'error' => $e->getMessage(),
             ]);
+
             return false;
         }
     }
@@ -135,7 +133,7 @@ abstract class BaseAdapter implements BookingAdapterInterface
     protected function validateRequiredConfig(): void
     {
         $errors = $this->validateConfig();
-        if (!empty($errors)) {
+        if (! empty($errors)) {
             throw new ConfigurationException(
                 "Invalid configuration for adapter {$this->getName()}: " . implode(', ', $errors)
             );
@@ -163,8 +161,8 @@ abstract class BaseAdapter implements BookingAdapterInterface
     protected function generateCacheKey(string $operation, array $params = []): string
     {
         $key = $this->getCacheKey($operation);
-        
-        if (!empty($params)) {
+
+        if (! empty($params)) {
             $key .= '_' . md5(serialize($params));
         }
 
