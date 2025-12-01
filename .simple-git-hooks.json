@@ -1,0 +1,4 @@
+{
+    "pre-commit": ".githooks/pre-commit",
+    "pre-push": ".githooks/pre-push"
+}

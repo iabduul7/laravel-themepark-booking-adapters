@@ -1,0 +1,205 @@
+name: Pull Request Full Validation
+
+on:
+  pull_request:
+    branches: [main]
+    types: [opened, synchronize, reopened, ready_for_review]
+
+concurrency:
+  group: pr-${{ github.event.number }}
+  cancel-in-progress: true
+
+jobs:
+  changes:
+    runs-on: ubuntu-latest
+    outputs:
+      php: ${{ steps.changes.outputs.php }}
+      config: ${{ steps.changes.outputs.config }}
+      tests: ${{ steps.changes.outputs.tests }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: dorny/paths-filter@v2
+        id: changes
+        with:
+          filters: |
+            php:
+              - '**/*.php'
+              - 'composer.json'
+              - 'composer.lock'
+            config:
+              - '.github/workflows/**'
+              - 'phpunit.xml'
+              - 'pint.json'
+              - '.simple-git-hooks.json'
+            tests:
+              - 'tests/**'
+
+  security-scan:
+    runs-on: ubuntu-latest
+    if: ${{ !github.event.pull_request.draft }}
+    name: Security Scan
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Setup PHP
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: 8.2
+          coverage: none
+
+      - name: Install dependencies
+        run: composer update --prefer-dist --no-interaction --no-dev
+
+      - name: Run security audit
+        run: composer audit --no-dev
+
+  comprehensive-tests:
+    runs-on: ${{ matrix.os }}
+    if: ${{ !github.event.pull_request.draft }}
+    needs: [changes]
+    strategy:
+      fail-fast: false
+      matrix:
+        os: [ubuntu-latest]
+        php: [8.1, 8.2, 8.3]
+        laravel: ['10.*']
+        dependency-version: [prefer-lowest, prefer-stable]
+        include:
+          - laravel: '10.*'
+            testbench: 8.*
+
+    name: 🧪 PHP ${{ matrix.php }} - Laravel ${{ matrix.laravel }} (${{ matrix.dependency-version }})
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Setup PHP
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: ${{ matrix.php }}
+          extensions: dom, curl, libxml, mbstring, zip, pcntl, pdo, sqlite, pdo_sqlite, bcmath, soap, intl, gd, exif, iconv, imagick
+          coverage: pcov
+
+      - name: Setup problem matchers
+        run: |
+          echo "::add-matcher::${{ runner.tool_cache }}/php.json"
+          echo "::add-matcher::${{ runner.tool_cache }}/phpunit.json"
+
+      - name: Install dependencies
+        run: |
+          composer require "laravel/framework:${{ matrix.laravel }}" "orchestra/testbench:${{ matrix.testbench }}" --no-interaction --no-update
+          composer update --${{ matrix.dependency-version }} --prefer-dist --no-interaction
+
+      - name: Execute tests with coverage
+        run: composer test:coverage
+
+      - name: Upload coverage to Codecov  
+        if: matrix.php == '8.2' && matrix.dependency-version == 'prefer-stable'
+        uses: codecov/codecov-action@v3
+        with:
+          files: ./coverage.xml
+          flags: unittests
+          name: codecov-umbrella
+
+  code-quality:
+    runs-on: ubuntu-latest
+    if: ${{ !github.event.pull_request.draft }}
+    needs: [changes]
+    name: 📋 Code Quality
+    
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Setup PHP
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: 8.2
+          extensions: dom, curl, libxml, mbstring, zip, pcntl, pdo, sqlite, pdo_sqlite, bcmath, soap, intl, gd, exif, iconv, imagick
+          coverage: none
+
+      - name: Install dependencies
+        run: composer update --prefer-dist --no-interaction
+
+      - name: Check code style
+        run: composer format:check
+
+      - name: Run static analysis
+        run: composer analyse
+
+      - name: Validate composer.json
+        run: composer validate --strict
+
+  performance-tests:
+    runs-on: ubuntu-latest
+    if: ${{ !github.event.pull_request.draft && needs.changes.outputs.php == 'true' }}
+    needs: [changes]
+    name: ⚡ Performance Tests
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Setup PHP
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: 8.2
+          extensions: dom, curl, libxml, mbstring, zip, pcntl, pdo, sqlite, pdo_sqlite, bcmath, soap, intl, gd, exif, iconv, imagick
+          coverage: none
+
+      - name: Install dependencies
+        run: composer update --prefer-dist --no-interaction
+
+      - name: Run parallel tests
+        run: composer test:parallel --processes=4
+
+  integration-tests:
+    runs-on: ubuntu-latest
+    if: ${{ !github.event.pull_request.draft && needs.changes.outputs.php == 'true' }}
+    needs: [changes]
+    name: 🔗 Integration Tests
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Setup PHP  
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: 8.2
+          extensions: dom, curl, libxml, mbstring, zip, pcntl, pdo, sqlite, pdo_sqlite, bcmath, soap, intl, gd, exif, iconv, imagick
+          coverage: none
+
+      - name: Install dependencies
+        run: composer update --prefer-dist --no-interaction
+
+      - name: Run feature tests
+        run: composer test:feature
+
+      - name: Test package installation
+        run: |
+          composer create-project laravel/laravel test-app
+          cd test-app
+          composer config repositories.local path ../
+          composer require "iabduul7/laravel-themepark-booking-adapters:*"
+          php artisan themepark-booking:test-connection --timeout=5
+
+  pr-validation-summary:
+    runs-on: ubuntu-latest
+    if: ${{ !github.event.pull_request.draft }}
+    needs: [security-scan, comprehensive-tests, code-quality, performance-tests, integration-tests]
+    name: 📋 PR Validation Summary
+
+    steps:
+      - name: All checks passed
+        run: |
+          echo "🎉 All PR validation checks have passed!"
+          echo "✅ Security scan completed"
+          echo "✅ Comprehensive tests completed" 
+          echo "✅ Code quality checks passed"
+          echo "✅ Performance tests completed"
+          echo "✅ Integration tests completed"
+          echo ""
+          echo "This PR is ready for review! 🚀"

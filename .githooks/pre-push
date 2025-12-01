@@ -1,0 +1,40 @@
+#!/usr/bin/env bash
+
+# Pre-push hook to ensure code quality before pushing to any branch
+# This will run code style checks to catch issues early
+
+echo "🔍 Running pre-push quality checks..."
+
+# Check if we're pushing to main branch (extra protection)
+if git rev-parse --verify refs/remotes/origin/main >/dev/null 2>&1; then
+    if git diff --name-only origin/main..HEAD | grep -E '\.(php)$' >/dev/null; then
+        echo "⚠️  WARNING: You're about to push PHP changes. Running full quality checks..."
+    fi
+fi
+
+# Run Pint style check
+echo "📝 Checking code style with Pint..."
+if ! composer format:check --quiet; then
+    echo ""
+    echo "❌ Code style issues detected!"
+    echo "💡 Run 'composer format' to fix automatically, then try pushing again."
+    echo ""
+    exit 1
+fi
+
+echo "✅ Code style check passed!"
+
+# For main branch, prevent direct pushes
+branch=$(git rev-parse --abbrev-ref HEAD)
+if [ "$branch" = "main" ]; then
+    echo ""
+    echo "🚫 Direct pushes to main branch are not allowed!"
+    echo "💡 Create a pull request instead:"
+    echo "   git checkout -b feature/your-feature-name"
+    echo "   git push origin feature/your-feature-name"
+    echo ""
+    exit 1
+fi
+
+echo "🎉 Pre-push checks passed! Pushing to $branch..."
+echo ""

@@ -1,0 +1,28 @@
+#!/usr/bin/env bash
+
+# Pre-commit hook for final style and quick checks
+# This runs on every commit to catch issues early
+
+echo "🔄 Running pre-commit checks..."
+
+# Get list of staged PHP files
+staged_files=$(git diff --cached --name-only --diff-filter=ACM | grep '\.php$')
+
+if [ -z "$staged_files" ]; then
+    echo "ℹ️  No PHP files staged for commit."
+    exit 0
+fi
+
+echo "📝 Checking staged PHP files with Pint..."
+
+# Run Pint on staged files only
+if ! echo "$staged_files" | xargs vendor/bin/pint --test; then
+    echo ""
+    echo "❌ Code style issues detected in staged files!"
+    echo "💡 Run 'composer format' to fix automatically, then stage and commit again."
+    echo ""
+    exit 1
+fi
+
+echo "✅ Pre-commit checks passed!"
+echo ""

@@ -1,0 +1,98 @@
+name: Code Style Auto-Fix
+
+on:
+  push:
+    branches: [dev, 'feature/*', 'bugfix/*', 'hotfix/*']
+    paths:
+      - '**/*.php'
+      - 'composer.json'
+      - 'pint.json'
+
+concurrency:
+  group: style-fix-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  code-style:
+    runs-on: ubuntu-latest
+    name: 🎨 Auto-fix Code Style
+    
+    # Skip if commit message contains '[skip style]'
+    if: "!contains(github.event.head_commit.message, '[skip style]')"
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+          ref: ${{ github.head_ref }}
+
+      - name: Setup PHP
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: 8.2
+          extensions: dom, curl, libxml, mbstring, zip
+          coverage: none
+
+      - name: Install dependencies
+        run: composer update --prefer-dist --no-interaction --no-dev
+
+      - name: Check if style fixes are needed
+        id: check-style
+        run: |
+          if ! composer format:check --quiet; then
+            echo "fixes_needed=true" >> $GITHUB_OUTPUT
+            echo "Style fixes are needed"
+          else
+            echo "fixes_needed=false" >> $GITHUB_OUTPUT
+            echo "Code style is already compliant"
+          fi
+
+      - name: Apply Pint fixes
+        if: steps.check-style.outputs.fixes_needed == 'true'
+        run: composer format
+
+      - name: Check for changes
+        if: steps.check-style.outputs.fixes_needed == 'true'
+        id: verify-changed-files
+        run: |
+          if [ -n "$(git status --porcelain)" ]; then
+            echo "changed=true" >> $GITHUB_OUTPUT
+            git status --short
+          else
+            echo "changed=false" >> $GITHUB_OUTPUT
+            echo "No style changes were made"
+          fi
+
+      - name: Commit style fixes
+        if: steps.verify-changed-files.outputs.changed == 'true'
+        run: |
+          git config --local user.email "action@github.com"
+          git config --local user.name "GitHub Action"
+          git add .
+          git commit -m "style: apply Pint code style fixes [skip style]"
+          git push
+
+      - name: Style check summary
+        run: |
+          if [ "${{ steps.check-style.outputs.fixes_needed }}" == "true" ]; then
+            if [ "${{ steps.verify-changed-files.outputs.changed }}" == "true" ]; then
+              echo "✅ Code style fixes applied and committed automatically"
+            else
+              echo "ℹ️ Pint ran but no changes were needed"
+            fi
+          else
+            echo "✅ Code style is already compliant - no action needed"
+          fi
+
+  notification:
+    runs-on: ubuntu-latest
+    needs: [code-style]
+    if: needs.code-style.result == 'success'
+    name: 📢 Notification
+
+    steps:
+      - name: Success notification
+        run: |
+          echo "🎨 Code style check completed for ${{ github.ref_name }}"
+          echo "📝 All PHP files are now properly formatted with Laravel Pint"
