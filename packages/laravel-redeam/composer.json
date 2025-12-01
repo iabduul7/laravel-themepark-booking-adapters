@@ -1,0 +1,73 @@
+{
+    "name": "code-creatives/laravel-redeam",
+    "description": "This is my package laravel-redeam",
+    "keywords": [
+        "code-creatives",
+        "laravel",
+        "laravel-redeam"
+    ],
+    "homepage": "https://github.com/code-creatives/laravel-redeam",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Abdullah",
+            "email": "abdullah@code-creatives.com",
+            "role": "Developer"
+        }
+    ],
+    "require": {
+        "php": "^8.1",
+        "spatie/laravel-package-tools": "^1.15",
+        "illuminate/contracts": "^10.9",
+        "guzzlehttp/guzzle": "^7.5"
+    },
+    "require-dev": {
+        "laravel/pint": "^1.4",
+        "nunomaduro/collision": "^7.0",
+        "nunomaduro/larastan": "^2.0.1",
+        "orchestra/testbench": "^7.0",
+        "pestphp/pest": "^1.23",
+        "pestphp/pest-plugin-laravel": "^1.1",
+        "phpstan/extension-installer": "^1.1",
+        "phpstan/phpstan-deprecation-rules": "^1.0",
+        "phpstan/phpstan-phpunit": "^1.0",
+        "phpunit/phpunit": "^9.5"
+    },
+    "autoload": {
+        "psr-4": {
+            "CodeCreatives\\LaravelRedeam\\": "src",
+            "CodeCreatives\\LaravelRedeam\\Database\\Factories\\": "database/factories"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "CodeCreatives\\LaravelRedeam\\Tests\\": "tests"
+        }
+    },
+    "scripts": {
+        "post-autoload-dump": "@php ./vendor/bin/testbench package:discover --ansi",
+        "analyse": "vendor/bin/phpstan analyse",
+        "test": "vendor/bin/pest",
+        "test-coverage": "vendor/bin/pest --coverage",
+        "format": "vendor/bin/pint"
+    },
+    "config": {
+        "sort-packages": true,
+        "allow-plugins": {
+            "pestphp/pest-plugin": true,
+            "phpstan/extension-installer": true
+        }
+    },
+    "extra": {
+        "laravel": {
+            "providers": [
+                "CodeCreatives\\LaravelRedeam\\LaravelRedeamServiceProvider"
+            ],
+            "aliases": {
+                "LaravelRedeam": "CodeCreatives\\LaravelRedeam\\Facades\\LaravelRedeam"
+            }
+        }
+    },
+    "minimum-stability": "dev",
+    "prefer-stable": true
+}

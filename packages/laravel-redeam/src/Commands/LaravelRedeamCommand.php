@@ -1,12 +1,12 @@
 <?php
 
-namespace VendorName\Skeleton\Commands;
+namespace CodeCreatives\LaravelRedeam\Commands;
 
 use Illuminate\Console\Command;
 
-class SkeletonCommand extends Command
+class LaravelRedeamCommand extends Command
 {
-    public $signature = 'skeleton';
+    public $signature = 'laravel-redeam';
 
     public $description = 'My command';
 
