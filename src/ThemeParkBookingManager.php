@@ -2,10 +2,10 @@
 
 namespace iabduul7\ThemeParkBooking;
 
-use Illuminate\Contracts\Foundation\Application;
 use iabduul7\ThemeParkBooking\Contracts\BookingAdapterInterface;
 use iabduul7\ThemeParkBooking\Services\RedeamBookingService;
 use iabduul7\ThemeParkBooking\Services\SmartOrderBookingService;
+use Illuminate\Contracts\Foundation\Application;
 use InvalidArgumentException;
 
 class ThemeParkBookingManager
@@ -28,7 +28,7 @@ class ThemeParkBookingManager
         }
 
         $adapter = $this->createAdapter($provider);
-        
+
         return $this->adapters[$provider] = $adapter;
     }
 
@@ -42,11 +42,11 @@ class ThemeParkBookingManager
             case 'disney':
             case 'united_parks':
                 return $this->app->make(RedeamBookingService::class);
-                
+
             case 'smartorder':
             case 'universal':
                 return $this->app->make(SmartOrderBookingService::class);
-                
+
             default:
                 throw new InvalidArgumentException("Unsupported booking provider: {$provider}");
         }

@@ -17,11 +17,11 @@ class RedeamHttpClientTest extends TestCase
     protected function setUp(): void
     {
         parent::setUp();
-        
+
         $this->mockHandler = new MockHandler();
         $handlerStack = HandlerStack::create($this->mockHandler);
         $guzzleClient = new Client(['handler' => $handlerStack]);
-        
+
         $this->client = new RedeamHttpClient(
             'https://booking.redeam.io/v1.2',
             'test_api_key',
@@ -42,15 +42,15 @@ class RedeamHttpClientTest extends TestCase
                         'id' => '20',
                         'name' => 'Walt Disney World',
                         'octo_id' => 'disney_world',
-                        'active' => true
+                        'active' => true,
                     ],
                     [
                         'id' => '30',
                         'name' => 'Universal Studios',
                         'octo_id' => 'universal_studios',
-                        'active' => true
-                    ]
-                ]
+                        'active' => true,
+                    ],
+                ],
             ]))
         );
 
@@ -77,11 +77,11 @@ class RedeamHttpClientTest extends TestCase
                             [
                                 'id' => 'adult',
                                 'name' => 'Adult',
-                                'price' => 109.00
-                            ]
-                        ]
-                    ]
-                ]
+                                'price' => 109.00,
+                            ],
+                        ],
+                    ],
+                ],
             ]))
         );
 
@@ -103,16 +103,16 @@ class RedeamHttpClientTest extends TestCase
                         'id' => 'avail-1',
                         'start' => '2024-12-25T09:00:00Z',
                         'capacity' => 100,
-                        'available' => 85
-                    ]
-                ]
+                        'available' => 85,
+                    ],
+                ],
             ]))
         );
 
         $data = [
             'product_id' => 'disney-magic-kingdom-1day',
             'start_date' => '2024-12-25',
-            'end_date' => '2024-12-25'
+            'end_date' => '2024-12-25',
         ];
 
         $response = $this->client->get('/products/disney-magic-kingdom-1day/availability', $data);
@@ -133,8 +133,8 @@ class RedeamHttpClientTest extends TestCase
                 'status' => 'HELD',
                 'booking_data' => [
                     'product_id' => 'disney-magic-kingdom-1day',
-                    'quantity' => 2
-                ]
+                    'quantity' => 2,
+                ],
             ]))
         );
 
@@ -142,7 +142,7 @@ class RedeamHttpClientTest extends TestCase
             'product_id' => 'disney-magic-kingdom-1day',
             'rate_id' => 'adult',
             'quantity' => 2,
-            'start_date' => '2024-12-25'
+            'start_date' => '2024-12-25',
         ];
 
         $response = $this->client->post('/bookings/hold', $bookingData);
@@ -164,21 +164,21 @@ class RedeamHttpClientTest extends TestCase
                 'voucher_url' => 'https://vouchers.redeam.io/voucher_123.pdf',
                 'ext' => [
                     'supplier' => [
-                        'reference' => 'DISNEY_REF_789'
-                    ]
-                ]
+                        'reference' => 'DISNEY_REF_789',
+                    ],
+                ],
             ]))
         );
 
         $confirmData = [
             'hold_id' => 'HOLD123456',
             'guest_info' => [
-                ['name' => 'John Doe', 'age' => 35]
+                ['name' => 'John Doe', 'age' => 35],
             ],
             'payment_info' => [
                 'amount' => 218.00,
-                'currency' => 'USD'
-            ]
+                'currency' => 'USD',
+            ],
         ];
 
         $response = $this->client->post('/bookings/confirm', $confirmData);
@@ -196,7 +196,7 @@ class RedeamHttpClientTest extends TestCase
         $this->mockHandler->append(
             new Response(400, [], json_encode([
                 'error' => 'Invalid product ID',
-                'code' => 'INVALID_PRODUCT'
+                'code' => 'INVALID_PRODUCT',
             ]))
         );
 
@@ -210,11 +210,11 @@ class RedeamHttpClientTest extends TestCase
     public function it_includes_proper_authentication_headers()
     {
         $this->mockHandler->append(new Response(200, [], '{}'));
-        
+
         $this->client->get('/test');
-        
+
         $lastRequest = $this->mockHandler->getLastRequest();
-        
+
         $this->assertEquals('test_api_key', $lastRequest->getHeaderLine('X-API-Key'));
         $this->assertEquals('test_api_secret', $lastRequest->getHeaderLine('X-API-Secret'));
         $this->assertEquals('application/json', $lastRequest->getHeaderLine('Accept'));
@@ -228,7 +228,7 @@ class RedeamHttpClientTest extends TestCase
             new Response(200, [], json_encode([
                 'booking_id' => 'BOOK789',
                 'status' => 'CANCELLED',
-                'cancelled_at' => '2024-12-24T10:00:00Z'
+                'cancelled_at' => '2024-12-24T10:00:00Z',
             ]))
         );
 

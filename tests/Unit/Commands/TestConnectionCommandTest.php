@@ -4,6 +4,7 @@ namespace iabduul7\ThemeParkBooking\Tests\Unit\Commands;
 
 use Illuminate\Support\Facades\Artisan;
 use Illuminate\Support\Facades\Config;
+
 iabduul7\ThemeParkBooking\Tests\TestCase;
 
 class TestConnectionCommandTest extends TestCase
@@ -14,7 +15,7 @@ class TestConnectionCommandTest extends TestCase
         Artisan::call('themepark-booking:test-connection');
 
         $output = Artisan::output();
-        
+
         $this->assertStringContainsString('Testing Theme Park Booking API Connections', $output);
         $this->assertStringContainsString('Testing Redeam API Connection', $output);
         $this->assertStringContainsString('Testing SmartOrder API Connection', $output);
@@ -27,7 +28,7 @@ class TestConnectionCommandTest extends TestCase
         Artisan::call('themepark-booking:test-connection', ['provider' => 'redeam']);
 
         $output = Artisan::output();
-        
+
         $this->assertStringContainsString('Testing Redeam API Connection', $output);
         $this->assertStringNotContainsString('Testing SmartOrder API Connection', $output);
     }
@@ -38,11 +39,11 @@ class TestConnectionCommandTest extends TestCase
         // Clear configuration
         Config::set('themepark-booking.redeam.api_key', null);
         Config::set('themepark-booking.redeam.api_secret', null);
-        
+
         Artisan::call('themepark-booking:test-connection', ['provider' => 'redeam']);
 
         $output = Artisan::output();
-        
+
         $this->assertStringContainsString('Configuration missing', $output);
         $this->assertStringContainsString('FAILED', $output);
     }
@@ -51,14 +52,14 @@ class TestConnectionCommandTest extends TestCase
     public function test_connection_command_respects_timeout_option()
     {
         $startTime = microtime(true);
-        
+
         Artisan::call('themepark-booking:test-connection', [
             'provider' => 'redeam',
-            '--timeout' => 1
+            '--timeout' => 1,
         ]);
 
         $duration = microtime(true) - $startTime;
-        
+
         // Should complete quickly due to short timeout
         $this->assertLessThan(10, $duration);
     }
@@ -69,14 +70,14 @@ class TestConnectionCommandTest extends TestCase
         Artisan::call('themepark-booking:test-connection');
 
         $output = Artisan::output();
-        
+
         // Should show provider-specific results
         $this->assertStringContainsString('redeam:', $output);
         $this->assertStringContainsString('smartorder:', $output);
-        
+
         // Should show success/failure status
         $this->assertMatchesRegularExpression('/(SUCCESS|FAILED)/', $output);
-        
+
         // Should provide configuration guidance
         $this->assertStringContainsString('check your configuration', $output);
     }
@@ -86,9 +87,9 @@ class TestConnectionCommandTest extends TestCase
     {
         // Test with missing config (should fail)
         Config::set('themepark-booking.redeam.api_key', null);
-        
+
         $exitCode = Artisan::call('themepark-booking:test-connection', ['provider' => 'redeam']);
-        
+
         // Should return failure exit code
         $this->assertEquals(1, $exitCode);
     }

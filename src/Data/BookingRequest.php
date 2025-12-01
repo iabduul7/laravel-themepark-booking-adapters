@@ -21,7 +21,8 @@ class BookingRequest
         public readonly array $guestInfo = [],
         public readonly array $paymentInfo = [],
         public readonly array $metadata = []
-    ) {}
+    ) {
+    }
 
     public function toArray(): array
     {
@@ -46,7 +47,7 @@ class BookingRequest
     public function toRedeamHoldFormat(): array
     {
         $holdItems = [];
-        
+
         for ($i = 0; $i < $this->quantity; $i++) {
             $holdItems['items'][] = [
                 'productId' => $this->productId,
@@ -54,10 +55,10 @@ class BookingRequest
                 'availabilityId' => $this->availabilityId,
                 'at' => $this->date->toISOString(),
                 'travelerType' => $this->getOption('age_group', 'adult'),
-                'ext' => $this->options
+                'ext' => $this->options,
             ];
         }
-        
+
         return $holdItems;
     }
 
@@ -77,10 +78,10 @@ class BookingRequest
                     'city' => $this->customerInfo['city'] ?? '',
                     'state' => $this->customerInfo['state'] ?? '',
                     'postcode' => $this->customerInfo['postcode'] ?? '',
-                    'country' => $this->customerInfo['country'] ?? 'US'
-                ]
+                    'country' => $this->customerInfo['country'] ?? 'US',
+                ],
             ],
-            'ext' => $this->metadata
+            'ext' => $this->metadata,
         ];
     }
 
@@ -115,17 +116,17 @@ class BookingRequest
 
     public function hasTimeSlot(): bool
     {
-        return !empty($this->timeSlot);
+        return ! empty($this->timeSlot);
     }
 
     public function hasSpecialRequests(): bool
     {
-        return !empty($this->specialRequests);
+        return ! empty($this->specialRequests);
     }
 
     public function hasGuests(): bool
     {
-        return !empty($this->guestInfo);
+        return ! empty($this->guestInfo);
     }
 
     public function getGuestCount(): int
@@ -145,15 +146,15 @@ class BookingRequest
 
     public function isMultiDay(): bool
     {
-        return $this->endDate !== null && !$this->endDate->isSameDay($this->date);
+        return $this->endDate !== null && ! $this->endDate->isSameDay($this->date);
     }
 
     public function getDuration(): int
     {
-        if (!$this->endDate) {
+        if (! $this->endDate) {
             return 1;
         }
-        
+
         return $this->date->diffInDays($this->endDate) + 1;
     }
 }

@@ -4,6 +4,7 @@ namespace iabduul7\ThemeParkBooking\Tests\Unit\Models;
 
 use Carbon\Carbon;
 use Illuminate\Foundation\Testing\RefreshDatabase;
+
 iabduul7\ThemeParkBooking\Models\OrderDetailsUniversal;
 iabduul7\ThemeParkBooking\Tests\TestCase;
 
@@ -35,7 +36,7 @@ class OrderDetailsUniversalTest extends TestCase
     public function it_has_correct_fillable_attributes()
     {
         $orderDetails = new OrderDetailsUniversal();
-        
+
         $expectedFillable = [
             'order_id',
             'product_id',
@@ -52,7 +53,7 @@ class OrderDetailsUniversalTest extends TestCase
             'confirmed_at',
             'cancelled_at',
         ];
-        
+
         $this->assertEquals($expectedFillable, $orderDetails->getFillable());
     }
 
@@ -102,7 +103,7 @@ class OrderDetailsUniversalTest extends TestCase
 
         $this->assertTrue($confirmed->isConfirmed());
         $this->assertFalse($confirmed->isPending());
-        
+
         $this->assertTrue($cancelled->isCancelled());
         $this->assertFalse($cancelled->isConfirmed());
     }
@@ -116,17 +117,17 @@ class OrderDetailsUniversalTest extends TestCase
                 'barcode' => '123456789',
                 'product_name' => 'Universal Studios 1-Day',
                 'guest_name' => 'John Doe',
-                'visit_date' => '2024-12-25'
+                'visit_date' => '2024-12-25',
             ],
             [
                 'ticket_id' => 'TKT002',
                 'barcode' => '987654321',
                 'product_name' => 'Universal Studios 1-Day',
                 'guest_name' => 'Jane Doe',
-                'visit_date' => '2024-12-25'
-            ]
+                'visit_date' => '2024-12-25',
+            ],
         ];
-        
+
         $orderDetails = OrderDetailsUniversal::create([
             'order_id' => 1,
             'status' => 'confirmed',
@@ -167,9 +168,9 @@ class OrderDetailsUniversalTest extends TestCase
                 'ticket_id' => 'TKT002',
                 'barcode' => '987654321',
                 'guest_name' => 'Jane Doe',
-            ]
+            ],
         ];
-        
+
         $orderDetails = OrderDetailsUniversal::create([
             'order_id' => 1,
             'status' => 'confirmed',
@@ -177,11 +178,11 @@ class OrderDetailsUniversalTest extends TestCase
         ]);
 
         $ticket = $orderDetails->getTicketById('TKT001');
-        
+
         $this->assertIsArray($ticket);
         $this->assertEquals('TKT001', $ticket['ticket_id']);
         $this->assertEquals('John Doe', $ticket['guest_name']);
-        
+
         $nonExistentTicket = $orderDetails->getTicketById('TKT999');
         $this->assertNull($nonExistentTicket);
     }
@@ -194,30 +195,30 @@ class OrderDetailsUniversalTest extends TestCase
             'status' => 'confirmed',
             'guest_details' => ['primary_guest' => 'John Doe'],
             'tickets_data' => [
-                ['ticket_id' => 'TKT001', 'guest_name' => 'Jane Smith']
+                ['ticket_id' => 'TKT001', 'guest_name' => 'Jane Smith'],
             ],
         ]);
 
         // Should return from guest_details first
         $this->assertEquals('John Doe', $orderDetails->getPrimaryGuestName());
-        
+
         // Test fallback to first ticket
         $orderDetailsNoGuest = OrderDetailsUniversal::create([
             'order_id' => 2,
             'status' => 'confirmed',
             'tickets_data' => [
-                ['ticket_id' => 'TKT002', 'guest_name' => 'Bob Wilson']
+                ['ticket_id' => 'TKT002', 'guest_name' => 'Bob Wilson'],
             ],
         ]);
-        
+
         $this->assertEquals('Bob Wilson', $orderDetailsNoGuest->getPrimaryGuestName());
-        
+
         // Test when no guest data available
         $orderDetailsEmpty = OrderDetailsUniversal::create([
             'order_id' => 3,
             'status' => 'pending',
         ]);
-        
+
         $this->assertNull($orderDetailsEmpty->getPrimaryGuestName());
     }
 }

@@ -2,11 +2,11 @@
 
 namespace iabduul7\ThemeParkBooking\Models;
 
+use Illuminate\Contracts\Mail\Attachable;
+use Illuminate\Database\Eloquent\Concerns\HasTimestamps;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\SoftDeletes;
-use Illuminate\Database\Eloquent\Concerns\HasTimestamps;
-use Illuminate\Contracts\Mail\Attachable;
 use Illuminate\Mail\Attachment;
 use Illuminate\Support\Arr;
 
@@ -75,12 +75,12 @@ class OrderDetailsUniversal extends Model implements Attachable
      */
     public function getHasCreatedTicketResponsesAttribute(): bool
     {
-        if (!$this->booking_data) {
+        if (! $this->booking_data) {
             return false;
         }
 
         return Arr::has($this->booking_data, 'createdTicketResponses') &&
-               !empty($this->booking_data['createdTicketResponses']);
+               ! empty($this->booking_data['createdTicketResponses']);
     }
 
     /**
@@ -88,13 +88,13 @@ class OrderDetailsUniversal extends Model implements Attachable
      */
     public function getBookingStatusAttribute(): ?string
     {
-        if (!$this->booking_data) {
+        if (! $this->booking_data) {
             return $this->status;
         }
 
         // Check various status fields in booking data
-        return $this->booking_data['status'] ?? 
-               $this->booking_data['orderStatus'] ?? 
+        return $this->booking_data['status'] ??
+               $this->booking_data['orderStatus'] ??
                $this->status;
     }
 
@@ -103,11 +103,12 @@ class OrderDetailsUniversal extends Model implements Attachable
      */
     public function getTicketCountAttribute(): int
     {
-        if (!$this->has_created_ticket_responses) {
+        if (! $this->has_created_ticket_responses) {
             return 0;
         }
 
         $tickets = $this->booking_data['createdTicketResponses'] ?? [];
+
         return count($tickets);
     }
 
@@ -116,7 +117,7 @@ class OrderDetailsUniversal extends Model implements Attachable
      */
     public function getCreatedTicketResponses(): array
     {
-        if (!$this->has_created_ticket_responses) {
+        if (! $this->has_created_ticket_responses) {
             return [];
         }
 
@@ -128,7 +129,7 @@ class OrderDetailsUniversal extends Model implements Attachable
      */
     public function getGalaxyOrderDetails(): array
     {
-        if (!$this->booking_data) {
+        if (! $this->booking_data) {
             return [];
         }
 
@@ -164,6 +165,7 @@ class OrderDetailsUniversal extends Model implements Attachable
     public function isConfirmed(): bool
     {
         $status = strtolower($this->booking_status ?? '');
+
         return in_array($status, ['confirmed', 'booked', 'completed', 'success']);
     }
 
@@ -173,6 +175,7 @@ class OrderDetailsUniversal extends Model implements Attachable
     public function isCancelled(): bool
     {
         $status = strtolower($this->booking_status ?? '');
+
         return in_array($status, ['cancelled', 'canceled', 'failed']);
     }
 
@@ -182,6 +185,7 @@ class OrderDetailsUniversal extends Model implements Attachable
     public function isPending(): bool
     {
         $status = strtolower($this->booking_status ?? '');
+
         return in_array($status, ['pending', 'processing', 'submitted']);
     }
 
@@ -214,6 +218,7 @@ class OrderDetailsUniversal extends Model implements Attachable
     {
         // This will need to be configured to point to the application's Order model
         $orderModel = config('themepark-booking.order_model', 'App\Models\Order');
+
         return $this->belongsTo($orderModel);
     }
 

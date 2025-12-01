@@ -2,9 +2,9 @@
 
 namespace iabduul7\ThemeParkBooking\Tests;
 
+use iabduul7\ThemeParkBooking\ThemeParkBookingServiceProvider;
 use Illuminate\Database\Eloquent\Factories\Factory;
 use Illuminate\Foundation\Testing\DatabaseTransactions;
-use iabduul7\ThemeParkBooking\ThemeParkBookingServiceProvider;
 use Orchestra\Testbench\TestCase as Orchestra;
 
 class TestCase extends Orchestra
@@ -54,7 +54,7 @@ class TestCase extends Orchestra
                 'enabled' => true,
             ],
         ]);
-        
+
         config()->set('themepark-booking.smartorder', [
             'base_url' => 'https://QACorpAPI.ucdp.net',
             'customer_id' => '134853',
@@ -78,7 +78,7 @@ class TestCase extends Orchestra
         return [
             'status' => $status,
             'data' => $data,
-            'headers' => ['Content-Type' => 'application/json']
+            'headers' => ['Content-Type' => 'application/json'],
         ];
     }
 
@@ -98,9 +98,9 @@ class TestCase extends Orchestra
                         'id' => 'adult',
                         'name' => 'Adult',
                         'price' => 109.00,
-                        'currency' => 'USD'
-                    ]
-                ]
+                        'currency' => 'USD',
+                    ],
+                ],
             ];
         }
 
@@ -113,9 +113,9 @@ class TestCase extends Orchestra
                 [
                     'PriceID' => 'adult',
                     'BasePrice' => 109.00,
-                    'Currency' => 'USD'
-                ]
-            ]
+                    'Currency' => 'USD',
+                ],
+            ],
         ];
     }
 
@@ -132,9 +132,9 @@ class TestCase extends Orchestra
                 'voucher_url' => 'https://vouchers.redeam.io/voucher_123.pdf',
                 'ext' => [
                     'supplier' => [
-                        'reference' => 'SUPPLIER_REF_123'
-                    ]
-                ]
+                        'reference' => 'SUPPLIER_REF_123',
+                    ],
+                ],
             ];
         }
 
@@ -149,9 +149,9 @@ class TestCase extends Orchestra
                     'Barcode' => '123456789',
                     'ProductName' => 'Universal Studios 1-Day',
                     'GuestName' => 'John Doe',
-                    'VisitDate' => '2024-12-25'
-                ]
-            ]
+                    'VisitDate' => '2024-12-25',
+                ],
+            ],
         ];
     }
 
@@ -169,7 +169,7 @@ class TestCase extends Orchestra
      */
     protected function createOrderDetails(string $type, array $attributes = []): \Illuminate\Database\Eloquent\Model
     {
-        $modelClass = $type === 'redeam' 
+        $modelClass = $type === 'redeam'
             ? \iabduul7\ThemeParkBooking\Models\OrderDetailsRedeam::class
             : \iabduul7\ThemeParkBooking\Models\OrderDetailsUniversal::class;
 

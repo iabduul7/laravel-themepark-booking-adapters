@@ -3,6 +3,7 @@
 namespace iabduul7\ThemeParkBooking\Adapters;
 
 use Carbon\Carbon;
+use iabduul7\LaravelThemeparkBookingAdapters\Http\RedeamHttpClient;
 use iabduul7\ThemeParkBooking\Data\BookingRequest;
 use iabduul7\ThemeParkBooking\Data\BookingResponse;
 use iabduul7\ThemeParkBooking\Data\Product;
@@ -11,7 +12,6 @@ use iabduul7\ThemeParkBooking\Data\VoucherData;
 use iabduul7\ThemeParkBooking\Exceptions\AdapterException;
 use iabduul7\ThemeParkBooking\Exceptions\BookingException;
 use iabduul7\ThemeParkBooking\Exceptions\ConfigurationException;
-use iabduul7\LaravelThemeparkBookingAdapters\Http\RedeamHttpClient;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\Log;
@@ -35,21 +35,23 @@ class RedeamAdapter extends BaseAdapter
         // First try to use the new independent HTTP client
         try {
             $this->initializeIndependentClient();
+
             return;
         } catch (\Exception $e) {
             Log::info('Failed to initialize independent Redeam client, falling back to legacy client', [
                 'error' => $e->getMessage(),
-                'park_type' => $this->parkType
+                'park_type' => $this->parkType,
             ]);
         }
 
         // Fallback to legacy client for backward compatibility
-        $clientClass = $this->parkType === 'disney' 
+        $clientClass = $this->parkType === 'disney'
             ? '\CodeCreatives\LaravelRedeam\LaravelRedeamForWaltDisney'
             : '\CodeCreatives\LaravelRedeam\LaravelRedeamForUnitedParks';
 
         if (class_exists($clientClass)) {
             $this->client = app($clientClass);
+
             return;
         }
 
@@ -66,7 +68,7 @@ class RedeamAdapter extends BaseAdapter
         $apiSecret = $this->getConfig('api_secret');
         $timeout = $this->getConfig('timeout', 600);
 
-        if (!$apiKey || !$apiSecret) {
+        if (! $apiKey || ! $apiSecret) {
             throw new ConfigurationException('api_key and api_secret are required for independent Redeam client');
         }
 
@@ -86,26 +88,29 @@ class RedeamAdapter extends BaseAdapter
         $parkType = $this->parkType;
         $httpClient = $this->httpClient;
         $supplierId = $this->getConfig('supplier_id');
-        
-        return new class($httpClient, $parkType, $supplierId) {
+
+        return new class ($httpClient, $parkType, $supplierId) {
             public function __construct(
                 private RedeamHttpClient $httpClient,
                 private string $parkType,
                 private ?string $supplierId
-            ) {}
-            
+            ) {
+            }
+
             public function getAllProducts(array $parameters = []): array
             {
                 if ($this->parkType === 'disney' && $this->supplierId) {
                     $response = $this->httpClient->get("suppliers/{$this->supplierId}/products", $parameters);
+
                     return $response['products'] ?? [];
                 }
-                
+
                 // For United Parks or when no supplier_id
                 $response = $this->httpClient->get('suppliers', $parameters);
+
                 return $response['suppliers'] ?? [];
             }
-            
+
             public function checkAvailabilities(string $productId, string $startDate, string $endDate, array $parameters = []): array
             {
                 if ($this->parkType === 'disney' && $this->supplierId) {
@@ -114,61 +119,61 @@ class RedeamAdapter extends BaseAdapter
                         'to' => $endDate,
                     ], $parameters));
                 }
-                
+
                 // For United Parks - first parameter is supplierId
                 $supplierId = $productId; // In United Parks, first param is supplierId
                 $actualProductId = $startDate; // Second param is productId
                 $actualStartDate = $endDate; // Third param is startDate
                 $actualEndDate = $parameters[0] ?? $endDate; // Fourth param is endDate
-                
+
                 return $this->httpClient->get("suppliers/{$supplierId}/products/{$actualProductId}/availability", [
                     'from' => $actualStartDate,
                     'to' => $actualEndDate,
                 ]);
             }
-            
+
             public function createNewHold(array $holdData): array
             {
                 if ($this->supplierId) {
                     return $this->httpClient->post("suppliers/{$this->supplierId}/holds", $holdData);
                 }
-                
+
                 return $this->httpClient->post('holds', $holdData);
             }
-            
+
             public function getHold(string $holdId): array
             {
                 if ($this->supplierId) {
                     return $this->httpClient->get("suppliers/{$this->supplierId}/holds/{$holdId}");
                 }
-                
+
                 return $this->httpClient->get("holds/{$holdId}");
             }
-            
+
             public function createNewBooking(array $bookingData): array
             {
                 if ($this->supplierId) {
                     return $this->httpClient->post("suppliers/{$this->supplierId}/bookings", $bookingData);
                 }
-                
+
                 return $this->httpClient->post('bookings', $bookingData);
             }
-            
+
             public function getBooking(string $bookingId): array
             {
                 if ($this->supplierId) {
                     return $this->httpClient->get("suppliers/{$this->supplierId}/bookings/{$bookingId}");
                 }
-                
+
                 return $this->httpClient->get("bookings/{$bookingId}");
             }
-            
+
             public function deleteBooking(string $bookingId): array
             {
                 if ($this->supplierId) {
                     return $this->httpClient->delete("suppliers/{$this->supplierId}/bookings/{$bookingId}");
                 }
-                
+
                 return $this->httpClient->delete("bookings/{$bookingId}");
             }
         };
@@ -199,7 +204,7 @@ class RedeamAdapter extends BaseAdapter
     protected function getRequiredConfigKeys(): array
     {
         $baseKeys = ['api_key', 'environment'];
-        
+
         if ($this->parkType === 'disney') {
             $baseKeys[] = 'supplier_id';
         }
@@ -211,7 +216,7 @@ class RedeamAdapter extends BaseAdapter
     {
         // Test connection by checking availability for a known product
         $testProductId = $this->getConfig('test_product_id');
-        if (!$testProductId) {
+        if (! $testProductId) {
             return true; // Skip test if no test product configured
         }
 
@@ -221,8 +226,8 @@ class RedeamAdapter extends BaseAdapter
                 Carbon::now()->format('Y-m-d'),
                 Carbon::now()->addDay()->format('Y-m-d')
             );
-            
-            return !isset($result['error']);
+
+            return ! isset($result['error']);
         } catch (\Exception $e) {
             return false;
         }
@@ -239,7 +244,7 @@ class RedeamAdapter extends BaseAdapter
             // For Redeam, we would typically need to call their product catalog endpoint
             // This is a placeholder - the actual implementation depends on Redeam's API
             $products = $this->fetchProductCatalog();
-            
+
             $syncedCount = 0;
             $skippedCount = 0;
             $failedCount = 0;
@@ -248,11 +253,11 @@ class RedeamAdapter extends BaseAdapter
             foreach ($products as $productData) {
                 try {
                     $product = $this->transformProductData($productData);
-                    
+
                     // Here you would save to your local database
                     // This is application-specific logic
                     $syncedCount++;
-                    
+
                 } catch (\Exception $e) {
                     $failedCount++;
                     Log::warning("Failed to sync product", [
@@ -284,6 +289,7 @@ class RedeamAdapter extends BaseAdapter
 
         } catch (\Exception $e) {
             $this->logError('sync_products', $e);
+
             return ProductSyncResult::failure([$e->getMessage()]);
         }
     }
@@ -326,7 +332,7 @@ class RedeamAdapter extends BaseAdapter
 
             foreach ($availabilities as $rateId => $rateData) {
                 $availability = Arr::get($rateData, 'availability', []);
-                
+
                 foreach ($availability as $slot) {
                     if (Carbon::parse($slot['start'])->format('Y-m-d') === $date) {
                         $timeSlots->push([
@@ -346,6 +352,7 @@ class RedeamAdapter extends BaseAdapter
                 'product_id' => $productId,
                 'date' => $date,
             ]);
+
             throw new AdapterException("Failed to get time slots: {$e->getMessage()}");
         }
     }
@@ -367,11 +374,11 @@ class RedeamAdapter extends BaseAdapter
 
             foreach ($availabilities as $rateData) {
                 $availability = Arr::get($rateData, 'availability', []);
-                
+
                 foreach ($availability as $slot) {
                     $slotDate = Carbon::parse($slot['start'])->format('Y-m-d');
                     $slotTime = Carbon::parse($slot['start'])->format('H:i');
-                    
+
                     if ($slotDate === $date && ($time === null || $slotTime === $time)) {
                         return $slot['capacity'] >= $quantity;
                     }
@@ -387,6 +394,7 @@ class RedeamAdapter extends BaseAdapter
                 'time' => $time,
                 'quantity' => $quantity,
             ]);
+
             return false;
         }
     }
@@ -425,6 +433,7 @@ class RedeamAdapter extends BaseAdapter
                 'date' => $date,
                 'options' => $options,
             ]);
+
             throw new AdapterException("Failed to get pricing: {$e->getMessage()}");
         }
     }
@@ -463,6 +472,7 @@ class RedeamAdapter extends BaseAdapter
                 'product_id' => $request->productId,
                 'date' => $request->date->format('Y-m-d'),
             ]);
+
             return BookingResponse::error($e->getMessage());
         }
     }
@@ -471,13 +481,13 @@ class RedeamAdapter extends BaseAdapter
     {
         try {
             // Verify hold is still valid
-            if (!$this->verifyHold($reservationId)) {
+            if (! $this->verifyHold($reservationId)) {
                 throw new BookingException('Reservation has expired');
             }
 
             // Create booking data from hold
             $bookingData = $this->buildBookingDataFromHold($reservationId, $paymentData);
-            
+
             $result = $this->client->createNewBooking(['booking' => $bookingData]);
 
             if (isset($result['error'])) {
@@ -501,6 +511,7 @@ class RedeamAdapter extends BaseAdapter
             $this->logError('confirm_booking', $e, [
                 'reservation_id' => $reservationId,
             ]);
+
             return BookingResponse::error($e->getMessage());
         }
     }
@@ -527,6 +538,7 @@ class RedeamAdapter extends BaseAdapter
                 'booking_id' => $bookingId,
                 'reason' => $reason,
             ]);
+
             return BookingResponse::error($e->getMessage());
         }
     }
@@ -541,7 +553,7 @@ class RedeamAdapter extends BaseAdapter
             }
 
             $booking = Arr::get($result, 'booking');
-            if (!$booking) {
+            if (! $booking) {
                 return null;
             }
 
@@ -558,6 +570,7 @@ class RedeamAdapter extends BaseAdapter
             $this->logError('get_booking', $e, [
                 'booking_id' => $bookingId,
             ]);
+
             return null;
         }
     }
@@ -566,7 +579,7 @@ class RedeamAdapter extends BaseAdapter
     {
         try {
             $booking = $this->getBooking($bookingId);
-            if (!$booking) {
+            if (! $booking) {
                 throw new AdapterException("Booking not found: {$bookingId}");
             }
 
@@ -597,6 +610,7 @@ class RedeamAdapter extends BaseAdapter
             $this->logError('generate_voucher', $e, [
                 'booking_id' => $bookingId,
             ]);
+
             throw new AdapterException("Failed to generate voucher: {$e->getMessage()}");
         }
     }
@@ -613,7 +627,7 @@ class RedeamAdapter extends BaseAdapter
 
         // For United Parks, we need supplier ID
         $supplierId = $this->getConfig('supplier_id');
-        if (!$supplierId) {
+        if (! $supplierId) {
             throw new ConfigurationException('supplier_id is required for United Parks');
         }
 
@@ -629,9 +643,9 @@ class RedeamAdapter extends BaseAdapter
     {
         // This method would transform the BookingRequest into Redeam's hold format
         // Implementation depends on the specific requirements for each park type
-        
+
         $holdItems = [];
-        
+
         // Basic structure - would need to be enhanced based on actual requirements
         $holdItems['items'][] = [
             'productId' => $request->productId,
@@ -657,12 +671,13 @@ class RedeamAdapter extends BaseAdapter
     {
         try {
             $result = $this->client->getHold($holdId);
-            
+
             if (isset($result['error'])) {
                 return false;
             }
 
             $expires = Arr::get($result, 'hold.expires');
+
             return Carbon::parse($expires)->isFuture();
 
         } catch (\Exception $e) {

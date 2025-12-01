@@ -2,13 +2,13 @@
 
 namespace iabduul7\ThemeParkBooking\Models;
 
+use Carbon\Carbon;
+use Illuminate\Contracts\Mail\Attachable;
+use Illuminate\Database\Eloquent\Concerns\HasTimestamps;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\SoftDeletes;
-use Illuminate\Database\Eloquent\Concerns\HasTimestamps;
-use Illuminate\Contracts\Mail\Attachable;
 use Illuminate\Mail\Attachment;
-use Carbon\Carbon;
 
 class OrderDetailsRedeam extends Model implements Attachable
 {
@@ -80,7 +80,7 @@ class OrderDetailsRedeam extends Model implements Attachable
      */
     public function getIsDisneyAttribute(): bool
     {
-        return $this->supplier_type === 'disney' || 
+        return $this->supplier_type === 'disney' ||
                str_contains(strtolower($this->supplier_type ?? ''), 'disney');
     }
 
@@ -89,7 +89,7 @@ class OrderDetailsRedeam extends Model implements Attachable
      */
     public function getIsUnitedParksAttribute(): bool
     {
-        return $this->supplier_type === 'united_parks' || 
+        return $this->supplier_type === 'united_parks' ||
                str_contains(strtolower($this->supplier_type ?? ''), 'united');
     }
 
@@ -98,7 +98,7 @@ class OrderDetailsRedeam extends Model implements Attachable
      */
     public function getIsHoldExpiredAttribute(): bool
     {
-        if (!$this->hold_expires_at) {
+        if (! $this->hold_expires_at) {
             return false;
         }
 
@@ -110,7 +110,7 @@ class OrderDetailsRedeam extends Model implements Attachable
      */
     public function getBookingStatusAttribute(): ?string
     {
-        if (!$this->booking_data) {
+        if (! $this->booking_data) {
             return $this->status;
         }
 
@@ -122,7 +122,7 @@ class OrderDetailsRedeam extends Model implements Attachable
      */
     public function getBookingTimeline(): array
     {
-        if (!$this->booking_data) {
+        if (! $this->booking_data) {
             return [];
         }
 
@@ -138,7 +138,7 @@ class OrderDetailsRedeam extends Model implements Attachable
             return $this->supplier_reference;
         }
 
-        if (!$this->booking_data) {
+        if (! $this->booking_data) {
             return null;
         }
 
@@ -150,7 +150,7 @@ class OrderDetailsRedeam extends Model implements Attachable
      */
     public function getConfirmationDetails(): array
     {
-        if (!$this->booking_data) {
+        if (! $this->booking_data) {
             return [];
         }
 
@@ -170,6 +170,7 @@ class OrderDetailsRedeam extends Model implements Attachable
     public function isConfirmed(): bool
     {
         $status = strtolower($this->booking_status ?? '');
+
         return in_array($status, ['confirmed', 'booked', 'completed']);
     }
 
@@ -179,6 +180,7 @@ class OrderDetailsRedeam extends Model implements Attachable
     public function isCancelled(): bool
     {
         $status = strtolower($this->booking_status ?? '');
+
         return in_array($status, ['cancelled', 'canceled']);
     }
 
@@ -187,7 +189,7 @@ class OrderDetailsRedeam extends Model implements Attachable
      */
     public function isOnHold(): bool
     {
-        return !empty($this->hold_id) && !$this->is_hold_expired;
+        return ! empty($this->hold_id) && ! $this->is_hold_expired;
     }
 
     /**
@@ -197,6 +199,7 @@ class OrderDetailsRedeam extends Model implements Attachable
     {
         // This will need to be configured to point to the application's Order model
         $orderModel = config('themepark-booking.order_model', 'App\Models\Order');
+
         return $this->belongsTo($orderModel);
     }
 

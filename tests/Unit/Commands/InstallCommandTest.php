@@ -5,6 +5,7 @@ namespace iabduul7\ThemeParkBooking\Tests\Unit\Commands;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Support\Facades\Artisan;
 use Illuminate\Support\Facades\File;
+
 iabduul7\ThemeParkBooking\Tests\TestCase;
 
 class InstallCommandTest extends TestCase
@@ -22,7 +23,7 @@ class InstallCommandTest extends TestCase
         Artisan::call('themepark-booking:install', ['--no-config' => false]);
 
         $output = Artisan::output();
-        
+
         $this->assertStringContainsString('Installing Theme Park Booking Adapters Package', $output);
         $this->assertStringContainsString('Publishing configuration files', $output);
     }
@@ -33,10 +34,10 @@ class InstallCommandTest extends TestCase
         Artisan::call('themepark-booking:install', ['--migrate' => true]);
 
         $output = Artisan::output();
-        
+
         $this->assertStringContainsString('Running database migrations', $output);
         $this->assertStringContainsString('package installed successfully', $output);
-        
+
         // Check that tables exist
         $this->assertTrue(\Schema::hasTable('order_details_redeam'));
         $this->assertTrue(\Schema::hasTable('order_details_universal'));
@@ -48,7 +49,7 @@ class InstallCommandTest extends TestCase
         Artisan::call('themepark-booking:install', ['--no-config' => true]);
 
         $output = Artisan::output();
-        
+
         $this->assertStringNotContainsString('Publishing configuration files', $output);
         $this->assertStringContainsString('package installed successfully', $output);
     }
@@ -59,7 +60,7 @@ class InstallCommandTest extends TestCase
         Artisan::call('themepark-booking:install');
 
         $output = Artisan::output();
-        
+
         $this->assertStringContainsString('Next Steps', $output);
         $this->assertStringContainsString('Configure your API credentials', $output);
         $this->assertStringContainsString('HasThemeParkBookingAttributes trait', $output);
@@ -71,11 +72,11 @@ class InstallCommandTest extends TestCase
     {
         // Simulate migration error by using invalid database
         config(['database.connections.testing.database' => '/invalid/path/database.sqlite']);
-        
+
         Artisan::call('themepark-booking:install', ['--migrate' => true]);
 
         $output = Artisan::output();
-        
+
         // Should still complete installation even if migrations fail
         $this->assertStringContainsString('package installed successfully', $output);
     }

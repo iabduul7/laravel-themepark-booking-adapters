@@ -25,7 +25,7 @@ class AdapterIntegrationTest extends TestCase
         $this->assertInstanceOf(ProductSyncResult::class, $syncResult);
         $this->assertTrue($syncResult->isSuccessful());
         $this->assertGreaterThan(0, $syncResult->totalProcessed);
-        
+
         if ($syncResult->hasErrors()) {
             $this->assertIsArray($syncResult->errors);
             // Log errors for debugging but don't fail the test
@@ -75,14 +75,14 @@ class AdapterIntegrationTest extends TestCase
             'api_key' => 'invalid_key',
             'api_secret' => 'invalid_secret',
             'base_url' => 'https://invalid-url.test',
-            'timeout' => 1 // Very short timeout
+            'timeout' => 1, // Very short timeout
         ];
 
         $adapter = new RedeamAdapter('disney', $invalidConfig);
 
         try {
             $syncResult = $adapter->syncProducts();
-            
+
             // If it doesn't throw an exception, check it failed gracefully
             $this->assertFalse($syncResult->isSuccessful());
             $this->assertTrue($syncResult->hasErrors());
@@ -99,13 +99,13 @@ class AdapterIntegrationTest extends TestCase
             'api_key' => 'test_key',
             'api_secret' => 'test_secret',
             'base_url' => 'https://httpbin.org/delay/5', // Endpoint that delays 5 seconds
-            'timeout' => 2 // 2 second timeout
+            'timeout' => 2, // 2 second timeout
         ];
 
         $adapter = new RedeamAdapter('disney', $config);
 
         $startTime = microtime(true);
-        
+
         try {
             $adapter->syncProducts();
         } catch (\Exception $e) {
@@ -127,11 +127,11 @@ class AdapterIntegrationTest extends TestCase
 
         // Get all products first
         $products = $adapter->getAllProducts();
-        
-        if (!empty($products)) {
+
+        if (! empty($products)) {
             $firstProduct = $products[0];
             $productDetails = $adapter->getProduct($firstProduct['id']);
-            
+
             $this->assertInstanceOf(Product::class, $productDetails);
             $this->assertEquals($firstProduct['id'], $productDetails->id);
             $this->assertNotEmpty($productDetails->name);
@@ -173,10 +173,10 @@ class AdapterIntegrationTest extends TestCase
     {
         // Test missing required configuration
         $this->expectException(\InvalidArgumentException::class);
-        
+
         $invalidConfig = [
             // Missing api_key and api_secret
-            'base_url' => 'https://api.test.com'
+            'base_url' => 'https://api.test.com',
         ];
 
         new RedeamAdapter('disney', $invalidConfig);

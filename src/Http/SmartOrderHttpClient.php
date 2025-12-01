@@ -4,12 +4,9 @@ declare(strict_types=1);
 
 namespace iabduul7\LaravelThemeparkBookingAdapters\Http;
 
-use GuzzleHttp\Client;
 use GuzzleHttp\Exception\GuzzleException;
-use Illuminate\Http\Client\Factory as HttpFactory;
-use Illuminate\Http\Client\Response;
-use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Facades\Cache;
+use Illuminate\Support\Facades\Http;
 
 class SmartOrderHttpClient
 {
@@ -22,7 +19,8 @@ class SmartOrderHttpClient
         private readonly string $clientSecret,
         private readonly int $customerId,
         private readonly int $timeout = 600
-    ) {}
+    ) {
+    }
 
     /**
      * @param array<string, mixed> $parameters
@@ -77,18 +75,20 @@ class SmartOrderHttpClient
         // Try to get from cache first
         $cacheKey = 'smartorder_token_' . md5($this->clientId . $this->customerId);
         $cachedToken = Cache::get($cacheKey);
-        
+
         if ($cachedToken && isset($cachedToken['token'], $cachedToken['expires_at'])) {
             $expiresAt = \Carbon\Carbon::parse($cachedToken['expires_at']);
             if (now()->isBefore($expiresAt)) {
                 $this->accessToken = $cachedToken['token'];
                 $this->tokenExpiresAt = $expiresAt;
+
                 return $this->accessToken;
             }
         }
 
         // Refresh token if not cached or expired
         $this->refreshAccessToken();
+
         return $this->accessToken;
     }
 

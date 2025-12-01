@@ -47,13 +47,15 @@ class SyncProductsCommand extends Command
         try {
             $this->info("📡 Syncing products for adapter: {$adapter}");
 
-            if (!$this->shouldSync($adapter, $force)) {
+            if (! $this->shouldSync($adapter, $force)) {
                 $this->warn("⏭️  Skipping {$adapter} - recent sync exists (use --force to override)");
+
                 return self::SUCCESS;
             }
 
             if ($dryRun) {
                 $this->info("✅ Would sync products for {$adapter}");
+
                 return self::SUCCESS;
             }
 
@@ -61,14 +63,14 @@ class SyncProductsCommand extends Command
 
             if ($result->success) {
                 $this->info("✅ {$adapter}: {$result->getSummary()}");
-                
+
                 if ($result->hasWarnings()) {
                     $this->warn("⚠️  Warnings:");
                     foreach ($result->warnings as $warning) {
                         $this->warn("   • {$warning}");
                     }
                 }
-                
+
                 return self::SUCCESS;
             }
 
@@ -76,7 +78,7 @@ class SyncProductsCommand extends Command
             foreach ($result->errors as $error) {
                 $this->error("   • {$error}");
             }
-            
+
             return self::FAILURE;
 
         } catch (\Exception $e) {
@@ -86,6 +88,7 @@ class SyncProductsCommand extends Command
                 'error' => $e->getMessage(),
                 'trace' => $e->getTraceAsString(),
             ]);
+
             return self::FAILURE;
         }
     }
@@ -93,9 +96,10 @@ class SyncProductsCommand extends Command
     protected function syncAllAdapters(bool $force, bool $dryRun): int
     {
         $adapters = $this->bookingManager->getAvailableAdapters();
-        
+
         if (empty($adapters)) {
             $this->warn('⚠️  No adapters available for sync');
+
             return self::SUCCESS;
         }
 
@@ -110,14 +114,16 @@ class SyncProductsCommand extends Command
                 $this->line(" • Would sync {$adapter}");
                 $results[$adapter] = true;
                 $progressBar->advance();
+
                 continue;
             }
 
             try {
-                if (!$this->shouldSync($adapter, $force)) {
+                if (! $this->shouldSync($adapter, $force)) {
                     $this->line(" • Skipping {$adapter} (recent sync)");
                     $results[$adapter] = true;
                     $progressBar->advance();
+
                     continue;
                 }
 
@@ -143,12 +149,12 @@ class SyncProductsCommand extends Command
 
         // Summary
         $successful = array_filter($results);
-        $failed = array_filter($results, fn($success) => !$success);
+        $failed = array_filter($results, fn ($success) => ! $success);
 
         $this->info("📊 Sync Summary:");
         $this->info("   ✅ Successful: " . count($successful));
-        
-        if (!empty($failed)) {
+
+        if (! empty($failed)) {
             $this->error("   ❌ Failed: " . count($failed));
             foreach (array_keys($failed) as $failedAdapter) {
                 $this->error("      • {$failedAdapter}");
@@ -167,13 +173,14 @@ class SyncProductsCommand extends Command
         try {
             $adapterInstance = $this->bookingManager->getAdapter($adapter);
             $lastSync = $adapterInstance->getLastSyncTimestamp();
-            
-            if (!$lastSync) {
+
+            if (! $lastSync) {
                 return true; // Never synced before
             }
 
             // Don't sync if last sync was within 1 hour
             $hourAgo = time() - 3600;
+
             return $lastSync < $hourAgo;
 
         } catch (\Exception $e) {

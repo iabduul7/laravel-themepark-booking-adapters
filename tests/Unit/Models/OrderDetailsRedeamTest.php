@@ -4,6 +4,7 @@ namespace iabduul7\ThemeParkBooking\Tests\Unit\Models;
 
 use Carbon\Carbon;
 use Illuminate\Foundation\Testing\RefreshDatabase;
+
 iabduul7\ThemeParkBooking\Models\OrderDetailsRedeam;
 iabduul7\ThemeParkBooking\Tests\TestCase;
 
@@ -35,11 +36,11 @@ class OrderDetailsRedeamTest extends TestCase
     public function it_has_correct_fillable_attributes()
     {
         $orderDetails = new OrderDetailsRedeam();
-        
+
         $expectedFillable = [
             'order_id',
             'supplier_type',
-            'supplier_id', 
+            'supplier_id',
             'product_id',
             'product_name',
             'hold_id',
@@ -57,7 +58,7 @@ class OrderDetailsRedeamTest extends TestCase
             'confirmed_at',
             'cancelled_at',
         ];
-        
+
         $this->assertEquals($expectedFillable, $orderDetails->getFillable());
     }
 
@@ -92,9 +93,9 @@ class OrderDetailsRedeamTest extends TestCase
         OrderDetailsRedeam::create(['order_id' => 3, 'supplier_type' => 'disney', 'status' => 'pending']);
 
         $pending = OrderDetailsRedeam::pending()->get();
-        
+
         $this->assertCount(2, $pending);
-        $this->assertTrue($pending->every(fn($order) => $order->status === 'pending'));
+        $this->assertTrue($pending->every(fn ($order) => $order->status === 'pending'));
     }
 
     /** @test */
@@ -104,7 +105,7 @@ class OrderDetailsRedeamTest extends TestCase
         OrderDetailsRedeam::create(['order_id' => 2, 'supplier_type' => 'disney', 'status' => 'pending']);
 
         $confirmed = OrderDetailsRedeam::confirmed()->get();
-        
+
         $this->assertCount(1, $confirmed);
         $this->assertEquals('confirmed', $confirmed->first()->status);
     }
@@ -116,7 +117,7 @@ class OrderDetailsRedeamTest extends TestCase
         OrderDetailsRedeam::create(['order_id' => 2, 'supplier_type' => 'disney', 'status' => 'confirmed']);
 
         $cancelled = OrderDetailsRedeam::cancelled()->get();
-        
+
         $this->assertCount(1, $cancelled);
         $this->assertEquals('cancelled', $cancelled->first()->status);
     }
@@ -128,7 +129,7 @@ class OrderDetailsRedeamTest extends TestCase
         OrderDetailsRedeam::create(['order_id' => 2, 'supplier_type' => 'united_parks', 'status' => 'pending']);
 
         $disney = OrderDetailsRedeam::disney()->get();
-        
+
         $this->assertCount(1, $disney);
         $this->assertEquals('disney', $disney->first()->supplier_type);
     }
@@ -140,7 +141,7 @@ class OrderDetailsRedeamTest extends TestCase
         OrderDetailsRedeam::create(['order_id' => 2, 'supplier_type' => 'united_parks', 'status' => 'pending']);
 
         $unitedParks = OrderDetailsRedeam::unitedParks()->get();
-        
+
         $this->assertCount(1, $unitedParks);
         $this->assertEquals('united_parks', $unitedParks->first()->supplier_type);
     }
@@ -160,10 +161,10 @@ class OrderDetailsRedeamTest extends TestCase
 
         $this->assertTrue($confirmed->isConfirmed());
         $this->assertFalse($confirmed->isPending());
-        
+
         $this->assertTrue($cancelled->isCancelled());
         $this->assertFalse($cancelled->isConfirmed());
-        
+
         $this->assertTrue($onHold->isOnHold());
         $this->assertFalse($onHold->isPending());
     }
@@ -177,14 +178,14 @@ class OrderDetailsRedeamTest extends TestCase
             'status' => 'on_hold',
             'hold_expires_at' => Carbon::now()->subMinutes(5),
         ]);
-        
+
         $validHold = OrderDetailsRedeam::create([
             'order_id' => 2,
-            'supplier_type' => 'disney', 
+            'supplier_type' => 'disney',
             'status' => 'on_hold',
             'hold_expires_at' => Carbon::now()->addMinutes(15),
         ]);
-        
+
         $noHoldExpiry = OrderDetailsRedeam::create([
             'order_id' => 3,
             'supplier_type' => 'disney',
@@ -207,7 +208,7 @@ class OrderDetailsRedeamTest extends TestCase
             'voucher_data' => [
                 'barcode' => '123456789',
                 'qr_code' => 'QR123ABC',
-                'valid_until' => '2024-12-31'
+                'valid_until' => '2024-12-31',
             ],
         ]);
 

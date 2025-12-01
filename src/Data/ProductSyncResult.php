@@ -14,7 +14,8 @@ class ProductSyncResult
         public readonly array $warnings = [],
         public readonly ?int $syncDuration = null,
         public readonly array $metadata = []
-    ) {}
+    ) {
+    }
 
     public static function success(
         int $totalProducts,
@@ -67,12 +68,12 @@ class ProductSyncResult
 
     public function hasErrors(): bool
     {
-        return !empty($this->errors);
+        return ! empty($this->errors);
     }
 
     public function hasWarnings(): bool
     {
-        return !empty($this->warnings);
+        return ! empty($this->warnings);
     }
 
     public function getSuccessRate(): float
@@ -86,7 +87,7 @@ class ProductSyncResult
 
     public function getSummary(): string
     {
-        if (!$this->success) {
+        if (! $this->success) {
             return "Sync failed with " . count($this->errors) . " error(s)";
         }
 
