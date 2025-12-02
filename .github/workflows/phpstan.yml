@@ -4,7 +4,9 @@ on:
   push:
     paths:
       - '**.php'
+      - 'phpstan.neon'
       - 'phpstan.neon.dist'
+      - 'composer.json'
 
 jobs:
   phpstan:
@@ -24,4 +26,4 @@ jobs:
         run: composer install --prefer-dist --no-interaction
 
       - name: Run PHPStan
-        run: composer analyse
+        run: vendor/bin/phpstan analyse -c phpstan.neon
