@@ -183,6 +183,7 @@ jobs:
           composer create-project laravel/laravel test-app
           cd test-app
           composer config repositories.local path ../
+          composer config minimum-stability dev
           composer require "iabduul7/laravel-themepark-booking-adapters:*"
           php artisan themepark-booking:test-connection --timeout=5
 
