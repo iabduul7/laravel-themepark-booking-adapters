@@ -65,7 +65,7 @@
         "test:parallel": "vendor/bin/paratest",
         "format": "vendor/bin/pint",
         "format:check": "vendor/bin/pint --test",
-        "quality": "vendor/bin/pint --test && vendor/bin/phpstan analyse && vendor/bin/pest tests/Unit/ConfigurationTest.php",
+        "quality": "vendor/bin/pint --test && vendor/bin/phpstan analyse && vendor/bin/pest tests/Unit/ConfigurationTest.php tests/Unit/Utils/",
         "quality:fix": "vendor/bin/pint && vendor/bin/pest tests/Unit/ConfigurationTest.php",
         "hooks:install": "npx simple-git-hooks",
         "hooks:uninstall": "git config --unset-all core.hooksPath || true",
