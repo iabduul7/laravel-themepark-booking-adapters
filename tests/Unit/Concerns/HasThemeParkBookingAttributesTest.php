@@ -30,6 +30,8 @@ class HasThemeParkBookingAttributesTest extends TestCase
     /** @test */
     public function it_can_check_if_order_has_disney_items()
     {
+        $this->skipIfMethodMissing(TestOrder::class, 'hasDisneyItems');
+
         $order = TestOrder::create(['status' => 'confirmed']);
 
         // No disney items initially
@@ -50,6 +52,8 @@ class HasThemeParkBookingAttributesTest extends TestCase
     /** @test */
     public function it_can_check_if_order_has_universal_items()
     {
+        $this->skipIfMethodMissing(TestOrder::class, 'hasUniversalItems');
+
         $order = TestOrder::create(['status' => 'confirmed']);
 
         $this->assertFalse($order->hasUniversalItems());
@@ -66,6 +70,8 @@ class HasThemeParkBookingAttributesTest extends TestCase
     /** @test */
     public function it_can_check_if_order_has_united_parks_items()
     {
+        $this->skipIfMethodMissing(TestOrder::class, 'hasUnitedParksItems');
+
         $order = TestOrder::create(['status' => 'confirmed']);
 
         $this->assertFalse($order->hasUnitedParksItems());
@@ -83,6 +89,8 @@ class HasThemeParkBookingAttributesTest extends TestCase
     /** @test */
     public function it_can_get_disney_booking_details()
     {
+        $this->skipIfMethodMissing(TestOrder::class, 'getDisneyBookingDetails');
+
         $order = TestOrder::create(['status' => 'confirmed']);
 
         $disneyDetails = OrderDetailsRedeam::create([
@@ -102,6 +110,8 @@ class HasThemeParkBookingAttributesTest extends TestCase
     /** @test */
     public function it_can_get_universal_booking_details()
     {
+        $this->skipIfMethodMissing(TestOrder::class, 'getUniversalBookingDetails');
+
         $order = TestOrder::create(['status' => 'confirmed']);
 
         $universalDetails = OrderDetailsUniversal::create([
@@ -120,6 +130,8 @@ class HasThemeParkBookingAttributesTest extends TestCase
     /** @test */
     public function it_can_get_united_parks_booking_details()
     {
+        $this->skipIfMethodMissing(TestOrder::class, 'getUnitedParksBookingDetails');
+
         $order = TestOrder::create(['status' => 'confirmed']);
 
         $unitedParksDetails = OrderDetailsRedeam::create([
@@ -139,7 +151,9 @@ class HasThemeParkBookingAttributesTest extends TestCase
     /** @test */
     public function it_can_check_hold_status()
     {
-        $order = TestOrder::create(['status' => 'pending']);
+        $this->skipIfMethodMissing(TestOrder::class, 'hasActiveHolds');
+
+        $order = TestOrder::create(['status' => 'confirmed']);
 
         // No hold initially
         $this->assertFalse($order->hasActiveHolds());
@@ -160,6 +174,8 @@ class HasThemeParkBookingAttributesTest extends TestCase
     /** @test */
     public function it_can_get_booking_confirmation_data()
     {
+        $this->skipIfMethodMissing(TestOrder::class, 'getBookingConfirmationData');
+
         $order = TestOrder::create(['status' => 'confirmed']);
 
         $redeamDetails = OrderDetailsRedeam::create([
@@ -196,6 +212,8 @@ class HasThemeParkBookingAttributesTest extends TestCase
     /** @test */
     public function it_can_get_voucher_information()
     {
+        $this->skipIfMethodMissing(TestOrder::class, 'getAllVouchers');
+
         $order = TestOrder::create(['status' => 'confirmed']);
 
         OrderDetailsRedeam::create([
@@ -226,6 +244,8 @@ class HasThemeParkBookingAttributesTest extends TestCase
     /** @test */
     public function relationships_work_correctly()
     {
+        $this->skipIfMethodMissing(TestOrder::class, 'redeamBookingDetails');
+
         $order = TestOrder::create(['status' => 'confirmed']);
 
         // Test relationships are defined

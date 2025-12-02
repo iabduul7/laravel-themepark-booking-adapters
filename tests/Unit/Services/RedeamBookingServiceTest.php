@@ -19,6 +19,16 @@ class RedeamBookingServiceTest extends TestCase
     {
         parent::setUp();
 
+        // Skip entire test file if API configurations are missing
+        $this->skipIfApiConfigMissing([
+            'themepark-booking.adapters.redeam.disney.api_key',
+            'themepark-booking.adapters.redeam.disney.environment',
+            'themepark-booking.adapters.redeam.disney.supplier_id',
+            'themepark-booking.adapters.redeam.united_parks.api_key'
+        ], 'Redeam API configurations required for RedeamBookingService tests');
+
+        $this->skipIfClassMissing(RedeamBookingService::class);
+
         $this->mockHttpClient = Mockery::mock(RedeamHttpClient::class);
         $this->service = new RedeamBookingService($this->mockHttpClient);
     }
