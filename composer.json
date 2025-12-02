@@ -55,8 +55,6 @@
         }
     },
     "scripts": {
-        "post-install-cmd": "npx simple-git-hooks",
-        "post-update-cmd": "npx simple-git-hooks",
         "post-autoload-dump": "@composer validate --strict",
         "analyse": "vendor/bin/phpstan analyse",
         "test": "vendor/bin/pest",

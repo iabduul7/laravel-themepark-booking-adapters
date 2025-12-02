@@ -293,7 +293,7 @@ composer install
 # Install Node.js dependencies (using pnpm)
 pnpm install
 
-# Install git hooks for code quality enforcement
+# IMPORTANT: Manually install git hooks for code quality enforcement
 pnpm run hooks:install
 ```
 
