@@ -17,9 +17,11 @@ class OrderDetailsUniversalTest extends TestCase
 
         $this->skipIfApiConfigMissing([
             'themepark-booking.adapters.smartorder.api_key',
-            'themepark-booking.adapters.smartorder.api_secret'
+            'themepark-booking.adapters.smartorder.api_secret',
         ]);
-    }    /** @test */
+    }
+
+    /** @test */
     public function it_can_create_order_details_universal_record()
     {
         $orderDetails = OrderDetailsUniversal::create([

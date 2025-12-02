@@ -19,11 +19,11 @@ class SmartOrderHttpClientTest extends TestCase
         parent::setUp();
 
         $this->skipIfClassMissing(SmartOrderHttpClient::class);
-        
+
         // Skip if no API config is set up for testing
         $this->skipIfApiConfigMissing([
             'smartorder.client_username',
-            'smartorder.client_secret'
+            'smartorder.client_secret',
         ], 'SmartOrder API configuration not found');
 
         $this->mockHandler = new MockHandler();

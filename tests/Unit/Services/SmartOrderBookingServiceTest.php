@@ -23,7 +23,7 @@ class SmartOrderBookingServiceTest extends TestCase
         $this->skipIfApiConfigMissing([
             'themepark-booking.adapters.smartorder.api_key',
             'themepark-booking.adapters.smartorder.api_secret',
-            'themepark-booking.adapters.smartorder.client_username'
+            'themepark-booking.adapters.smartorder.client_username',
         ], 'SmartOrder API configurations required for SmartOrderBookingService tests');
 
         $this->skipIfClassMissing(SmartOrderBookingService::class);
@@ -49,7 +49,7 @@ class SmartOrderBookingServiceTest extends TestCase
                     'price' => 109.99,
                     'currency' => 'USD',
                 ],
-            ]
+            ],
         ];
 
         $this->mockHttpClient
