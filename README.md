@@ -1,8 +1,8 @@
 # Laravel Theme Park Booking Adapters
 
 [![Latest Version on Packagist](https://img.shields.io/packagist/v/iabduul7/laravel-themepark-booking-adapters.svg?style=flat-square)](https://packagist.org/packages/iabduul7/laravel-themepark-booking-adapters)
-[![GitHub Tests Action Status](https://img.shields.io/github/actions/workflow/status/iabduul7/laravel-themepark-booking-adapters/run-tests.yml?branch=main&label=tests&style=flat-square)](https://github.com/iabduul7/laravel-themepark-booking-adapters/actions?query=workflow%3Arun-tests+branch%3Amain)
-[![GitHub Code Style Action Status](https://img.shields.io/github/actions/workflow/status/iabduul7/laravel-themepark-booking-adapters/fix-php-code-style-issues.yml?branch=main&label=code%20style&style=flat-square)](https://github.com/iabduul7/laravel-themepark-booking-adapters/actions?query=workflow%3A"Fix+PHP+code+style+issues"+branch%3Amain)
+[![GitHub Tests Action Status](https://img.shields.io/github/actions/workflow/status/iabduul7/laravel-themepark-booking-adapters/tests.yml?branch=main&label=tests&style=flat-square)](https://github.com/iabduul7/laravel-themepark-booking-adapters/actions?query=workflow%3Atests+branch%3Amain)
+[![GitHub Code Style Action Status](https://img.shields.io/github/actions/workflow/status/iabduul7/laravel-themepark-booking-adapters/style-fix.yml?branch=main&label=code%20style&style=flat-square)](https://github.com/iabduul7/laravel-themepark-booking-adapters/actions?query=workflow%3Astyle-fix+branch%3Amain)
 [![Total Downloads](https://img.shields.io/packagist/dt/iabduul7/laravel-themepark-booking-adapters.svg?style=flat-square)](https://packagist.org/packages/iabduul7/laravel-themepark-booking-adapters)
 
 A comprehensive Laravel package providing unified booking adapters for major theme park providers including Disney World (via Redeam), Universal Studios (via SmartOrder), and United Parks. This package provides a clean, consistent interface for handling theme park bookings, managing order details, and processing vouchers.
