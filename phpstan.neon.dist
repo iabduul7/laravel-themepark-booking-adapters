@@ -4,7 +4,6 @@ parameters:
     paths:
         - src
         - tests/Unit/ConfigurationTest.php
-        - tests/Unit/Utils
     excludePaths:
         - src/Providers/*
         - src/Services/RedeamBookingService.php
