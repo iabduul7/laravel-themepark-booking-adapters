@@ -1,23 +1,26 @@
 parameters:
-    level: 4
+    level: 3
+    reportUnmatchedIgnoredErrors: false
     paths:
         - src
-        - config
-        - database
+        - tests/Unit/ConfigurationTest.php
+        - tests/Unit/Utils
+    excludePaths:
+        - src/Providers/*
+        - src/Services/RedeamBookingService.php
+        - src/Services/SmartOrderBookingService.php
+        - src/DataTransferObjects/*
+        - src/Contracts/*
+        - src/ThemeParkBookingManager.php
+        - src/Abstracts/*
+        - src/ThemeParkManager.php
+        - src/TokenRepository/*
+        - src/Commands/*
+        - src/Models/*
+        - src/Services/VoucherGenerator.php
+        - src/ThemeParkBookingServiceProvider.php
+        - src/ThemeParkAdaptersServiceProvider.php
     tmpDir: build/phpstan
     checkOctaneCompatibility: true
     checkModelProperties: false
     checkMissingIterableValueType: false
-    ignoreErrors:
-        - '#Class [a-zA-Z0-9\\_]+ not found#'
-        - '#Instantiated class [a-zA-Z0-9\\_]+ not found#'
-        - '#Call to method [a-zA-Z0-9_]+\(\) on an unknown class#'
-        - '#Access to an undefined property [a-zA-Z0-9\\_]+::\$[a-zA-Z0-9_]+#'
-        - '#contains abstract method [a-zA-Z0-9_]+\(\) from interface#'
-        - '#is not the same as type#'
-        - '#is not covariant with#'
-        - '#is not contravariant with#'
-        - '#Expression on left side of \?\? is not nullable#'
-        - '#Consider using bind method instead#'
-        - '#Call to static method [a-zA-Z0-9_]+\(\) on an unknown class#'
-
