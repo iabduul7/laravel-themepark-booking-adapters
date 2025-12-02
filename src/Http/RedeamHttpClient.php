@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace iabduul7\LaravelThemeparkBookingAdapters\Http;
+namespace iabduul7\ThemeParkBooking\Http;
 
 use GuzzleHttp\Exception\GuzzleException;
 use Illuminate\Support\Facades\Http;
@@ -14,12 +14,12 @@ class RedeamHttpClient
         private readonly string $apiKey,
         private readonly string $apiSecret,
         private readonly int $timeout = 600
-    ) {
-    }
+    ) {}
 
     /**
-     * @param array<string, mixed> $parameters
+     * @param  array<string, mixed>  $parameters
      * @return array<string, mixed>
+     *
      * @throws GuzzleException
      */
     public function get(string $uri, array $parameters = []): array
@@ -33,8 +33,9 @@ class RedeamHttpClient
     }
 
     /**
-     * @param array<string, mixed> $data
+     * @param  array<string, mixed>  $data
      * @return array<string, mixed>
+     *
      * @throws GuzzleException
      */
     public function post(string $uri, array $data = []): array
@@ -48,8 +49,9 @@ class RedeamHttpClient
     }
 
     /**
-     * @param array<string, mixed> $data
+     * @param  array<string, mixed>  $data
      * @return array<string, mixed>
+     *
      * @throws GuzzleException
      */
     public function put(string $uri, array $data = []): array
@@ -63,8 +65,9 @@ class RedeamHttpClient
     }
 
     /**
-     * @param array<string, mixed> $parameters
+     * @param  array<string, mixed>  $parameters
      * @return array<string, mixed>
+     *
      * @throws GuzzleException
      */
     public function delete(string $uri, array $parameters = []): array

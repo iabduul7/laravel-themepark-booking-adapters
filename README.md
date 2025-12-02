@@ -27,6 +27,12 @@ You can install the package via composer:
 composer require iabduul7/laravel-themepark-booking-adapters
 ```
 
+For development work, you'll also need to install Node.js dependencies:
+
+```bash
+pnpm install
+```
+
 You can publish the config file with:
 
 ```bash
@@ -274,6 +280,42 @@ try {
 }
 ```
 
+## Development
+
+### Initial Setup
+
+After cloning the repository, install dependencies and set up git hooks:
+
+```bash
+# Install PHP dependencies
+composer install
+
+# Install Node.js dependencies (using pnpm)
+pnpm install
+
+# IMPORTANT: Manually install git hooks for code quality enforcement
+pnpm run hooks:install
+```
+
+### Git Hooks
+
+This package uses git hooks to maintain code quality:
+
+-   **Pre-commit hook**: Automatically checks PHP code style using Laravel Pint
+-   **Pre-push hook**: Runs tests before pushing to ensure code quality
+
+If you encounter style issues during commit, fix them with:
+
+```bash
+composer format
+```
+
+To uninstall git hooks (if needed):
+
+```bash
+pnpm run hooks:uninstall
+```
+
 ## Testing
 
 Run the tests with:
@@ -311,6 +353,8 @@ Fix code style issues:
 ```bash
 composer format
 ```
+
+**Note**: Code style is automatically enforced via git hooks. Commits will be blocked if style violations are detected.
 
 ## Static Analysis
 

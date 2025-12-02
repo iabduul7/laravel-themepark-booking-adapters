@@ -23,8 +23,7 @@ class Product
         public readonly ?Carbon $availableUntil = null,
         public readonly ?array $metadata = null,
         public readonly ?Carbon $lastUpdated = null
-    ) {
-    }
+    ) {}
 
     public function toArray(): array
     {

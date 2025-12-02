@@ -1,0 +1,33 @@
+{
+    "name": "laravel-themepark-booking-adapters",
+    "version": "1.0.0",
+    "description": "Laravel package for theme park booking adapters",
+    "private": true,
+    "scripts": {
+        "hooks:install": "npx simple-git-hooks",
+        "hooks:uninstall": "git config --unset-all core.hooksPath || true"
+    },
+    "simple-git-hooks": {
+        "pre-commit": ".githooks/pre-commit",
+        "pre-push": ".githooks/pre-push"
+    },
+    "devDependencies": {
+        "simple-git-hooks": "^2.13.1"
+    },
+    "repository": {
+        "type": "git",
+        "url": "git+https://github.com/iabduul7/laravel-themepark-booking-adapters.git"
+    },
+    "keywords": [
+        "laravel",
+        "booking",
+        "theme-park",
+        "adapters"
+    ],
+    "author": "Abdullah",
+    "license": "MIT",
+    "bugs": {
+        "url": "https://github.com/iabduul7/laravel-themepark-booking-adapters/issues"
+    },
+    "homepage": "https://github.com/iabduul7/laravel-themepark-booking-adapters#readme"
+}

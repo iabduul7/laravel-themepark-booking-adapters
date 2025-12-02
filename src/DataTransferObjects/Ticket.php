@@ -14,8 +14,7 @@ class Ticket
         public readonly ?string $validFrom = null,
         public readonly ?string $validUntil = null,
         public readonly array $metadata = [],
-    ) {
-    }
+    ) {}
 
     public function toArray(): array
     {

@@ -51,7 +51,7 @@ class TestConnectionCommand extends Command
     }
 
     /**
-     * Test Redeam API connection
+     * Test Redeam API connection.
      */
     protected function testRedeamConnection(int $timeout): array
     {
@@ -99,7 +99,7 @@ class TestConnectionCommand extends Command
     }
 
     /**
-     * Test SmartOrder API connection
+     * Test SmartOrder API connection.
      */
     protected function testSmartOrderConnection(int $timeout): array
     {
@@ -145,7 +145,7 @@ class TestConnectionCommand extends Command
     }
 
     /**
-     * Display test results
+     * Display test results.
      */
     protected function displayResults(array $results): void
     {

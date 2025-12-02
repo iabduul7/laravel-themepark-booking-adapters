@@ -12,92 +12,92 @@ use Illuminate\Support\Collection;
 interface BookingAdapterInterface
 {
     /**
-     * Get the adapter name/identifier
+     * Get the adapter name/identifier.
      */
     public function getName(): string;
 
     /**
-     * Get the provider name (e.g., 'redeam', 'smartorder')
+     * Get the provider name (e.g., 'redeam', 'smartorder').
      */
     public function getProvider(): string;
 
     /**
-     * Test the connection to the booking service
+     * Test the connection to the booking service.
      */
     public function testConnection(): bool;
 
     /**
-     * Sync products from the remote service
+     * Sync products from the remote service.
      */
     public function syncProducts(): ProductSyncResult;
 
     /**
-     * Get a specific product by its remote ID
+     * Get a specific product by its remote ID.
      */
     public function getProduct(string $remoteId): ?Product;
 
     /**
-     * Search for products using various criteria
+     * Search for products using various criteria.
      */
     public function searchProducts(array $criteria = []): Collection;
 
     /**
-     * Create a booking reservation
+     * Create a booking reservation.
      */
     public function createBooking(BookingRequest $request): BookingResponse;
 
     /**
-     * Confirm a booking reservation
+     * Confirm a booking reservation.
      */
     public function confirmBooking(string $reservationId, array $paymentData = []): BookingResponse;
 
     /**
-     * Cancel a booking
+     * Cancel a booking.
      */
     public function cancelBooking(string $bookingId, string $reason = ''): BookingResponse;
 
     /**
-     * Get booking status/details
+     * Get booking status/details.
      */
     public function getBooking(string $bookingId): ?BookingResponse;
 
     /**
-     * Generate voucher for a confirmed booking
+     * Generate voucher for a confirmed booking.
      */
     public function generateVoucher(string $bookingId): VoucherData;
 
     /**
-     * Get available time slots for a product on a specific date
+     * Get available time slots for a product on a specific date.
      */
     public function getAvailableTimeSlots(string $productId, string $date): Collection;
 
     /**
-     * Check product availability for specific date/time
+     * Check product availability for specific date/time.
      */
-    public function checkAvailability(string $productId, string $date, string $time = null, int $quantity = 1): bool;
+    public function checkAvailability(string $productId, string $date, ?string $time = null, int $quantity = 1): bool;
 
     /**
-     * Get pricing information for a product
+     * Get pricing information for a product.
      */
     public function getPricing(string $productId, string $date, array $options = []): array;
 
     /**
-     * Get the last sync timestamp for this adapter
+     * Get the last sync timestamp for this adapter.
      */
     public function getLastSyncTimestamp(): ?int;
 
     /**
-     * Set the last sync timestamp
+     * Set the last sync timestamp.
      */
     public function setLastSyncTimestamp(int $timestamp): void;
 
     /**
-     * Get adapter-specific configuration
+     * Get adapter-specific configuration.
      */
-    public function getConfig(string $key = null, $default = null);
+    public function getConfig(?string $key = null, $default = null);
 
     /**
-     * Validate adapter configuration
+     * Validate adapter configuration.
      */
     public function validateConfig(): array;
 }

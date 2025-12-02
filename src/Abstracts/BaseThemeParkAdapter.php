@@ -22,12 +22,8 @@ abstract class BaseThemeParkAdapter implements ThemeParkAdapterInterface
     }
 
     /**
-     * Make an HTTP request to the API
+     * Make an HTTP request to the API.
      *
-     * @param string $method
-     * @param string $endpoint
-     * @param array $options
-     * @return ResponseInterface
      * @throws ThemeParkApiException
      */
     protected function makeRequest(string $method, string $endpoint, array $options = []): ResponseInterface
@@ -45,10 +41,8 @@ abstract class BaseThemeParkAdapter implements ThemeParkAdapterInterface
     }
 
     /**
-     * Parse JSON response
+     * Parse JSON response.
      *
-     * @param ResponseInterface $response
-     * @return array
      * @throws ThemeParkApiException
      */
     protected function parseJsonResponse(ResponseInterface $response): array
@@ -64,11 +58,7 @@ abstract class BaseThemeParkAdapter implements ThemeParkAdapterInterface
     }
 
     /**
-     * Get configuration value
-     *
-     * @param string $key
-     * @param mixed $default
-     * @return mixed
+     * Get configuration value.
      */
     protected function getConfig(string $key, mixed $default = null): mixed
     {
@@ -76,10 +66,7 @@ abstract class BaseThemeParkAdapter implements ThemeParkAdapterInterface
     }
 
     /**
-     * Check if configuration has required keys
-     *
-     * @param array $requiredKeys
-     * @return bool
+     * Check if configuration has required keys.
      */
     protected function hasRequiredConfig(array $requiredKeys): bool
     {

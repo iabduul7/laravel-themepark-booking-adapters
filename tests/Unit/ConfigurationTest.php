@@ -2,9 +2,8 @@
 
 namespace iabduul7\ThemeParkBooking\Tests\Unit;
 
+use iabduul7\ThemeParkBooking\Tests\TestCase;
 use Illuminate\Support\Facades\Config;
-
-iabduul7\ThemeParkBooking\Tests\TestCase;
 
 class ConfigurationTest extends TestCase
 {

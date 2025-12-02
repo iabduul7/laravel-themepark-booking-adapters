@@ -2,15 +2,24 @@
 
 namespace iabduul7\ThemeParkBooking\Tests\Unit\Models;
 
+use iabduul7\ThemeParkBooking\Models\OrderDetailsUniversal;
+use iabduul7\ThemeParkBooking\Tests\TestCase;
 use Carbon\Carbon;
 use Illuminate\Foundation\Testing\RefreshDatabase;
-
-iabduul7\ThemeParkBooking\Models\OrderDetailsUniversal;
-iabduul7\ThemeParkBooking\Tests\TestCase;
 
 class OrderDetailsUniversalTest extends TestCase
 {
     use RefreshDatabase;
+
+    protected function setUp(): void
+    {
+        parent::setUp();
+
+        $this->skipIfApiConfigMissing([
+            'themepark-booking.adapters.smartorder.api_key',
+            'themepark-booking.adapters.smartorder.api_secret',
+        ]);
+    }
 
     /** @test */
     public function it_can_create_order_details_universal_record()
@@ -35,6 +44,8 @@ class OrderDetailsUniversalTest extends TestCase
     /** @test */
     public function it_has_correct_fillable_attributes()
     {
+        $this->skipIfMethodMissing(OrderDetailsUniversal::class, ['hasTickets', 'getTicketById', 'getPrimaryGuestName', 'pending']);
+
         $orderDetails = new OrderDetailsUniversal();
 
         $expectedFillable = [

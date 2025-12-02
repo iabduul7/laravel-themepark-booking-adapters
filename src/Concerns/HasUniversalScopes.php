@@ -5,7 +5,7 @@ namespace iabduul7\ThemeParkBooking\Concerns;
 trait HasUniversalScopes
 {
     /**
-     * Scope for Universal promo products
+     * Scope for Universal promo products.
      */
     public function scopeUniversalPromo($query, $negate = false)
     {
@@ -15,7 +15,7 @@ trait HasUniversalScopes
     }
 
     /**
-     * Scope for Universal Express Pass products
+     * Scope for Universal Express Pass products.
      */
     public function scopeUniversalExpressPass($query, $negate = false)
     {
@@ -25,7 +25,7 @@ trait HasUniversalScopes
     }
 
     /**
-     * Scope for Universal dated products
+     * Scope for Universal dated products.
      */
     public function scopeUniversalDated($query, $negate = false)
     {
@@ -35,7 +35,7 @@ trait HasUniversalScopes
     }
 
     /**
-     * Scope for Universal Halloween Horror Nights products
+     * Scope for Universal Halloween Horror Nights products.
      */
     public function scopeUniversalHHN($query, $negate = false)
     {
@@ -45,7 +45,7 @@ trait HasUniversalScopes
     }
 
     /**
-     * Scope for Universal Volcano Bay products
+     * Scope for Universal Volcano Bay products.
      */
     public function scopeUniversalVolcanoBay($query, $negate = false)
     {
@@ -55,7 +55,7 @@ trait HasUniversalScopes
     }
 
     /**
-     * Scope for Universal Islands of Adventure products
+     * Scope for Universal Islands of Adventure products.
      */
     public function scopeUniversalIslandsOfAdventure($query, $negate = false)
     {
@@ -65,7 +65,7 @@ trait HasUniversalScopes
     }
 
     /**
-     * Scope for Universal Studios products
+     * Scope for Universal Studios products.
      */
     public function scopeUniversalStudios($query, $negate = false)
     {
@@ -75,7 +75,7 @@ trait HasUniversalScopes
     }
 
     /**
-     * Scope for Universal multi-day products
+     * Scope for Universal multi-day products.
      */
     public function scopeUniversalMultiDay($query, $negate = false)
     {

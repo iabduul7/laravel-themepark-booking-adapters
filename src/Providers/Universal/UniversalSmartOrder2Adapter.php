@@ -30,7 +30,7 @@ class UniversalSmartOrder2Adapter extends BaseThemeParkAdapter
     }
 
     /**
-     * Get all products (catalog)
+     * Get all products (catalog).
      */
     public function getAllProducts(array $parameters = []): array
     {
@@ -43,7 +43,7 @@ class UniversalSmartOrder2Adapter extends BaseThemeParkAdapter
     }
 
     /**
-     * Get available months for booking (next 12 months)
+     * Get available months for booking (next 12 months).
      */
     public function getAvailableMonths(): array
     {
@@ -58,7 +58,7 @@ class UniversalSmartOrder2Adapter extends BaseThemeParkAdapter
     }
 
     /**
-     * Find events/availability
+     * Find events/availability.
      */
     public function findEvents(array $parameters = []): array
     {
@@ -71,7 +71,7 @@ class UniversalSmartOrder2Adapter extends BaseThemeParkAdapter
     }
 
     /**
-     * Place an order
+     * Place an order.
      */
     public function placeOrder(array $parameters = []): array
     {
@@ -84,7 +84,7 @@ class UniversalSmartOrder2Adapter extends BaseThemeParkAdapter
     }
 
     /**
-     * Get existing order details
+     * Get existing order details.
      */
     public function getExistingOrder(array $parameters = []): array
     {
@@ -97,7 +97,7 @@ class UniversalSmartOrder2Adapter extends BaseThemeParkAdapter
     }
 
     /**
-     * Check if an order can be cancelled
+     * Check if an order can be cancelled.
      */
     public function canCancelOrder(array $parameters = []): bool
     {
@@ -112,7 +112,7 @@ class UniversalSmartOrder2Adapter extends BaseThemeParkAdapter
     }
 
     /**
-     * Cancel an order
+     * Cancel an order.
      */
     public function cancelOrder(array $parameters = []): array
     {
@@ -125,7 +125,7 @@ class UniversalSmartOrder2Adapter extends BaseThemeParkAdapter
     }
 
     /**
-     * Validate API credentials
+     * Validate API credentials.
      */
     public function validateCredentials(): bool
     {
@@ -140,7 +140,7 @@ class UniversalSmartOrder2Adapter extends BaseThemeParkAdapter
     }
 
     /**
-     * Get the provider name
+     * Get the provider name.
      */
     public function getProviderName(): string
     {
@@ -148,7 +148,7 @@ class UniversalSmartOrder2Adapter extends BaseThemeParkAdapter
     }
 
     /**
-     * Get or refresh OAuth token
+     * Get or refresh OAuth token.
      */
     protected function getToken(): string
     {
@@ -164,7 +164,7 @@ class UniversalSmartOrder2Adapter extends BaseThemeParkAdapter
     }
 
     /**
-     * Refresh OAuth token using client credentials
+     * Refresh OAuth token using client credentials.
      */
     protected function refreshToken(): string
     {
@@ -194,7 +194,7 @@ class UniversalSmartOrder2Adapter extends BaseThemeParkAdapter
     }
 
     /**
-     * Get authentication headers with OAuth token
+     * Get authentication headers with OAuth token.
      */
     protected function getAuthHeaders(): array
     {
@@ -208,7 +208,7 @@ class UniversalSmartOrder2Adapter extends BaseThemeParkAdapter
     }
 
     /**
-     * Get customer ID
+     * Get customer ID.
      */
     public function getCustomerId(): int
     {
@@ -216,7 +216,7 @@ class UniversalSmartOrder2Adapter extends BaseThemeParkAdapter
     }
 
     /**
-     * Get approved suffix
+     * Get approved suffix.
      */
     public function getApprovedSuffix(): string
     {

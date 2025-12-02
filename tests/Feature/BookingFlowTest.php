@@ -20,23 +20,29 @@ class BookingFlowTest extends TestCase
     {
         parent::setUp();
 
+        $this->skipIfApiConfigMissing([
+            'themepark-booking.redeam.api_key',
+            'themepark-booking.redeam.disney.api_key',
+            'themepark-booking.redeam.disney.environment',
+            'themepark-booking.redeam.disney.supplier_id',
+            'themepark-booking.smartorder.api_key',
+            'themepark-booking.smartorder.api_secret',
+            'themepark-booking.smartorder.client_username',
+        ], 'API configurations required for booking flow tests');
+
         $this->manager = app(ThemeParkBookingManager::class);
     }
 
     /** @test */
     public function it_can_complete_disney_booking_flow()
     {
-        // Skip if no API credentials configured
-        if (empty(config('themepark-booking.redeam.api_key'))) {
-            $this->markTestSkipped('Redeam API credentials not configured');
-        }
-
         $bookingRequest = new BookingRequest(
             productId: 'disney-magic-kingdom-1day',
-            rateId: 'adult',
-            startDate: Carbon::parse('2024-12-25'),
-            endDate: Carbon::parse('2024-12-25'),
+            date: Carbon::parse('2024-12-25'),
             quantity: 2,
+            customerInfo: [],
+            rateId: 'adult',
+            endDate: Carbon::parse('2024-12-25'),
             guestInfo: [
                 ['name' => 'John Doe', 'age' => 35],
                 ['name' => 'Jane Doe', 'age' => 32],
@@ -98,16 +104,15 @@ class BookingFlowTest extends TestCase
     public function it_can_complete_universal_booking_flow()
     {
         // Skip if no API credentials configured
-        if (empty(config('themepark-booking.smartorder.client_username'))) {
-            $this->markTestSkipped('SmartOrder API credentials not configured');
-        }
+        $this->skipIfApiConfigMissing(['themepark-booking.smartorder.client_username'], 'SmartOrder API credentials not configured');
 
         $bookingRequest = new BookingRequest(
             productId: 'UNIV_STUDIOS_1DAY',
-            rateId: 'adult',
-            startDate: Carbon::parse('2024-12-25'),
-            endDate: Carbon::parse('2024-12-25'),
+            date: Carbon::parse('2024-12-25'),
             quantity: 1,
+            customerInfo: [],
+            rateId: 'adult',
+            endDate: Carbon::parse('2024-12-25'),
             guestInfo: [
                 ['name' => 'John Doe'],
             ]
@@ -149,6 +154,8 @@ class BookingFlowTest extends TestCase
     /** @test */
     public function it_handles_booking_cancellation()
     {
+        $this->skipIfClassMissing('iabduul7\ThemeParkBooking\Services\RedeamBookingService');
+
         // Create a mock booking record
         $orderDetails = OrderDetailsRedeam::create([
             'order_id' => 1,
@@ -188,10 +195,10 @@ class BookingFlowTest extends TestCase
 
         new BookingRequest(
             productId: '',  // Invalid empty product ID
-            rateId: 'adult',
-            startDate: Carbon::now(),
-            endDate: Carbon::now(),
-            quantity: 0  // Invalid zero quantity
+            date: Carbon::now(),
+            quantity: -1,   // Invalid quantity
+            customerInfo: [],
+            rateId: 'adult'
         );
     }
 
@@ -213,6 +220,8 @@ class BookingFlowTest extends TestCase
     /** @test */
     public function it_can_check_booking_status()
     {
+        $this->skipIfClassMissing('iabduul7\ThemeParkBooking\Services\RedeamBookingService');
+
         // Test confirmed booking
         $confirmedBooking = OrderDetailsRedeam::create([
             'order_id' => 1,
@@ -239,6 +248,8 @@ class BookingFlowTest extends TestCase
     /** @test */
     public function it_tracks_booking_timeline()
     {
+        $this->skipIfClassMissing('iabduul7\\ThemeParkBooking\\Services\\RedeamBookingService');
+
         $bookingData = [
             'timeline' => [
                 [

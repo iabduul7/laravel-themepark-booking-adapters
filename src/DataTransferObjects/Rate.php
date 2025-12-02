@@ -10,8 +10,7 @@ class Rate
         public readonly float $price,
         public readonly string $currency,
         public readonly array $metadata = [],
-    ) {
-    }
+    ) {}
 
     public function toArray(): array
     {

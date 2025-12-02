@@ -25,7 +25,6 @@
         "spatie/laravel-package-tools": "^1.15",
         "illuminate/contracts": "^10.0",
         "guzzlehttp/guzzle": "^7.5",
-        "carbon/carbon": "^2.68",
         "ramsey/uuid": "^4.7"
     },
     "require-dev": {
@@ -33,7 +32,7 @@
         "laravel/pint": "^1.13",
         "mockery/mockery": "^1.6",
         "nunomaduro/collision": "^7.0",
-        "nunomaduro/larastan": "^2.0",
+        "larastan/larastan": "^2.0",
         "orchestra/testbench": "^8.0",
         "pestphp/pest": "^2.0",
         "pestphp/pest-plugin-laravel": "^2.0",
@@ -46,8 +45,7 @@
     "autoload": {
         "psr-4": {
             "iabduul7\\ThemeParkBooking\\": "src",
-            "iabduul7\\ThemeParkBooking\\Database\\Factories\\": "database/factories",
-            "iabduul7\\LaravelThemeparkBookingAdapters\\": "src"
+            "iabduul7\\ThemeParkBooking\\Database\\Factories\\": "database/factories"
         }
     },
     "autoload-dev": {
@@ -56,22 +54,21 @@
         }
     },
     "scripts": {
-        "post-install-cmd": "vendor/bin/simple-git-hooks install",
-        "post-update-cmd": "vendor/bin/simple-git-hooks install",
         "post-autoload-dump": "@composer validate --strict",
         "analyse": "vendor/bin/phpstan analyse",
         "test": "vendor/bin/pest",
         "test:unit": "vendor/bin/pest tests/Unit",
         "test:feature": "vendor/bin/pest tests/Feature",
+        "test:implemented": "vendor/bin/pest tests/Unit/ConfigurationTest.php tests/Unit/Commands/ tests/Unit/Data/ tests/Unit/Concerns/",
         "test:coverage": "vendor/bin/pest --coverage",
         "test:coverage-html": "vendor/bin/pest --coverage --coverage-html=build/coverage",
-        "test:parallel": "vendor/bin/paratest",
+        "test:parallel": "vendor/bin/paratest --processes=4 --cache-directory=/tmp/paratest-cache --no-coverage",
         "format": "vendor/bin/pint",
         "format:check": "vendor/bin/pint --test",
-        "quality": "vendor/bin/pint --test && vendor/bin/phpstan analyse && vendor/bin/pest",
-        "quality:fix": "vendor/bin/pint && vendor/bin/pest",
-        "hooks:install": "vendor/bin/simple-git-hooks install",
-        "hooks:uninstall": "vendor/bin/simple-git-hooks uninstall",
+        "quality": "vendor/bin/pint --test && vendor/bin/phpstan analyse && vendor/bin/pest tests/Unit/ConfigurationTest.php",
+        "quality:fix": "vendor/bin/pint && vendor/bin/pest tests/Unit/ConfigurationTest.php",
+        "hooks:install": "npx simple-git-hooks",
+        "hooks:uninstall": "git config --unset-all core.hooksPath || true",
         "refactor": "vendor/bin/rector process"
     },
     "config": {

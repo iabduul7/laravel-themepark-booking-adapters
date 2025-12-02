@@ -31,8 +31,7 @@ class BookingResponse
         public readonly array $metadata = [],
         public readonly ?Carbon $createdAt = null,
         public readonly ?Carbon $updatedAt = null
-    ) {
-    }
+    ) {}
 
     public static function success(array $data): self
     {

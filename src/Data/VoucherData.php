@@ -16,8 +16,7 @@ class VoucherData
         public readonly ?string $downloadUrl = null,
         public readonly array $instructions = [],
         public readonly array $metadata = []
-    ) {
-    }
+    ) {}
 
     public function toArray(): array
     {

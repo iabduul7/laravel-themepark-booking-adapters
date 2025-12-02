@@ -12,8 +12,6 @@ class ThemeParkManager extends Manager
 {
     /**
      * Get the default driver name.
-     *
-     * @return string
      */
     public function getDefaultDriver(): string
     {
@@ -22,8 +20,6 @@ class ThemeParkManager extends Manager
 
     /**
      * Create an instance of the Disney driver.
-     *
-     * @return ThemeParkAdapterInterface
      */
     public function createDisneyDriver(): ThemeParkAdapterInterface
     {
@@ -34,8 +30,6 @@ class ThemeParkManager extends Manager
 
     /**
      * Create an instance of the SeaWorld driver.
-     *
-     * @return ThemeParkAdapterInterface
      */
     public function createSeaworldDriver(): ThemeParkAdapterInterface
     {
@@ -46,8 +40,6 @@ class ThemeParkManager extends Manager
 
     /**
      * Create an instance of the Universal driver.
-     *
-     * @return ThemeParkAdapterInterface
      */
     public function createUniversalDriver(): ThemeParkAdapterInterface
     {
@@ -58,9 +50,6 @@ class ThemeParkManager extends Manager
 
     /**
      * Get a provider instance by name.
-     *
-     * @param string|null $name
-     * @return ThemeParkAdapterInterface
      */
     public function provider(?string $name = null): ThemeParkAdapterInterface
     {

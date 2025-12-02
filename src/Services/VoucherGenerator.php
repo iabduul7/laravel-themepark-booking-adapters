@@ -23,7 +23,7 @@ class VoucherGenerator
     }
 
     /**
-     * Generate a complete voucher with PDF and download capabilities
+     * Generate a complete voucher with PDF and download capabilities.
      */
     public function generateVoucherWithPdf(VoucherData $voucherData, array $options = []): VoucherData
     {
@@ -43,10 +43,10 @@ class VoucherGenerator
 
         // Determine template based on provider
         $template = $this->getTemplate($voucherData, $options);
-        
+
         // Generate PDF
         $pdfPath = $this->generatePDF($voucherData, $template, $options);
-        
+
         // Generate download URL
         $downloadUrl = $this->getDownloadUrl($pdfPath);
 
@@ -70,7 +70,7 @@ class VoucherGenerator
     }
 
     /**
-     * Generate QR code for voucher
+     * Generate QR code for voucher.
      */
     protected function generateQRCode(VoucherData $voucherData): string
     {
@@ -86,25 +86,25 @@ class VoucherGenerator
 
         // Generate QR code image
         $qrCodePath = $this->storeQRCode($qrData, $voucherData->voucherNumber);
-        
+
         return $qrCodePath;
     }
 
     /**
-     * Generate barcode for voucher
+     * Generate barcode for voucher.
      */
     protected function generateBarcode(VoucherData $voucherData): string
     {
         // Generate barcode data - typically the voucher number or booking ID
         $barcodeData = $voucherData->voucherNumber ?: $voucherData->bookingId;
-        
+
         // You might want to use a barcode library here
         // For now, returning the data itself
         return $barcodeData;
     }
 
     /**
-     * Determine which template to use based on provider and options
+     * Determine which template to use based on provider and options.
      */
     protected function getTemplate(VoucherData $voucherData, array $options = []): string
     {
@@ -124,6 +124,7 @@ class VoucherGenerator
                 } elseif ($parkType === 'united_parks') {
                     return 'united-parks.ez-ticket';
                 }
+
                 return 'redeam.default';
 
             case 'smartorder':
@@ -135,7 +136,7 @@ class VoucherGenerator
     }
 
     /**
-     * Generate PDF voucher
+     * Generate PDF voucher.
      */
     protected function generatePDF(VoucherData $voucherData, string $template, array $options = []): string
     {
@@ -155,7 +156,7 @@ class VoucherGenerator
         $templatePath = "{$this->templatesPath}.{$template}";
 
         // Check if view exists
-        if (!View::exists($templatePath)) {
+        if (! View::exists($templatePath)) {
             throw new AdapterException("Voucher template not found: {$templatePath}");
         }
 
@@ -164,17 +165,17 @@ class VoucherGenerator
 
         // Generate PDF
         $pdf = Pdf::loadHTML($html);
-        
+
         // Configure PDF options
         $pdf->setPaper($options['paper_size'] ?? 'letter', $options['orientation'] ?? 'portrait');
-        
+
         if (isset($options['margins'])) {
             $pdf->setOptions(['margins' => $options['margins']]);
         }
 
         // Generate filename and path
         $filename = $this->generatePdfFilename($voucherData);
-        $directory = "vouchers/{$voucherData->metadata['provider'] ?? 'default'}";
+        $directory = "vouchers/{$voucherData->metadata['provider']} ?? 'default'";
         $fullPath = "{$directory}/{$filename}";
 
         // Ensure directory exists
@@ -187,12 +188,12 @@ class VoucherGenerator
     }
 
     /**
-     * Store QR code image
+     * Store QR code image.
      */
     protected function storeQRCode(array $data, string $identifier): string
     {
         $qrCodeContent = json_encode($data);
-        
+
         // Generate QR code image
         $qrCodeImage = QrCode::format('png')
             ->size(200)
@@ -200,16 +201,16 @@ class VoucherGenerator
             ->generate($qrCodeContent);
 
         // Store QR code image
-        $filename = "qr-{$identifier}-" . time() . ".png";
+        $filename = "qr-{$identifier}-" . time() . '.png';
         $path = "vouchers/qr-codes/{$filename}";
-        
+
         Storage::disk($this->storageDisk)->put($path, $qrCodeImage);
 
         return Storage::disk($this->storageDisk)->url($path);
     }
 
     /**
-     * Get QR code image path for PDF inclusion
+     * Get QR code image path for PDF inclusion.
      */
     protected function getQRCodeImagePath(string $qrCodeUrl): string
     {
@@ -218,18 +219,18 @@ class VoucherGenerator
     }
 
     /**
-     * Generate PDF filename
+     * Generate PDF filename.
      */
     protected function generatePdfFilename(VoucherData $voucherData): string
     {
         $customerName = Str::slug($voucherData->getCustomerName());
         $date = Carbon::now()->format('Y-m-d');
-        
+
         return "voucher-{$voucherData->voucherNumber}-{$customerName}-{$date}.pdf";
     }
 
     /**
-     * Get download URL for PDF
+     * Get download URL for PDF.
      */
     protected function getDownloadUrl(string $pdfPath): string
     {
@@ -237,7 +238,7 @@ class VoucherGenerator
     }
 
     /**
-     * Get instructions based on provider and booking details
+     * Get instructions based on provider and booking details.
      */
     protected function getInstructions(VoucherData $voucherData): array
     {
@@ -261,7 +262,7 @@ class VoucherGenerator
     }
 
     /**
-     * Get Disney-specific instructions
+     * Get Disney-specific instructions.
      */
     protected function getDisneyInstructions(VoucherData $voucherData): array
     {
@@ -275,7 +276,7 @@ class VoucherGenerator
     }
 
     /**
-     * Get United Parks instructions
+     * Get United Parks instructions.
      */
     protected function getUnitedParksInstructions(VoucherData $voucherData): array
     {
@@ -289,7 +290,7 @@ class VoucherGenerator
     }
 
     /**
-     * Get Universal Studios instructions
+     * Get Universal Studios instructions.
      */
     protected function getUniversalInstructions(VoucherData $voucherData): array
     {
@@ -303,7 +304,7 @@ class VoucherGenerator
     }
 
     /**
-     * Get default instructions
+     * Get default instructions.
      */
     protected function getDefaultInstructions(VoucherData $voucherData): array
     {
@@ -317,7 +318,7 @@ class VoucherGenerator
     }
 
     /**
-     * Validate voucher data before generation
+     * Validate voucher data before generation.
      */
     protected function validateVoucherData(VoucherData $voucherData): void
     {
@@ -335,16 +336,16 @@ class VoucherGenerator
     }
 
     /**
-     * Get voucher storage statistics
+     * Get voucher storage statistics.
      */
     public function getStorageStats(): array
     {
         $disk = Storage::disk($this->storageDisk);
         $voucherFiles = $disk->files('vouchers');
-        
+
         $totalSize = 0;
         $fileCount = 0;
-        
+
         foreach ($voucherFiles as $file) {
             if ($disk->exists($file)) {
                 $totalSize += $disk->size($file);
@@ -361,20 +362,20 @@ class VoucherGenerator
     }
 
     /**
-     * Cleanup old voucher files
+     * Cleanup old voucher files.
      */
     public function cleanupOldVouchers(int $daysOld = 90): array
     {
         $disk = Storage::disk($this->storageDisk);
         $cutoffDate = Carbon::now()->subDays($daysOld);
-        
+
         $voucherFiles = $disk->files('vouchers');
         $deletedFiles = [];
-        
+
         foreach ($voucherFiles as $file) {
             if ($disk->exists($file)) {
                 $lastModified = Carbon::createFromTimestamp($disk->lastModified($file));
-                
+
                 if ($lastModified->lt($cutoffDate)) {
                     $disk->delete($file);
                     $deletedFiles[] = $file;
