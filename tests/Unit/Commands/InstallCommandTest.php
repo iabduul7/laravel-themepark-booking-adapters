@@ -9,6 +9,16 @@ use Illuminate\Support\Facades\File;
 
 class InstallCommandTest extends TestCase
 {
+    protected function setUp(): void
+    {
+        parent::setUp();
+        
+        $this->skipIfClassMissing('iabduul7\ThemeParkBooking\Commands\InstallCommand');
+        $this->skipIfApiConfigMissing([
+            'themepark-booking.adapters.redeam.disney.api_key',
+            'themepark-booking.adapters.smartorder.api_key'
+        ]);
+    }
     use RefreshDatabase;
 
     /** @test */

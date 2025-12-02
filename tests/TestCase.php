@@ -9,7 +9,7 @@ use Orchestra\Testbench\TestCase as Orchestra;
 
 class TestCase extends Orchestra
 {
-    use DatabaseTransactions;
+    use DatabaseTransactions, SkipsTestsForMissingDependencies;
 
     protected function setUp(): void
     {

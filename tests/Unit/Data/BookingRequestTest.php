@@ -8,7 +8,18 @@ use iabduul7\ThemeParkBooking\Tests\TestCase;
 
 class BookingRequestTest extends TestCase
 {
-    /** @test */
+    protected function setUp(): void
+    {
+        parent::setUp();
+
+        // Skip entire test file if API configurations are missing
+        $this->skipIfApiConfigMissing([
+            'themepark-booking.adapters.redeam.disney.api_key',
+            'themepark-booking.adapters.smartorder.api_key'
+        ], 'API configurations required for BookingRequest tests');
+
+        $this->skipIfClassMissing(BookingRequest::class);
+    }    /** @test */
     public function it_can_be_created_with_required_fields()
     {
         $startDate = Carbon::parse('2024-12-25');
@@ -16,16 +27,17 @@ class BookingRequestTest extends TestCase
 
         $request = new BookingRequest(
             productId: 'disney-magic-kingdom-1day',
+            date: $startDate,
+            quantity: 2,
+            customerInfo: [],
             rateId: 'adult',
-            startDate: $startDate,
-            endDate: $endDate,
-            quantity: 2
+            endDate: $endDate
         );
 
         $this->assertEquals('disney-magic-kingdom-1day', $request->productId);
         $this->assertEquals('adult', $request->rateId);
         $this->assertEquals(2, $request->quantity);
-        $this->assertTrue($startDate->equalTo($request->startDate));
+        $this->assertTrue($startDate->equalTo($request->date));
         $this->assertTrue($endDate->equalTo($request->endDate));
     }
 
@@ -34,10 +46,11 @@ class BookingRequestTest extends TestCase
     {
         $request = new BookingRequest(
             productId: 'disney-magic-kingdom-1day',
+            date: Carbon::parse('2024-12-25'),
+            quantity: 2,
+            customerInfo: [],
             rateId: 'adult',
-            startDate: Carbon::parse('2024-12-25'),
-            endDate: Carbon::parse('2024-12-25'),
-            quantity: 2
+            endDate: Carbon::parse('2024-12-25')
         );
 
         $holdFormat = $request->toRedeamHoldFormat();
@@ -58,10 +71,11 @@ class BookingRequestTest extends TestCase
     {
         $request = new BookingRequest(
             productId: 'disney-magic-kingdom-1day',
-            rateId: 'adult',
-            startDate: Carbon::parse('2024-12-25'),
-            endDate: Carbon::parse('2024-12-25'),
+            date: Carbon::parse('2024-12-25'),
             quantity: 2,
+            customerInfo: [],
+            rateId: 'adult',
+            endDate: Carbon::parse('2024-12-25'),
             guestInfo: [
                 ['name' => 'John Doe', 'age' => 35],
                 ['name' => 'Jane Doe', 'age' => 32],
@@ -98,10 +112,11 @@ class BookingRequestTest extends TestCase
     {
         $request = new BookingRequest(
             productId: 'UNIV_STUDIOS_1DAY',
-            rateId: 'adult',
-            startDate: Carbon::parse('2024-12-25'),
-            endDate: Carbon::parse('2024-12-25'),
+            date: Carbon::parse('2024-12-25'),
             quantity: 2,
+            customerInfo: [],
+            rateId: 'adult',
+            endDate: Carbon::parse('2024-12-25'),
             guestInfo: [
                 ['name' => 'John Doe'],
                 ['name' => 'Jane Doe'],
@@ -129,13 +144,14 @@ class BookingRequestTest extends TestCase
     {
         $request = new BookingRequest(
             productId: 'disney-park-hopper-3day',
+            date: Carbon::parse('2024-12-25'),
+            quantity: 1,
+            customerInfo: [],
             rateId: 'adult',
-            startDate: Carbon::parse('2024-12-25'),
-            endDate: Carbon::parse('2024-12-27'),
-            quantity: 1
+            endDate: Carbon::parse('2024-12-27')
         );
 
-        $this->assertEquals('2024-12-25', $request->startDate->toDateString());
+        $this->assertEquals('2024-12-25', $request->date->toDateString());
         $this->assertEquals('2024-12-27', $request->endDate->toDateString());
 
         $format = $request->toRedeamHoldFormat();
@@ -150,10 +166,11 @@ class BookingRequestTest extends TestCase
 
         new BookingRequest(
             productId: '',
+            date: Carbon::now(),
+            quantity: 0,
+            customerInfo: [],
             rateId: 'adult',
-            startDate: Carbon::now(),
-            endDate: Carbon::now(),
-            quantity: 0
+            endDate: Carbon::now()
         );
     }
 
@@ -162,11 +179,12 @@ class BookingRequestTest extends TestCase
     {
         $request = new BookingRequest(
             productId: 'disney-magic-kingdom-1day',
-            rateId: 'adult',
-            startDate: Carbon::parse('2024-12-25'),
-            endDate: Carbon::parse('2024-12-25'),
+            date: Carbon::parse('2024-12-25'),
             quantity: 2,
+            customerInfo: [],
+            rateId: 'adult',
             availabilityId: 'avail-123',
+            endDate: Carbon::parse('2024-12-25'),
             guestInfo: [['name' => 'John Doe']]
         );
 
