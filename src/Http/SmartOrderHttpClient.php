@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace iabduul7\LaravelThemeparkBookingAdapters\Http;
+namespace iabduul7\ThemeParkBooking\Http;
 
 use GuzzleHttp\Exception\GuzzleException;
 use Illuminate\Support\Facades\Cache;

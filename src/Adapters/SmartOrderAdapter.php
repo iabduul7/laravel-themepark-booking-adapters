@@ -3,7 +3,7 @@
 namespace iabduul7\ThemeParkBooking\Adapters;
 
 use Carbon\Carbon;
-use iabduul7\LaravelThemeparkBookingAdapters\Http\SmartOrderHttpClient;
+use iabduul7\ThemeParkBooking\Http\SmartOrderHttpClient;
 use iabduul7\ThemeParkBooking\Data\BookingRequest;
 use iabduul7\ThemeParkBooking\Data\BookingResponse;
 use iabduul7\ThemeParkBooking\Data\Product;
@@ -20,7 +20,7 @@ use Illuminate\Support\Str;
 class SmartOrderAdapter extends BaseAdapter
 {
     protected $client;
-    protected SmartOrderHttpClient $httpClient;
+    protected $httpClient;
     protected int $customerId;
     protected string $approvedSuffix;
 

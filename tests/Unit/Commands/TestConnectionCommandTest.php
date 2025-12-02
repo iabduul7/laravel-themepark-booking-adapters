@@ -2,10 +2,9 @@
 
 namespace iabduul7\ThemeParkBooking\Tests\Unit\Commands;
 
+use iabduul7\ThemeParkBooking\Tests\TestCase;
 use Illuminate\Support\Facades\Artisan;
 use Illuminate\Support\Facades\Config;
-
-iabduul7\ThemeParkBooking\Tests\TestCase;
 
 class TestConnectionCommandTest extends TestCase
 {

@@ -2,15 +2,14 @@
 
 namespace iabduul7\ThemeParkBooking\Tests\Unit\Concerns;
 
+use iabduul7\ThemeParkBooking\Concerns\HasThemeParkBookingAttributes;
+use iabduul7\ThemeParkBooking\Models\OrderDetailsRedeam;
+use iabduul7\ThemeParkBooking\Models\OrderDetailsUniversal;
+use iabduul7\ThemeParkBooking\Tests\TestCase;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Support\Facades\Schema;
-
-iabduul7\ThemeParkBooking\Concerns\HasThemeParkBookingAttributes;
-iabduul7\ThemeParkBooking\Models\OrderDetailsRedeam;
-iabduul7\ThemeParkBooking\Models\OrderDetailsUniversal;
-iabduul7\ThemeParkBooking\Tests\TestCase;
 
 class HasThemeParkBookingAttributesTest extends TestCase
 {
