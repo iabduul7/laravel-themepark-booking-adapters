@@ -3,7 +3,7 @@
 namespace iabduul7\ThemeParkBooking\Adapters;
 
 use Carbon\Carbon;
-use iabduul7\LaravelThemeparkBookingAdapters\Http\RedeamHttpClient;
+use iabduul7\ThemeParkBooking\Http\RedeamHttpClient;
 use iabduul7\ThemeParkBooking\Data\BookingRequest;
 use iabduul7\ThemeParkBooking\Data\BookingResponse;
 use iabduul7\ThemeParkBooking\Data\Product;
@@ -21,7 +21,7 @@ class RedeamAdapter extends BaseAdapter
 {
     protected string $parkType;
     protected $client;
-    protected RedeamHttpClient $httpClient;
+    protected $httpClient;
 
     public function __construct(string $parkType, array $config = [])
     {

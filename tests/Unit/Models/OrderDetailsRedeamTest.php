@@ -2,11 +2,10 @@
 
 namespace iabduul7\ThemeParkBooking\Tests\Unit\Models;
 
+use iabduul7\ThemeParkBooking\Models\OrderDetailsRedeam;
+use iabduul7\ThemeParkBooking\Tests\TestCase;
 use Carbon\Carbon;
 use Illuminate\Foundation\Testing\RefreshDatabase;
-
-iabduul7\ThemeParkBooking\Models\OrderDetailsRedeam;
-iabduul7\ThemeParkBooking\Tests\TestCase;
 
 class OrderDetailsRedeamTest extends TestCase
 {

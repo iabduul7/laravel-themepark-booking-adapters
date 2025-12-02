@@ -45,8 +45,7 @@
     "autoload": {
         "psr-4": {
             "iabduul7\\ThemeParkBooking\\": "src",
-            "iabduul7\\ThemeParkBooking\\Database\\Factories\\": "database/factories",
-            "iabduul7\\LaravelThemeparkBookingAdapters\\": "src"
+            "iabduul7\\ThemeParkBooking\\Database\\Factories\\": "database/factories"
         }
     },
     "autoload-dev": {

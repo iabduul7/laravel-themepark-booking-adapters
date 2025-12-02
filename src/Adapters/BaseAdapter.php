@@ -15,7 +15,7 @@ use Illuminate\Support\Facades\Log;
 
 abstract class BaseAdapter implements BookingAdapterInterface
 {
-    protected Client $httpClient;
+    protected $httpClient;
     protected array $config;
     protected string $cachePrefix;
 

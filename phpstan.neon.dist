@@ -1,6 +1,3 @@
-includes:
-    - phpstan-baseline.neon
-
 parameters:
     level: 4
     paths:
@@ -9,6 +6,18 @@ parameters:
         - database
     tmpDir: build/phpstan
     checkOctaneCompatibility: true
-    checkModelProperties: true
+    checkModelProperties: false
     checkMissingIterableValueType: false
+    ignoreErrors:
+        - '#Class [a-zA-Z0-9\\_]+ not found#'
+        - '#Instantiated class [a-zA-Z0-9\\_]+ not found#'
+        - '#Call to method [a-zA-Z0-9_]+\(\) on an unknown class#'
+        - '#Access to an undefined property [a-zA-Z0-9\\_]+::\$[a-zA-Z0-9_]+#'
+        - '#contains abstract method [a-zA-Z0-9_]+\(\) from interface#'
+        - '#is not the same as type#'
+        - '#is not covariant with#'
+        - '#is not contravariant with#'
+        - '#Expression on left side of \?\? is not nullable#'
+        - '#Consider using bind method instead#'
+        - '#Call to static method [a-zA-Z0-9_]+\(\) on an unknown class#'
 

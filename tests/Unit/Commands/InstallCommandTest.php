@@ -2,11 +2,10 @@
 
 namespace iabduul7\ThemeParkBooking\Tests\Unit\Commands;
 
+use iabduul7\ThemeParkBooking\Tests\TestCase;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Support\Facades\Artisan;
 use Illuminate\Support\Facades\File;
-
-iabduul7\ThemeParkBooking\Tests\TestCase;
 
 class InstallCommandTest extends TestCase
 {
