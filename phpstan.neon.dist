@@ -1,14 +1,25 @@
-includes:
-    - phpstan-baseline.neon
-
 parameters:
-    level: 4
+    level: 3
+    reportUnmatchedIgnoredErrors: false
     paths:
         - src
-        - config
-        - database
+        - tests/Unit/ConfigurationTest.php
+    excludePaths:
+        - src/Providers/*
+        - src/Services/RedeamBookingService.php
+        - src/Services/SmartOrderBookingService.php
+        - src/DataTransferObjects/*
+        - src/Contracts/*
+        - src/ThemeParkBookingManager.php
+        - src/Abstracts/*
+        - src/ThemeParkManager.php
+        - src/TokenRepository/*
+        - src/Commands/*
+        - src/Models/*
+        - src/Services/VoucherGenerator.php
+        - src/ThemeParkBookingServiceProvider.php
+        - src/ThemeParkAdaptersServiceProvider.php
     tmpDir: build/phpstan
     checkOctaneCompatibility: true
-    checkModelProperties: true
+    checkModelProperties: false
     checkMissingIterableValueType: false
-

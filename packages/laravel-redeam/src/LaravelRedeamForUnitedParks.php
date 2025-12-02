@@ -20,7 +20,7 @@ class LaravelRedeamForUnitedParks
 
     public function __construct()
     {
-        $this->client = new RedeamApiClientForUnitedParks;
+        $this->client = new RedeamApiClientForUnitedParks();
     }
 
     /**

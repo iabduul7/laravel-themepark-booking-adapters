@@ -7,7 +7,7 @@ use Exception;
 class ThemeParkApiException extends Exception
 {
     public function __construct(
-        string $message = "",
+        string $message = '',
         int $code = 0,
         ?\Throwable $previous = null,
         protected ?array $responseData = null

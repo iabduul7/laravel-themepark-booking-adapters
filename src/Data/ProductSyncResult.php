@@ -14,8 +14,7 @@ class ProductSyncResult
         public readonly array $warnings = [],
         public readonly ?int $syncDuration = null,
         public readonly array $metadata = []
-    ) {
-    }
+    ) {}
 
     public static function success(
         int $totalProducts,
@@ -88,7 +87,7 @@ class ProductSyncResult
     public function getSummary(): string
     {
         if (! $this->success) {
-            return "Sync failed with " . count($this->errors) . " error(s)";
+            return 'Sync failed with ' . count($this->errors) . ' error(s)';
         }
 
         $summary = "Synced {$this->syncedProducts}/{$this->totalProducts} products";

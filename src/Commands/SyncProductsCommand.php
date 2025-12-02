@@ -65,7 +65,7 @@ class SyncProductsCommand extends Command
                 $this->info("✅ {$adapter}: {$result->getSummary()}");
 
                 if ($result->hasWarnings()) {
-                    $this->warn("⚠️  Warnings:");
+                    $this->warn('⚠️  Warnings:');
                     foreach ($result->warnings as $warning) {
                         $this->warn("   • {$warning}");
                     }
@@ -83,7 +83,7 @@ class SyncProductsCommand extends Command
 
         } catch (\Exception $e) {
             $this->error("❌ Failed to sync {$adapter}: {$e->getMessage()}");
-            Log::error("Product sync command failed", [
+            Log::error('Product sync command failed', [
                 'adapter' => $adapter,
                 'error' => $e->getMessage(),
                 'trace' => $e->getTraceAsString(),
@@ -103,7 +103,7 @@ class SyncProductsCommand extends Command
             return self::SUCCESS;
         }
 
-        $this->info("📡 Syncing products for " . count($adapters) . " adapters");
+        $this->info('📡 Syncing products for ' . count($adapters) . ' adapters');
 
         $results = [];
         $progressBar = $this->output->createProgressBar(count($adapters));
@@ -151,11 +151,11 @@ class SyncProductsCommand extends Command
         $successful = array_filter($results);
         $failed = array_filter($results, fn ($success) => ! $success);
 
-        $this->info("📊 Sync Summary:");
-        $this->info("   ✅ Successful: " . count($successful));
+        $this->info('📊 Sync Summary:');
+        $this->info('   ✅ Successful: ' . count($successful));
 
         if (! empty($failed)) {
-            $this->error("   ❌ Failed: " . count($failed));
+            $this->error('   ❌ Failed: ' . count($failed));
             foreach (array_keys($failed) as $failedAdapter) {
                 $this->error("      • {$failedAdapter}");
             }

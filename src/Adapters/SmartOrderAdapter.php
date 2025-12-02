@@ -3,7 +3,7 @@
 namespace iabduul7\ThemeParkBooking\Adapters;
 
 use Carbon\Carbon;
-use iabduul7\LaravelThemeparkBookingAdapters\Http\SmartOrderHttpClient;
+use iabduul7\ThemeParkBooking\Http\SmartOrderHttpClient;
 use iabduul7\ThemeParkBooking\Data\BookingRequest;
 use iabduul7\ThemeParkBooking\Data\BookingResponse;
 use iabduul7\ThemeParkBooking\Data\Product;
@@ -20,7 +20,7 @@ use Illuminate\Support\Str;
 class SmartOrderAdapter extends BaseAdapter
 {
     protected $client;
-    protected SmartOrderHttpClient $httpClient;
+    protected $httpClient;
     protected int $customerId;
     protected string $approvedSuffix;
 
@@ -55,8 +55,8 @@ class SmartOrderAdapter extends BaseAdapter
         }
 
         throw new ConfigurationException(
-            "Neither independent HTTP client nor legacy SmartOrder client could be initialized. " .
-            "Please ensure proper configuration is provided for the SmartOrder API."
+            'Neither independent HTTP client nor legacy SmartOrder client could be initialized. ' .
+            'Please ensure proper configuration is provided for the SmartOrder API.'
         );
     }
 
@@ -94,8 +94,7 @@ class SmartOrderAdapter extends BaseAdapter
                 private SmartOrderHttpClient $httpClient,
                 private int $customerId,
                 private string $approvedSuffix
-            ) {
-            }
+            ) {}
 
             public function getAllProducts(array $parameters = []): array
             {
@@ -259,7 +258,7 @@ class SmartOrderAdapter extends BaseAdapter
 
                 } catch (\Exception $e) {
                     $failedCount++;
-                    Log::warning("Failed to sync SmartOrder product", [
+                    Log::warning('Failed to sync SmartOrder product', [
                         'adapter' => $this->getName(),
                         'product_id' => $productData['id'] ?? 'unknown',
                         'error' => $e->getMessage(),
@@ -387,7 +386,7 @@ class SmartOrderAdapter extends BaseAdapter
         }
     }
 
-    public function checkAvailability(string $productId, string $date, string $time = null, int $quantity = 1): bool
+    public function checkAvailability(string $productId, string $date, ?string $time = null, int $quantity = 1): bool
     {
         try {
             // Check event capacity for special events (Universal Studios pattern)

@@ -21,8 +21,7 @@ class BookingRequest
         public readonly array $guestInfo = [],
         public readonly array $paymentInfo = [],
         public readonly array $metadata = []
-    ) {
-    }
+    ) {}
 
     public function toArray(): array
     {

@@ -10,13 +10,14 @@ use Orchestra\Testbench\TestCase as Orchestra;
 class TestCase extends Orchestra
 {
     use DatabaseTransactions;
+    use SkipsTestsForMissingDependencies;
 
     protected function setUp(): void
     {
         parent::setUp();
 
         Factory::guessFactoryNamesUsing(
-            fn (string $modelName) => 'iabduul7\\ThemeParkBooking\\Database\\Factories\\'.class_basename($modelName).'Factory'
+            fn (string $modelName) => 'iabduul7\\ThemeParkBooking\\Database\\Factories\\' . class_basename($modelName) . 'Factory'
         );
 
         $this->setUpDatabase();
@@ -71,7 +72,7 @@ class TestCase extends Orchestra
     }
 
     /**
-     * Create a mock HTTP response for testing
+     * Create a mock HTTP response for testing.
      */
     protected function mockHttpResponse(array $data, int $status = 200): array
     {
@@ -83,7 +84,7 @@ class TestCase extends Orchestra
     }
 
     /**
-     * Create mock product data for testing
+     * Create mock product data for testing.
      */
     protected function createMockProductData(string $provider = 'redeam'): array
     {
@@ -120,7 +121,7 @@ class TestCase extends Orchestra
     }
 
     /**
-     * Create mock booking response data
+     * Create mock booking response data.
      */
     protected function createMockBookingResponse(string $provider = 'redeam'): array
     {
@@ -156,7 +157,7 @@ class TestCase extends Orchestra
     }
 
     /**
-     * Assert that database has order details record
+     * Assert that database has order details record.
      */
     protected function assertHasOrderDetails(string $type, array $attributes): void
     {
@@ -165,7 +166,7 @@ class TestCase extends Orchestra
     }
 
     /**
-     * Create test order details record
+     * Create test order details record.
      */
     protected function createOrderDetails(string $type, array $attributes = []): \Illuminate\Database\Eloquent\Model
     {

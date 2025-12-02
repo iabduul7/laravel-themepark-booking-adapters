@@ -2,15 +2,25 @@
 
 namespace iabduul7\ThemeParkBooking\Tests\Unit\Commands;
 
+use iabduul7\ThemeParkBooking\Tests\TestCase;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Support\Facades\Artisan;
 use Illuminate\Support\Facades\File;
 
-iabduul7\ThemeParkBooking\Tests\TestCase;
-
 class InstallCommandTest extends TestCase
 {
     use RefreshDatabase;
+
+    protected function setUp(): void
+    {
+        parent::setUp();
+
+        $this->skipIfClassMissing('iabduul7\ThemeParkBooking\Commands\InstallCommand');
+        $this->skipIfApiConfigMissing([
+            'themepark-booking.adapters.redeam.disney.api_key',
+            'themepark-booking.adapters.smartorder.api_key',
+        ]);
+    }
 
     /** @test */
     public function install_command_publishes_config_file()

@@ -54,7 +54,7 @@ class OrderDetailsRedeam extends Model implements Attachable
     ];
 
     /**
-     * Get the voucher URL attribute
+     * Get the voucher URL attribute.
      */
     public function getVoucherUrlAttribute(): string
     {
@@ -76,7 +76,7 @@ class OrderDetailsRedeam extends Model implements Attachable
     }
 
     /**
-     * Check if this is a Disney booking
+     * Check if this is a Disney booking.
      */
     public function getIsDisneyAttribute(): bool
     {
@@ -85,7 +85,7 @@ class OrderDetailsRedeam extends Model implements Attachable
     }
 
     /**
-     * Check if this is a United Parks booking
+     * Check if this is a United Parks booking.
      */
     public function getIsUnitedParksAttribute(): bool
     {
@@ -94,7 +94,7 @@ class OrderDetailsRedeam extends Model implements Attachable
     }
 
     /**
-     * Check if hold has expired
+     * Check if hold has expired.
      */
     public function getIsHoldExpiredAttribute(): bool
     {
@@ -106,7 +106,7 @@ class OrderDetailsRedeam extends Model implements Attachable
     }
 
     /**
-     * Get booking status from booking data
+     * Get booking status from booking data.
      */
     public function getBookingStatusAttribute(): ?string
     {
@@ -118,7 +118,7 @@ class OrderDetailsRedeam extends Model implements Attachable
     }
 
     /**
-     * Get booking timeline
+     * Get booking timeline.
      */
     public function getBookingTimeline(): array
     {
@@ -130,7 +130,7 @@ class OrderDetailsRedeam extends Model implements Attachable
     }
 
     /**
-     * Get supplier reference number
+     * Get supplier reference number.
      */
     public function getSupplierReference(): ?string
     {
@@ -146,7 +146,7 @@ class OrderDetailsRedeam extends Model implements Attachable
     }
 
     /**
-     * Get confirmation details
+     * Get confirmation details.
      */
     public function getConfirmationDetails(): array
     {
@@ -165,7 +165,7 @@ class OrderDetailsRedeam extends Model implements Attachable
     }
 
     /**
-     * Check if booking is confirmed
+     * Check if booking is confirmed.
      */
     public function isConfirmed(): bool
     {
@@ -175,7 +175,7 @@ class OrderDetailsRedeam extends Model implements Attachable
     }
 
     /**
-     * Check if booking is cancelled
+     * Check if booking is cancelled.
      */
     public function isCancelled(): bool
     {
@@ -185,7 +185,7 @@ class OrderDetailsRedeam extends Model implements Attachable
     }
 
     /**
-     * Check if booking is on hold
+     * Check if booking is on hold.
      */
     public function isOnHold(): bool
     {
@@ -193,7 +193,7 @@ class OrderDetailsRedeam extends Model implements Attachable
     }
 
     /**
-     * Relationship to order
+     * Relationship to order.
      */
     public function order(): BelongsTo
     {
@@ -204,7 +204,7 @@ class OrderDetailsRedeam extends Model implements Attachable
     }
 
     /**
-     * Mail attachment for voucher
+     * Mail attachment for voucher.
      */
     public function toMailAttachment(): Attachment
     {
@@ -216,42 +216,42 @@ class OrderDetailsRedeam extends Model implements Attachable
     }
 
     /**
-     * Scope for Disney bookings
+     * Scope for Disney bookings.
      */
     public function scopeDisney($query)
     {
         return $query->where('supplier_type', 'disney')
-                    ->orWhere('supplier_type', 'like', '%disney%');
+            ->orWhere('supplier_type', 'like', '%disney%');
     }
 
     /**
-     * Scope for United Parks bookings
+     * Scope for United Parks bookings.
      */
     public function scopeUnitedParks($query)
     {
         return $query->where('supplier_type', 'united_parks')
-                    ->orWhere('supplier_type', 'like', '%united%');
+            ->orWhere('supplier_type', 'like', '%united%');
     }
 
     /**
-     * Scope for confirmed bookings
+     * Scope for confirmed bookings.
      */
     public function scopeConfirmed($query)
     {
         return $query->whereIn('status', ['confirmed', 'booked', 'completed'])
-                    ->orWhereJsonContains('booking_data->status', 'CONFIRMED')
-                    ->orWhereJsonContains('booking_data->status', 'BOOKED');
+            ->orWhereJsonContains('booking_data->status', 'CONFIRMED')
+            ->orWhereJsonContains('booking_data->status', 'BOOKED');
     }
 
     /**
-     * Scope for active holds
+     * Scope for active holds.
      */
     public function scopeActiveHolds($query)
     {
         return $query->whereNotNull('hold_id')
-                    ->where(function ($q) {
-                        $q->whereNull('hold_expires_at')
-                          ->orWhere('hold_expires_at', '>', Carbon::now());
-                    });
+            ->where(function ($q) {
+                $q->whereNull('hold_expires_at')
+                    ->orWhere('hold_expires_at', '>', Carbon::now());
+            });
     }
 }

@@ -15,7 +15,7 @@ use Illuminate\Support\Facades\Log;
 
 abstract class BaseAdapter implements BookingAdapterInterface
 {
-    protected Client $httpClient;
+    protected $httpClient;
     protected array $config;
     protected string $cachePrefix;
 
@@ -33,7 +33,7 @@ abstract class BaseAdapter implements BookingAdapterInterface
         return strtolower(class_basename(static::class));
     }
 
-    public function getConfig(string $key = null, $default = null)
+    public function getConfig(?string $key = null, $default = null)
     {
         if ($key === null) {
             return $this->config;
@@ -143,19 +143,19 @@ abstract class BaseAdapter implements BookingAdapterInterface
     protected function transformProductData(array $rawData): Product
     {
         // This should be implemented by each adapter to transform their specific data format
-        throw new AdapterException("transformProductData must be implemented by adapter");
+        throw new AdapterException('transformProductData must be implemented by adapter');
     }
 
     protected function transformBookingRequestData(BookingRequest $request): array
     {
         // This should be implemented by each adapter to transform to their specific format
-        throw new AdapterException("transformBookingRequestData must be implemented by adapter");
+        throw new AdapterException('transformBookingRequestData must be implemented by adapter');
     }
 
     protected function transformBookingResponseData(array $rawData): BookingResponse
     {
         // This should be implemented by each adapter to transform their specific response format
-        throw new AdapterException("transformBookingResponseData must be implemented by adapter");
+        throw new AdapterException('transformBookingResponseData must be implemented by adapter');
     }
 
     protected function generateCacheKey(string $operation, array $params = []): string
