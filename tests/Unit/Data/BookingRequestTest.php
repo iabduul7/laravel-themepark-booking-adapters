@@ -15,11 +15,13 @@ class BookingRequestTest extends TestCase
         // Skip entire test file if API configurations are missing
         $this->skipIfApiConfigMissing([
             'themepark-booking.adapters.redeam.disney.api_key',
-            'themepark-booking.adapters.smartorder.api_key'
+            'themepark-booking.adapters.smartorder.api_key',
         ], 'API configurations required for BookingRequest tests');
 
         $this->skipIfClassMissing(BookingRequest::class);
-    }    /** @test */
+    }
+
+    /** @test */
     public function it_can_be_created_with_required_fields()
     {
         $startDate = Carbon::parse('2024-12-25');

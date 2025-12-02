@@ -27,7 +27,7 @@ class BookingFlowTest extends TestCase
             'themepark-booking.redeam.disney.supplier_id',
             'themepark-booking.smartorder.api_key',
             'themepark-booking.smartorder.api_secret',
-            'themepark-booking.smartorder.client_username'
+            'themepark-booking.smartorder.client_username',
         ], 'API configurations required for booking flow tests');
 
         $this->manager = app(ThemeParkBookingManager::class);
@@ -155,7 +155,7 @@ class BookingFlowTest extends TestCase
     public function it_handles_booking_cancellation()
     {
         $this->skipIfClassMissing('iabduul7\ThemeParkBooking\Services\RedeamBookingService');
-        
+
         // Create a mock booking record
         $orderDetails = OrderDetailsRedeam::create([
             'order_id' => 1,
@@ -221,7 +221,7 @@ class BookingFlowTest extends TestCase
     public function it_can_check_booking_status()
     {
         $this->skipIfClassMissing('iabduul7\ThemeParkBooking\Services\RedeamBookingService');
-        
+
         // Test confirmed booking
         $confirmedBooking = OrderDetailsRedeam::create([
             'order_id' => 1,
@@ -249,7 +249,7 @@ class BookingFlowTest extends TestCase
     public function it_tracks_booking_timeline()
     {
         $this->skipIfClassMissing('iabduul7\\ThemeParkBooking\\Services\\RedeamBookingService');
-        
+
         $bookingData = [
             'timeline' => [
                 [

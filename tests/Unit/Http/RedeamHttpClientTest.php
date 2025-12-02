@@ -19,11 +19,11 @@ class RedeamHttpClientTest extends TestCase
         parent::setUp();
 
         $this->skipIfClassMissing(RedeamHttpClient::class);
-        
+
         // Skip if no API config is set up for testing
         $this->skipIfApiConfigMissing([
-            'redeam.api_key', 
-            'redeam.api_secret'
+            'redeam.api_key',
+            'redeam.api_secret',
         ], 'Redeam API configuration not found');
 
         $this->mockHandler = new MockHandler();
@@ -65,7 +65,7 @@ class RedeamHttpClientTest extends TestCase
         $response = $this->client->get('/suppliers');
 
         $this->assertIsArray($response);
-        
+
         // Be flexible with response structure
         if (isset($response['suppliers'])) {
             $this->assertArrayHasKey('suppliers', $response);
@@ -103,7 +103,7 @@ class RedeamHttpClientTest extends TestCase
         $response = $this->client->get('/suppliers/20/products');
 
         $this->assertIsArray($response);
-        
+
         // Be flexible with response structure
         if (isset($response['products'])) {
             $this->assertArrayHasKey('products', $response);
@@ -140,7 +140,7 @@ class RedeamHttpClientTest extends TestCase
         $response = $this->client->get('/products/disney-magic-kingdom-1day/availability', $data);
 
         $this->assertIsArray($response);
-        
+
         // Be flexible with response structure
         if (isset($response['availability'])) {
             $this->assertArrayHasKey('availability', $response);
@@ -213,7 +213,7 @@ class RedeamHttpClientTest extends TestCase
         $response = $this->client->post('/bookings/confirm', $confirmData);
 
         $this->assertIsArray($response);
-        
+
         // Be flexible with response structure
         if (isset($response['booking_id'])) {
             $this->assertEquals('BOOK789', $response['booking_id']);

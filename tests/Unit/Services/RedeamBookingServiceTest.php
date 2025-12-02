@@ -24,7 +24,7 @@ class RedeamBookingServiceTest extends TestCase
             'themepark-booking.adapters.redeam.disney.api_key',
             'themepark-booking.adapters.redeam.disney.environment',
             'themepark-booking.adapters.redeam.disney.supplier_id',
-            'themepark-booking.adapters.redeam.united_parks.api_key'
+            'themepark-booking.adapters.redeam.united_parks.api_key',
         ], 'Redeam API configurations required for RedeamBookingService tests');
 
         $this->skipIfClassMissing(RedeamBookingService::class);

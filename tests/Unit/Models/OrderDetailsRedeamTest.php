@@ -13,7 +13,7 @@ class OrderDetailsRedeamTest extends TestCase
 
     protected function setUp(): void
     {
-        parent::setUp();        
+        parent::setUp();
     }
 
     /** @test */

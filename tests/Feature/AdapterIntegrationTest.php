@@ -54,7 +54,7 @@ class AdapterIntegrationTest extends TestCase
         $this->skipIfApiConfigMissing([
             'themepark-booking.adapters.smartorder.client_username',
             'themepark-booking.adapters.smartorder.api_key',
-            'themepark-booking.adapters.smartorder.api_secret'
+            'themepark-booking.adapters.smartorder.api_secret',
         ], 'SmartOrder API credentials not configured');
 
         try {
@@ -76,9 +76,9 @@ class AdapterIntegrationTest extends TestCase
         $this->skipIfApiConfigMissing([
             'themepark-booking.adapters.redeam.disney.api_key',
             'themepark-booking.adapters.redeam.disney.environment',
-            'themepark-booking.adapters.redeam.disney.supplier_id'
+            'themepark-booking.adapters.redeam.disney.supplier_id',
         ]);
-        
+
         // Test with invalid configuration to simulate network issues
         $invalidConfig = [
             'api_key' => 'invalid_key',

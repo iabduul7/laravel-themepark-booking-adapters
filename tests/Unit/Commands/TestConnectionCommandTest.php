@@ -11,11 +11,11 @@ class TestConnectionCommandTest extends TestCase
     protected function setUp(): void
     {
         parent::setUp();
-        
+
         $this->skipIfClassMissing('iabduul7\ThemeParkBooking\Commands\TestConnectionCommand');
         $this->skipIfApiConfigMissing([
             'themepark-booking.adapters.redeam.disney.api_key',
-            'themepark-booking.adapters.smartorder.api_key'
+            'themepark-booking.adapters.smartorder.api_key',
         ]);
     }
 
