@@ -39,6 +39,14 @@ class TestHelper
     }
 
     /**
+     * Calculate sum with proper type checking.
+     */
+    public function calculateSubtraction(int $a, int $b): int
+    {
+        return $a - $b;
+    }
+
+    /**
      * Process array data with proper typing.
      *
      * @param  array<string, mixed>  $data
