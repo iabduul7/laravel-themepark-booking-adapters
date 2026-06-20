@@ -37,8 +37,6 @@ return [
             // Idempotent reads are retried on connection drops / 5xx; writes never are.
             'retry_attempts' => env('REDEAM_RETRY_ATTEMPTS', 3),
             'retry_sleep_ms' => env('REDEAM_RETRY_SLEEP_MS', 1000),
-            // Optional config lookup key for Disney ticket commission percentages.
-            'commission_config_key' => env('REDEAM_DISNEY_COMMISSION_KEY', 'walt_disney.commission'),
             // Disney public park-availability (observability) endpoint.
             'park_availability_url' => env('REDEAM_DISNEY_PARK_AVAILABILITY_URL', 'https://dis-obs.redeam.io/disney/park/availability'),
         ],

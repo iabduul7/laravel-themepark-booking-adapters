@@ -4,7 +4,6 @@ namespace Iabduul7\ThemeParkAdapters\Abstracts;
 
 use Iabduul7\ThemeParkAdapters\Contracts\Capabilities\SupportsHolds;
 use Iabduul7\ThemeParkAdapters\DataTransferObjects\Results\Result;
-use Iabduul7\ThemeParkAdapters\Support\Redeam\CommissionResolver;
 use Iabduul7\ThemeParkAdapters\Support\Redeam\OptionCodeResolver;
 use Illuminate\Http\Client\Response;
 
@@ -169,19 +168,5 @@ abstract class AbstractRedeamAdapter extends BaseThemeParkAdapter implements Sup
     public function getOptionCode(int $days, ?string $name = null): ?string
     {
         return OptionCodeResolver::resolve($days, $name);
-    }
-
-    /**
-     * Resolve the commission percentage for a Disney ticket option from config.
-     * Delegates to the {@see CommissionResolver} building block; the lookup key
-     * is configurable via the "commission_config_key" provider config.
-     */
-    public function getCommissionPercentage(int $days, ?string $optionCode = null): float
-    {
-        return CommissionResolver::resolve(
-            $days,
-            $optionCode,
-            (string) $this->getConfig('commission_config_key', 'walt_disney.commission')
-        );
     }
 }

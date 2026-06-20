@@ -45,7 +45,8 @@ client method the backend (`knowbeforeugo-backend`) calls has an equivalent here
 | `createNewHold()` / `getHold()` / `deleteHold()` | inherited from `AbstractRedeamAdapter` | **write**/read | `RedeamBookingTest` (faked) + **live** (Disney smoke) |
 | `createNewBooking()` / `getBooking()` / `deleteBooking()` | inherited | **write**/read | `RedeamBookingTest` (faked) + **live** (Disney smoke, create→cancel) |
 | voucher data (Disney `ext."supplier.reference"`, SeaWorld `tickets[].barcode.value`) | `tickets()` → `TicketArtifact[]` | read | `TicketArtifactTest`, `VoucherTest` + live (Disney `--voucher`) |
-| `getOptionCode()` / `getCommissionPercentage()` | `OptionCodeResolver` / `CommissionResolver` | — | `DisneyInitialDataService` + package resolver tests |
+| `getOptionCode()` | `OptionCodeResolver` (drop-in helper) | — | app-side `DisneyInitialDataService` |
+| `getCommissionPercentage()` | app-side — operator margin, not provider data | — | `DisneyInitialDataService::commissionPercentage` |
 
 ---
 

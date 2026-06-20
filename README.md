@@ -140,11 +140,10 @@ Type-hint these when you only need a capability rather than a specific park.
 Business logic that is specific to a deployment is kept out of the core adapters and shipped as
 opt-in helpers under `Support/`:
 
-- `Support\Redeam\OptionCodeResolver` / `CommissionResolver` — Walt Disney World ticket option
-  codes and commission percentages (config-driven; also exposed on the Redeam adapters as
-  `getOptionCode()` / `getCommissionPercentage()` for drop-in parity).
+- `Support\Redeam\OptionCodeResolver` — maps a Walt Disney World ticket name to its Redeam
+  option code (also exposed on the Redeam adapters as `getOptionCode()` for drop-in parity).
 
-Persistence (Eloquent models, migrations), queue/sync jobs and voucher *rendering* (barcode images,
+Persistence (Eloquent models, migrations), queue/sync jobs, commission/operator margins and voucher *rendering* (barcode images,
 templates, PDF, delivery) are intentionally left to the consuming application. The package does expose
 the provider-native voucher **data** — `tickets()` normalises each booking/order response into typed
 `TicketArtifact`s (the redeemable identifier + format + validity). See `guides/VOUCHERS.md`.
