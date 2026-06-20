@@ -31,8 +31,9 @@ All notable changes to `laravel-themepark-booking-adapters` will be documented i
   `guides/VOUCHERS.md`.
 - Typed result objects under `DataTransferObjects\Results\*` (`Supplier`, `Product`, `Rate`,
   `PriceSchedule`, `RatePriceSchedule`, `Availability`, `Hold`, `Booking`).
-- Opt-in Walt Disney World business-logic helpers `Support\Redeam\OptionCodeResolver` and
-  `CommissionResolver`.
+- Opt-in Walt Disney World ticket option-code helper `Support\Redeam\OptionCodeResolver`
+  (exposed on the Redeam adapters as `getOptionCode()`). Commission/margin resolution is
+  intentionally left to the consuming application — it is operator pricing, not provider data.
 - `Http::fake()` adapter contract tests covering endpoints, auth, retry, 401 self-heal and DTOs.
 - `guides/CLEANER_API_REFERENCE.md` describing the proposed normalised v2 interface.
 
