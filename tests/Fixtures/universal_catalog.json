@@ -1,0 +1,4674 @@
+{
+  "catalogBySalesProgram": [
+    {
+      "salesProgramId": 4638,
+      "salesProgramName": "ABP-Guest Svs T2",
+      "productCatalogEntries": [
+        {
+          "plu": "110117001386",
+          "productName": "1-Day Universal Express Pass – Universal Studios Florida",
+          "allowedDeliveryMethods": [
+            85,
+            92,
+            108,
+            53
+          ],
+          "bannerColor": "Yellow",
+          "numberOfDays": 0,
+          "isParkToPark": false,
+          "ageValue": "NA",
+          "isLimitedExpress": true,
+          "isUnlimitedExpress": false,
+          "isFloridaResidentRequired": false,
+          "residencyRequirement": "NA",
+          "isThemeParkAccess": false,
+          "isHHNAccess": false,
+          "isRTUAccess": false,
+          "isGradEventAccess": false,
+          "isEpicAccess": false,
+          "requiresFindEvents": true,
+          "productKind": "Ticket",
+          "currentPricing": {
+            "basePriceData": {
+              "pricesByDay": [
+                {
+                  "priceWithTax": {
+                    "totalPriceWithTax": 127.7900,
+                    "price": 119.9900,
+                    "tax1": 7.20,
+                    "tax2": 0.60
+                  },
+                  "pricingDateTime": "2026-09-01T04:00:00-04:00"
+                }
+              ]
+            },
+            "discountedPriceData": {
+              "pricesByDay": [
+                {
+                  "priceWithTax": {
+                    "totalPriceWithTax": 115.01,
+                    "price": 107.99,
+                    "tax1": 6.48,
+                    "tax2": 0.54,
+                    "discountType": 1,
+                    "discountAmount": 10
+                  },
+                  "pricingDateTime": "2026-09-01T04:00:00-04:00"
+                }
+              ]
+            }
+          },
+          "futurePricing": {
+            "basePriceData": {
+              "pricesByDay": [
+                {
+                  "priceWithTax": {
+                    "totalPriceWithTax": 127.7900,
+                    "price": 119.9900,
+                    "tax1": 7.20,
+                    "tax2": 0.60
+                  },
+                  "pricingDateTime": "2026-08-19T04:00:00-04:00"
+                }
+              ]
+            },
+            "discountedPriceData": {
+              "pricesByDay": [
+                {
+                  "priceWithTax": {
+                    "totalPriceWithTax": 115.01,
+                    "price": 107.99,
+                    "tax1": 6.48,
+                    "tax2": 0.54,
+                    "discountType": 1,
+                    "discountAmount": 10
+                  },
+                  "pricingDateTime": "2026-08-19T04:00:00-04:00"
+                }
+              ]
+            }
+          }
+        },
+        {
+          "plu": "110117001391",
+          "productName": "1-Day Universal Express Unlimited Pass – Universal Studios Florida",
+          "allowedDeliveryMethods": [
+            85,
+            92,
+            108,
+            53
+          ],
+          "bannerColor": "Yellow",
+          "numberOfDays": 0,
+          "isParkToPark": false,
+          "ageValue": "NA",
+          "isLimitedExpress": false,
+          "isUnlimitedExpress": true,
+          "isFloridaResidentRequired": false,
+          "residencyRequirement": "NA",
+          "isThemeParkAccess": false,
+          "isHHNAccess": false,
+          "isRTUAccess": false,
+          "isGradEventAccess": false,
+          "isEpicAccess": false,
+          "requiresFindEvents": true,
+          "productKind": "Ticket",
+          "currentPricing": {
+            "basePriceData": {
+              "pricesByDay": [
+                {
+                  "priceWithTax": {
+                    "totalPriceWithTax": 181.0400,
+                    "price": 169.9900,
+                    "tax1": 10.20,
+                    "tax2": 0.85
+                  },
+                  "pricingDateTime": "2026-11-04T04:00:00-05:00"
+                }
+              ]
+            },
+            "discountedPriceData": {
+              "pricesByDay": [
+                {
+                  "priceWithTax": {
+                    "totalPriceWithTax": 162.94,
+                    "price": 152.99,
+                    "tax1": 9.18,
+                    "tax2": 0.77,
+                    "discountType": 1,
+                    "discountAmount": 10
+                  },
+                  "pricingDateTime": "2026-11-04T04:00:00-05:00"
+                }
+              ]
+            }
+          },
+          "futurePricing": {
+            "basePriceData": {
+              "pricesByDay": [
+                {
+                  "priceWithTax": {
+                    "totalPriceWithTax": 170.3900,
+                    "price": 159.9900,
+                    "tax1": 9.60,
+                    "tax2": 0.80
+                  },
+                  "pricingDateTime": "2026-10-27T04:00:00-04:00"
+                }
+              ]
+            },
+            "discountedPriceData": {
+              "pricesByDay": [
+                {
+                  "priceWithTax": {
+                    "totalPriceWithTax": 153.35,
+                    "price": 143.99,
+                    "tax1": 8.64,
+                    "tax2": 0.72,
+                    "discountType": 1,
+                    "discountAmount": 10
+                  },
+                  "pricingDateTime": "2026-10-27T04:00:00-04:00"
+                }
+              ]
+            }
+          }
+        },
+        {
+          "plu": "110117003382",
+          "productName": "1-Day Universal Express Pass – Universal Islands of Adventure",
+          "allowedDeliveryMethods": [
+            85,
+            92,
+            108,
+            53
+          ],
+          "bannerColor": "Yellow",
+          "numberOfDays": 0,
+          "isParkToPark": false,
+          "ageValue": "NA",
+          "isLimitedExpress": true,
+          "isUnlimitedExpress": false,
+          "isFloridaResidentRequired": false,
+          "residencyRequirement": "NA",
+          "isThemeParkAccess": false,
+          "isHHNAccess": false,
+          "isRTUAccess": false,
+          "isGradEventAccess": false,
+          "isEpicAccess": false,
+          "requiresFindEvents": true,
+          "productKind": "Ticket",
+          "currentPricing": {
+            "basePriceData": {
+              "pricesByDay": [
+                {
+                  "priceWithTax": {
+                    "totalPriceWithTax": 138.4400,
+                    "price": 129.9900,
+                    "tax1": 7.80,
+                    "tax2": 0.65
+                  },
+                  "pricingDateTime": "2026-09-02T04:00:00-04:00"
+                }
+              ]
+            },
+            "discountedPriceData": {
+              "pricesByDay": [
+                {
+                  "priceWithTax": {
+                    "totalPriceWithTax": 124.60,
+                    "price": 116.99,
+                    "tax1": 7.02,
+                    "tax2": 0.59,
+                    "discountType": 1,
+                    "discountAmount": 10
+                  },
+                  "pricingDateTime": "2026-09-02T04:00:00-04:00"
+                }
+              ]
+            }
+          },
+          "futurePricing": {
+            "basePriceData": {
+              "pricesByDay": [
+                {
+                  "priceWithTax": {
+                    "totalPriceWithTax": 138.4400,
+                    "price": 129.9900,
+                    "tax1": 7.80,
+                    "tax2": 0.65
+                  },
+                  "pricingDateTime": "2026-09-01T04:00:00-04:00"
+                }
+              ]
+            },
+            "discountedPriceData": {
+              "pricesByDay": [
+                {
+                  "priceWithTax": {
+                    "totalPriceWithTax": 124.60,
+                    "price": 116.99,
+                    "tax1": 7.02,
+                    "tax2": 0.59,
+                    "discountType": 1,
+                    "discountAmount": 10
+                  },
+                  "pricingDateTime": "2026-09-01T04:00:00-04:00"
+                }
+              ]
+            }
+          }
+        },
+        {
+          "plu": "110117003391",
+          "productName": "1-Day Universal Express Unlimited Pass – Universal Islands of Adventure",
+          "allowedDeliveryMethods": [
+            85,
+            92,
+            108,
+            53
+          ],
+          "bannerColor": "Yellow",
+          "numberOfDays": 0,
+          "isParkToPark": false,
+          "ageValue": "NA",
+          "isLimitedExpress": false,
+          "isUnlimitedExpress": true,
+          "isFloridaResidentRequired": false,
+          "residencyRequirement": "NA",
+          "isThemeParkAccess": false,
+          "isHHNAccess": false,
+          "isRTUAccess": false,
+          "isGradEventAccess": false,
+          "isEpicAccess": false,
+          "requiresFindEvents": true,
+          "productKind": "Ticket",
+          "currentPricing": {
+            "basePriceData": {
+              "pricesByDay": [
+                {
+                  "priceWithTax": {
+                    "totalPriceWithTax": 181.0400,
+                    "price": 169.9900,
+                    "tax1": 10.20,
+                    "tax2": 0.85
+                  },
+                  "pricingDateTime": "2026-10-26T04:00:00-04:00"
+                }
+              ]
+            },
+            "discountedPriceData": {
+              "pricesByDay": [
+                {
+                  "priceWithTax": {
+                    "totalPriceWithTax": 162.94,
+                    "price": 152.99,
+                    "tax1": 9.18,
+                    "tax2": 0.77,
+                    "discountType": 1,
+                    "discountAmount": 10
+                  },
+                  "pricingDateTime": "2026-10-26T04:00:00-04:00"
+                }
+              ]
+            }
+          },
+          "futurePricing": {
+            "basePriceData": {
+              "pricesByDay": [
+                {
+                  "priceWithTax": {
+                    "totalPriceWithTax": 181.0400,
+                    "price": 169.9900,
+                    "tax1": 10.20,
+                    "tax2": 0.85
+                  },
+                  "pricingDateTime": "2026-11-11T04:00:00-05:00"
+                }
+              ]
+            },
+            "discountedPriceData": {
+              "pricesByDay": [
+                {
+                  "priceWithTax": {
+                    "totalPriceWithTax": 162.94,
+                    "price": 152.99,
+                    "tax1": 9.18,
+                    "tax2": 0.77,
+                    "discountType": 1,
+                    "discountAmount": 10
+                  },
+                  "pricingDateTime": "2026-11-11T04:00:00-05:00"
+                }
+              ]
+            }
+          }
+        },
+        {
+          "plu": "110117005390",
+          "productName": "1-Day 2-Park Universal Express Pass",
+          "allowedDeliveryMethods": [
+            85,
+            92,
+            108,
+            53
+          ],
+          "bannerColor": "Yellow",
+          "numberOfDays": 0,
+          "isParkToPark": false,
+          "ageValue": "NA",
+          "isLimitedExpress": true,
+          "isUnlimitedExpress": false,
+          "isFloridaResidentRequired": false,
+          "residencyRequirement": "NA",
+          "isThemeParkAccess": false,
+          "isHHNAccess": false,
+          "isRTUAccess": false,
+          "isGradEventAccess": false,
+          "isEpicAccess": false,
+          "requiresFindEvents": true,
+          "productKind": "Ticket",
+          "currentPricing": {
+            "basePriceData": {
+              "pricesByDay": [
+                {
+                  "priceWithTax": {
+                    "totalPriceWithTax": 149.0900,
+                    "price": 139.9900,
+                    "tax1": 8.40,
+                    "tax2": 0.70
+                  },
+                  "pricingDateTime": "2026-10-26T04:00:00-04:00"
+                }
+              ]
+            },
+            "discountedPriceData": {
+              "pricesByDay": [
+                {
+                  "priceWithTax": {
+                    "totalPriceWithTax": 134.18,
+                    "price": 125.99,
+                    "tax1": 7.56,
+                    "tax2": 0.63,
+                    "discountType": 1,
+                    "discountAmount": 10
+                  },
+                  "pricingDateTime": "2026-10-26T04:00:00-04:00"
+                }
+              ]
+            }
+          },
+          "futurePricing": {
+            "basePriceData": {
+              "pricesByDay": [
+                {
+                  "priceWithTax": {
+                    "totalPriceWithTax": 149.0900,
+                    "price": 139.9900,
+                    "tax1": 8.40,
+                    "tax2": 0.70
+                  },
+                  "pricingDateTime": "2026-09-10T04:00:00-04:00"
+                }
+              ]
+            },
+            "discountedPriceData": {
+              "pricesByDay": [
+                {
+                  "priceWithTax": {
+                    "totalPriceWithTax": 134.18,
+                    "price": 125.99,
+                    "tax1": 7.56,
+                    "tax2": 0.63,
+                    "discountType": 1,
+                    "discountAmount": 10
+                  },
+                  "pricingDateTime": "2026-09-10T04:00:00-04:00"
+                }
+              ]
+            }
+          }
+        },
+        {
+          "plu": "110117006304",
+          "productName": "1-Day 2-Park Universal Express Unlimited Pass",
+          "allowedDeliveryMethods": [
+            85,
+            92,
+            108,
+            53
+          ],
+          "bannerColor": "Yellow",
+          "numberOfDays": 0,
+          "isParkToPark": false,
+          "ageValue": "NA",
+          "isLimitedExpress": false,
+          "isUnlimitedExpress": true,
+          "isFloridaResidentRequired": false,
+          "residencyRequirement": "NA",
+          "isThemeParkAccess": false,
+          "isHHNAccess": false,
+          "isRTUAccess": false,
+          "isGradEventAccess": false,
+          "isEpicAccess": false,
+          "requiresFindEvents": true,
+          "productKind": "Ticket",
+          "currentPricing": {
+            "basePriceData": {
+              "pricesByDay": [
+                {
+                  "priceWithTax": {
+                    "totalPriceWithTax": 191.6900,
+                    "price": 179.9900,
+                    "tax1": 10.80,
+                    "tax2": 0.90
+                  },
+                  "pricingDateTime": "2026-09-02T04:00:00-04:00"
+                }
+              ]
+            },
+            "discountedPriceData": {
+              "pricesByDay": [
+                {
+                  "priceWithTax": {
+                    "totalPriceWithTax": 172.52,
+                    "price": 161.99,
+                    "tax1": 9.72,
+                    "tax2": 0.81,
+                    "discountType": 1,
+                    "discountAmount": 10
+                  },
+                  "pricingDateTime": "2026-09-02T04:00:00-04:00"
+                }
+              ]
+            }
+          },
+          "futurePricing": {
+            "basePriceData": {
+              "pricesByDay": [
+                {
+                  "priceWithTax": {
+                    "totalPriceWithTax": 191.6900,
+                    "price": 179.9900,
+                    "tax1": 10.80,
+                    "tax2": 0.90
+                  },
+                  "pricingDateTime": "2026-10-29T04:00:00-04:00"
+                }
+              ]
+            },
+            "discountedPriceData": {
+              "pricesByDay": [
+                {
+                  "priceWithTax": {
+                    "totalPriceWithTax": 172.52,
+                    "price": 161.99,
+                    "tax1": 9.72,
+                    "tax2": 0.81,
+                    "discountType": 1,
+                    "discountAmount": 10
+                  },
+                  "pricingDateTime": "2026-10-29T04:00:00-04:00"
+                }
+              ]
+            }
+          }
+        },
+        {
+          "plu": "170150210004",
+          "productName": "1-Day Universal Express Pass – Epic Universe",
+          "allowedDeliveryMethods": [
+            85,
+            92,
+            108,
+            53
+          ],
+          "bannerColor": "Yellow",
+          "numberOfDays": 0,
+          "uiUsageWindow": 1,
+          "isParkToPark": false,
+          "ageValue": "NA",
+          "isLimitedExpress": true,
+          "isUnlimitedExpress": false,
+          "isFloridaResidentRequired": false,
+          "residencyRequirement": "NA",
+          "isThemeParkAccess": false,
+          "isHHNAccess": false,
+          "isRTUAccess": false,
+          "isGradEventAccess": false,
+          "isEpicAccess": false,
+          "requiresFindEvents": true,
+          "productKind": "Ticket",
+          "currentPricing": {
+            "basePriceData": {
+              "pricesByDay": [
+                {
+                  "priceWithTax": {
+                    "totalPriceWithTax": 212.9900,
+                    "price": 199.9900,
+                    "tax1": 12.00,
+                    "tax2": 1.00
+                  },
+                  "pricingDateTime": "2026-08-28T04:00:00-04:00"
+                }
+              ]
+            },
+            "discountedPriceData": {
+              "pricesByDay": [
+                {
+                  "priceWithTax": {
+                    "totalPriceWithTax": 212.9900,
+                    "price": 199.9900,
+                    "tax1": 12.00,
+                    "tax2": 1.00,
+                    "discountType": 1,
+                    "discountAmount": 0
+                  },
+                  "pricingDateTime": "2026-08-28T04:00:00-04:00"
+                }
+              ]
+            }
+          },
+          "futurePricing": {
+            "basePriceData": {
+              "pricesByDay": [
+                {
+                  "priceWithTax": {
+                    "totalPriceWithTax": 212.9900,
+                    "price": 199.9900,
+                    "tax1": 12.00,
+                    "tax2": 1.00
+                  },
+                  "pricingDateTime": "2026-09-04T04:00:00-04:00"
+                }
+              ]
+            },
+            "discountedPriceData": {
+              "pricesByDay": [
+                {
+                  "priceWithTax": {
+                    "totalPriceWithTax": 212.9900,
+                    "price": 199.9900,
+                    "tax1": 12.00,
+                    "tax2": 1.00,
+                    "discountType": 1,
+                    "discountAmount": 0
+                  },
+                  "pricingDateTime": "2026-09-04T04:00:00-04:00"
+                }
+              ]
+            }
+          }
+        },
+        {
+          "plu": "175120220004",
+          "productName": "2-Day 2-Park Universal Express Unlimited Pass",
+          "allowedDeliveryMethods": [
+            85,
+            92,
+            108,
+            53
+          ],
+          "bannerColor": "Yellow",
+          "numberOfDays": 0,
+          "uiUsageWindow": 4,
+          "isParkToPark": false,
+          "ageValue": "NA",
+          "isLimitedExpress": false,
+          "isUnlimitedExpress": true,
+          "isFloridaResidentRequired": false,
+          "residencyRequirement": "NA",
+          "isThemeParkAccess": false,
+          "isHHNAccess": false,
+          "isRTUAccess": false,
+          "isGradEventAccess": false,
+          "isEpicAccess": false,
+          "requiresFindEvents": true,
+          "productKind": "Ticket",
+          "currentPricing": {
+            "basePriceData": {
+              "pricesByDay": [
+                {
+                  "priceWithTax": {
+                    "totalPriceWithTax": 346.1200,
+                    "price": 324.9900,
+                    "tax1": 19.50,
+                    "tax2": 1.63
+                  },
+                  "pricingDateTime": "2026-10-29T04:00:00-04:00"
+                }
+              ]
+            },
+            "discountedPriceData": {
+              "pricesByDay": [
+                {
+                  "priceWithTax": {
+                    "totalPriceWithTax": 311.50,
+                    "price": 292.49,
+                    "tax1": 17.55,
+                    "tax2": 1.46,
+                    "discountType": 1,
+                    "discountAmount": 10
+                  },
+                  "pricingDateTime": "2026-10-29T04:00:00-04:00"
+                }
+              ]
+            }
+          },
+          "futurePricing": {
+            "basePriceData": {
+              "pricesByDay": [
+                {
+                  "priceWithTax": {
+                    "totalPriceWithTax": 356.7700,
+                    "price": 334.9900,
+                    "tax1": 20.10,
+                    "tax2": 1.68
+                  },
+                  "pricingDateTime": "2026-08-19T04:00:00-04:00"
+                }
+              ]
+            },
+            "discountedPriceData": {
+              "pricesByDay": [
+                {
+                  "priceWithTax": {
+                    "totalPriceWithTax": 321.09,
+                    "price": 301.49,
+                    "tax1": 18.09,
+                    "tax2": 1.51,
+                    "discountType": 1,
+                    "discountAmount": 10
+                  },
+                  "pricingDateTime": "2026-08-19T04:00:00-04:00"
+                }
+              ]
+            }
+          }
+        },
+        {
+          "plu": "175150220004",
+          "productName": "2-Day 3-Park Universal Express Pass",
+          "allowedDeliveryMethods": [
+            85,
+            92,
+            108,
+            53
+          ],
+          "bannerColor": "Yellow",
+          "numberOfDays": 0,
+          "uiUsageWindow": 4,
+          "isParkToPark": false,
+          "ageValue": "NA",
+          "isLimitedExpress": true,
+          "isUnlimitedExpress": false,
+          "isFloridaResidentRequired": false,
+          "residencyRequirement": "NA",
+          "isThemeParkAccess": false,
+          "isHHNAccess": false,
+          "isRTUAccess": false,
+          "isGradEventAccess": false,
+          "isEpicAccess": false,
+          "requiresFindEvents": true,
+          "productKind": "Ticket",
+          "currentPricing": {
+            "basePriceData": {
+              "pricesByDay": [
+                {
+                  "priceWithTax": {
+                    "totalPriceWithTax": 314.1700,
+                    "price": 294.9900,
+                    "tax1": 17.70,
+                    "tax2": 1.48
+                  },
+                  "pricingDateTime": "2026-09-28T04:00:00-04:00"
+                }
+              ]
+            },
+            "discountedPriceData": {
+              "pricesByDay": [
+                {
+                  "priceWithTax": {
+                    "totalPriceWithTax": 282.75,
+                    "price": 265.49,
+                    "tax1": 15.93,
+                    "tax2": 1.33,
+                    "discountType": 1,
+                    "discountAmount": 10
+                  },
+                  "pricingDateTime": "2026-09-28T04:00:00-04:00"
+                }
+              ]
+            }
+          },
+          "futurePricing": {
+            "basePriceData": {
+              "pricesByDay": [
+                {
+                  "priceWithTax": {
+                    "totalPriceWithTax": 303.5200,
+                    "price": 284.9900,
+                    "tax1": 17.10,
+                    "tax2": 1.43
+                  },
+                  "pricingDateTime": "2026-10-26T04:00:00-04:00"
+                }
+              ]
+            },
+            "discountedPriceData": {
+              "pricesByDay": [
+                {
+                  "priceWithTax": {
+                    "totalPriceWithTax": 273.16,
+                    "price": 256.49,
+                    "tax1": 15.39,
+                    "tax2": 1.28,
+                    "discountType": 1,
+                    "discountAmount": 10
+                  },
+                  "pricingDateTime": "2026-10-26T04:00:00-04:00"
+                }
+              ]
+            }
+          }
+        },
+        {
+          "plu": "175150320004",
+          "productName": "3-Day 3-Park Universal Express Pass",
+          "allowedDeliveryMethods": [
+            85,
+            92,
+            108,
+            53
+          ],
+          "bannerColor": "Yellow",
+          "numberOfDays": 0,
+          "uiUsageWindow": 5,
+          "isParkToPark": false,
+          "ageValue": "NA",
+          "isLimitedExpress": true,
+          "isUnlimitedExpress": false,
+          "isFloridaResidentRequired": false,
+          "residencyRequirement": "NA",
+          "isThemeParkAccess": false,
+          "isHHNAccess": false,
+          "isRTUAccess": false,
+          "isGradEventAccess": false,
+          "isEpicAccess": false,
+          "requiresFindEvents": true,
+          "productKind": "Ticket",
+          "currentPricing": {
+            "basePriceData": {
+              "pricesByDay": [
+                {
+                  "priceWithTax": {
+                    "totalPriceWithTax": 383.3900,
+                    "price": 359.9900,
+                    "tax1": 21.60,
+                    "tax2": 1.80
+                  },
+                  "pricingDateTime": "2026-10-26T04:00:00-04:00"
+                }
+              ]
+            },
+            "discountedPriceData": {
+              "pricesByDay": [
+                {
+                  "priceWithTax": {
+                    "totalPriceWithTax": 345.05,
+                    "price": 323.99,
+                    "tax1": 19.44,
+                    "tax2": 1.62,
+                    "discountType": 1,
+                    "discountAmount": 10
+                  },
+                  "pricingDateTime": "2026-10-26T04:00:00-04:00"
+                }
+              ]
+            }
+          },
+          "futurePricing": {
+            "basePriceData": {
+              "pricesByDay": [
+                {
+                  "priceWithTax": {
+                    "totalPriceWithTax": 399.3700,
+                    "price": 374.9900,
+                    "tax1": 22.50,
+                    "tax2": 1.88
+                  },
+                  "pricingDateTime": "2026-11-06T04:00:00-05:00"
+                }
+              ]
+            },
+            "discountedPriceData": {
+              "pricesByDay": [
+                {
+                  "priceWithTax": {
+                    "totalPriceWithTax": 359.43,
+                    "price": 337.49,
+                    "tax1": 20.25,
+                    "tax2": 1.69,
+                    "discountType": 1,
+                    "discountAmount": 10
+                  },
+                  "pricingDateTime": "2026-11-06T04:00:00-05:00"
+                }
+              ]
+            }
+          }
+        },
+        {
+          "plu": "175150420004",
+          "productName": "4-Day 3-Park Universal Express Pass",
+          "allowedDeliveryMethods": [
+            85,
+            92,
+            108,
+            53
+          ],
+          "bannerColor": "Yellow",
+          "numberOfDays": 0,
+          "uiUsageWindow": 6,
+          "isParkToPark": false,
+          "ageValue": "NA",
+          "isLimitedExpress": true,
+          "isUnlimitedExpress": false,
+          "isFloridaResidentRequired": false,
+          "residencyRequirement": "NA",
+          "isThemeParkAccess": false,
+          "isHHNAccess": false,
+          "isRTUAccess": false,
+          "isGradEventAccess": false,
+          "isEpicAccess": false,
+          "requiresFindEvents": true,
+          "productKind": "Ticket",
+          "currentPricing": {
+            "basePriceData": {
+              "pricesByDay": [
+                {
+                  "priceWithTax": {
+                    "totalPriceWithTax": 457.9400,
+                    "price": 429.9900,
+                    "tax1": 25.80,
+                    "tax2": 2.15
+                  },
+                  "pricingDateTime": "2026-12-01T04:00:00-05:00"
+                }
+              ]
+            },
+            "discountedPriceData": {
+              "pricesByDay": [
+                {
+                  "priceWithTax": {
+                    "totalPriceWithTax": 412.15,
+                    "price": 386.99,
+                    "tax1": 23.22,
+                    "tax2": 1.94,
+                    "discountType": 1,
+                    "discountAmount": 10
+                  },
+                  "pricingDateTime": "2026-12-01T04:00:00-05:00"
+                }
+              ]
+            }
+          },
+          "futurePricing": {
+            "basePriceData": {
+              "pricesByDay": [
+                {
+                  "priceWithTax": {
+                    "totalPriceWithTax": 431.3200,
+                    "price": 404.9900,
+                    "tax1": 24.30,
+                    "tax2": 2.03
+                  },
+                  "pricingDateTime": "2026-11-11T04:00:00-05:00"
+                }
+              ]
+            },
+            "discountedPriceData": {
+              "pricesByDay": [
+                {
+                  "priceWithTax": {
+                    "totalPriceWithTax": 388.18,
+                    "price": 364.49,
+                    "tax1": 21.87,
+                    "tax2": 1.82,
+                    "discountType": 1,
+                    "discountAmount": 10
+                  },
+                  "pricingDateTime": "2026-11-11T04:00:00-05:00"
+                }
+              ]
+            }
+          }
+        },
+        {
+          "plu": "175150520004",
+          "productName": "5-Day 3-Park Universal Express Pass",
+          "allowedDeliveryMethods": [
+            85,
+            92,
+            108,
+            53
+          ],
+          "bannerColor": "Yellow",
+          "numberOfDays": 0,
+          "uiUsageWindow": 7,
+          "isParkToPark": false,
+          "ageValue": "NA",
+          "isLimitedExpress": true,
+          "isUnlimitedExpress": false,
+          "isFloridaResidentRequired": false,
+          "residencyRequirement": "NA",
+          "isThemeParkAccess": false,
+          "isHHNAccess": false,
+          "isRTUAccess": false,
+          "isGradEventAccess": false,
+          "isEpicAccess": false,
+          "requiresFindEvents": true,
+          "productKind": "Ticket",
+          "currentPricing": {
+            "basePriceData": {
+              "pricesByDay": [
+                {
+                  "priceWithTax": {
+                    "totalPriceWithTax": 463.2700,
+                    "price": 434.9900,
+                    "tax1": 26.10,
+                    "tax2": 2.18
+                  },
+                  "pricingDateTime": "2026-12-06T04:00:00-05:00"
+                }
+              ]
+            },
+            "discountedPriceData": {
+              "pricesByDay": [
+                {
+                  "priceWithTax": {
+                    "totalPriceWithTax": 416.94,
+                    "price": 391.49,
+                    "tax1": 23.49,
+                    "tax2": 1.96,
+                    "discountType": 1,
+                    "discountAmount": 10
+                  },
+                  "pricingDateTime": "2026-12-06T04:00:00-05:00"
+                }
+              ]
+            }
+          },
+          "futurePricing": {
+            "basePriceData": {
+              "pricesByDay": [
+                {
+                  "priceWithTax": {
+                    "totalPriceWithTax": 468.5900,
+                    "price": 439.9900,
+                    "tax1": 26.40,
+                    "tax2": 2.20
+                  },
+                  "pricingDateTime": "2026-09-28T04:00:00-04:00"
+                }
+              ]
+            },
+            "discountedPriceData": {
+              "pricesByDay": [
+                {
+                  "priceWithTax": {
+                    "totalPriceWithTax": 421.73,
+                    "price": 395.99,
+                    "tax1": 23.76,
+                    "tax2": 1.98,
+                    "discountType": 1,
+                    "discountAmount": 10
+                  },
+                  "pricingDateTime": "2026-09-28T04:00:00-04:00"
+                }
+              ]
+            }
+          }
+        },
+        {
+          "plu": "180110111007",
+          "productName": "1-Day Base Ticket Adult",
+          "allowedDeliveryMethods": [
+            85,
+            92,
+            108,
+            53
+          ],
+          "bannerColor": "Green",
+          "numberOfDays": 1,
+          "uiUsageWindow": 1,
+          "isParkToPark": false,
+          "ageValue": "A",
+          "isLimitedExpress": false,
+          "isUnlimitedExpress": false,
+          "isFloridaResidentRequired": false,
+          "residencyRequirement": "Outer US",
+          "isThemeParkAccess": true,
+          "themeParkAccessNames": [
+            "USF",
+            "UIA"
+          ],
+          "isHHNAccess": false,
+          "isRTUAccess": false,
+          "isGradEventAccess": false,
+          "isEpicAccess": false,
+          "requiresFindEvents": true,
+          "productKind": "Ticket",
+          "currentPricing": {
+            "basePriceData": {
+              "pricesByDay": [
+                {
+                  "priceWithTax": {
+                    "totalPriceWithTax": 169.34,
+                    "price": 159.0,
+                    "tax1": 9.54,
+                    "tax2": 0.80
+                  },
+                  "pricingDateTime": "2026-07-01T04:00:00-04:00"
+                }
+              ]
+            },
+            "discountedPriceData": {
+              "pricesByDay": [
+                {
+                  "priceWithTax": {
+                    "totalPriceWithTax": 169.34,
+                    "price": 159.0,
+                    "tax1": 9.54,
+                    "tax2": 0.80,
+                    "discountType": 1,
+                    "discountAmount": 0
+                  },
+                  "pricingDateTime": "2026-07-01T04:00:00-04:00"
+                }
+              ]
+            }
+          },
+          "futurePricing": {
+            "basePriceData": {
+              "pricesByDay": [
+                {
+                  "priceWithTax": {
+                    "totalPriceWithTax": 169.34,
+                    "price": 159.0,
+                    "tax1": 9.54,
+                    "tax2": 0.80
+                  },
+                  "pricingDateTime": "2026-07-01T04:00:00-04:00"
+                }
+              ]
+            },
+            "discountedPriceData": {
+              "pricesByDay": [
+                {
+                  "priceWithTax": {
+                    "totalPriceWithTax": 169.34,
+                    "price": 159.0,
+                    "tax1": 9.54,
+                    "tax2": 0.80,
+                    "discountType": 1,
+                    "discountAmount": 0
+                  },
+                  "pricingDateTime": "2026-07-01T04:00:00-04:00"
+                }
+              ]
+            }
+          }
+        },
+        {
+          "plu": "180110111031",
+          "productName": "1-Day Universal Epic Universe Ticket Adult",
+          "allowedDeliveryMethods": [
+            85,
+            92,
+            108,
+            53
+          ],
+          "bannerColor": "Green",
+          "numberOfDays": 1,
+          "uiUsageWindow": 1,
+          "isParkToPark": false,
+          "ageValue": "A",
+          "isLimitedExpress": false,
+          "isUnlimitedExpress": false,
+          "isFloridaResidentRequired": false,
+          "residencyRequirement": "Outer US",
+          "isThemeParkAccess": true,
+          "themeParkAccessNames": [
+            "EPIC"
+          ],
+          "isHHNAccess": false,
+          "isRTUAccess": false,
+          "isGradEventAccess": false,
+          "isEpicAccess": true,
+          "requiresFindEvents": true,
+          "productKind": "Ticket",
+          "currentPricing": {
+            "basePriceData": {
+              "pricesByDay": [
+                {
+                  "priceWithTax": {
+                    "totalPriceWithTax": 190.64,
+                    "price": 179.0,
+                    "tax1": 10.74,
+                    "tax2": 0.90
+                  },
+                  "pricingDateTime": "2026-07-01T04:00:00-04:00"
+                }
+              ]
+            },
+            "discountedPriceData": {
+              "pricesByDay": [
+                {
+                  "priceWithTax": {
+                    "totalPriceWithTax": 190.64,
+                    "price": 179.0,
+                    "tax1": 10.74,
+                    "tax2": 0.90,
+                    "discountType": 1,
+                    "discountAmount": 0
+                  },
+                  "pricingDateTime": "2026-07-01T04:00:00-04:00"
+                }
+              ]
+            }
+          },
+          "futurePricing": {
+            "basePriceData": {
+              "pricesByDay": [
+                {
+                  "priceWithTax": {
+                    "totalPriceWithTax": 190.64,
+                    "price": 179.0,
+                    "tax1": 10.74,
+                    "tax2": 0.90
+                  },
+                  "pricingDateTime": "2026-07-01T04:00:00-04:00"
+                }
+              ]
+            },
+            "discountedPriceData": {
+              "pricesByDay": [
+                {
+                  "priceWithTax": {
+                    "totalPriceWithTax": 190.64,
+                    "price": 179.0,
+                    "tax1": 10.74,
+                    "tax2": 0.90,
+                    "discountType": 1,
+                    "discountAmount": 0
+                  },
+                  "pricingDateTime": "2026-07-01T04:00:00-04:00"
+                }
+              ]
+            }
+          }
+        },
+        {
+          "plu": "180110115007",
+          "productName": "1-Day Base Ticket Child",
+          "allowedDeliveryMethods": [
+            85,
+            92,
+            108,
+            53
+          ],
+          "bannerColor": "Green",
+          "numberOfDays": 1,
+          "uiUsageWindow": 1,
+          "isParkToPark": false,
+          "ageValue": "C",
+          "isLimitedExpress": false,
+          "isUnlimitedExpress": false,
+          "isFloridaResidentRequired": false,
+          "residencyRequirement": "Outer US",
+          "isThemeParkAccess": true,
+          "themeParkAccessNames": [
+            "USF",
+            "UIA"
+          ],
+          "isHHNAccess": false,
+          "isRTUAccess": false,
+          "isGradEventAccess": false,
+          "isEpicAccess": false,
+          "requiresFindEvents": true,
+          "productKind": "Ticket",
+          "currentPricing": {
+            "basePriceData": {
+              "pricesByDay": [
+                {
+                  "priceWithTax": {
+                    "totalPriceWithTax": 167.21,
+                    "price": 157.0,
+                    "tax1": 9.42,
+                    "tax2": 0.79
+                  },
+                  "pricingDateTime": "2026-07-01T04:00:00-04:00"
+                }
+              ]
+            },
+            "discountedPriceData": {
+              "pricesByDay": [
+                {
+                  "priceWithTax": {
+                    "totalPriceWithTax": 167.21,
+                    "price": 157.0,
+                    "tax1": 9.42,
+                    "tax2": 0.79,
+                    "discountType": 1,
+                    "discountAmount": 0
+                  },
+                  "pricingDateTime": "2026-07-01T04:00:00-04:00"
+                }
+              ]
+            }
+          },
+          "futurePricing": {
+            "basePriceData": {
+              "pricesByDay": [
+                {
+                  "priceWithTax": {
+                    "totalPriceWithTax": 167.21,
+                    "price": 157.0,
+                    "tax1": 9.42,
+                    "tax2": 0.79
+                  },
+                  "pricingDateTime": "2026-07-01T04:00:00-04:00"
+                }
+              ]
+            },
+            "discountedPriceData": {
+              "pricesByDay": [
+                {
+                  "priceWithTax": {
+                    "totalPriceWithTax": 167.21,
+                    "price": 157.0,
+                    "tax1": 9.42,
+                    "tax2": 0.79,
+                    "discountType": 1,
+                    "discountAmount": 0
+                  },
+                  "pricingDateTime": "2026-07-01T04:00:00-04:00"
+                }
+              ]
+            }
+          }
+        },
+        {
+          "plu": "180110115031",
+          "productName": "1-Day Universal Epic Universe Ticket Child",
+          "allowedDeliveryMethods": [
+            85,
+            92,
+            108,
+            53
+          ],
+          "bannerColor": "Green",
+          "numberOfDays": 1,
+          "uiUsageWindow": 1,
+          "isParkToPark": false,
+          "ageValue": "C",
+          "isLimitedExpress": false,
+          "isUnlimitedExpress": false,
+          "isFloridaResidentRequired": false,
+          "residencyRequirement": "Outer US",
+          "isThemeParkAccess": true,
+          "themeParkAccessNames": [
+            "EPIC"
+          ],
+          "isHHNAccess": false,
+          "isRTUAccess": false,
+          "isGradEventAccess": false,
+          "isEpicAccess": true,
+          "requiresFindEvents": true,
+          "productKind": "Ticket",
+          "currentPricing": {
+            "basePriceData": {
+              "pricesByDay": [
+                {
+                  "priceWithTax": {
+                    "totalPriceWithTax": 188.51,
+                    "price": 177.0,
+                    "tax1": 10.62,
+                    "tax2": 0.89
+                  },
+                  "pricingDateTime": "2026-07-01T04:00:00-04:00"
+                }
+              ]
+            },
+            "discountedPriceData": {
+              "pricesByDay": [
+                {
+                  "priceWithTax": {
+                    "totalPriceWithTax": 188.51,
+                    "price": 177.0,
+                    "tax1": 10.62,
+                    "tax2": 0.89,
+                    "discountType": 1,
+                    "discountAmount": 0
+                  },
+                  "pricingDateTime": "2026-07-01T04:00:00-04:00"
+                }
+              ]
+            }
+          },
+          "futurePricing": {
+            "basePriceData": {
+              "pricesByDay": [
+                {
+                  "priceWithTax": {
+                    "totalPriceWithTax": 188.51,
+                    "price": 177.0,
+                    "tax1": 10.62,
+                    "tax2": 0.89
+                  },
+                  "pricingDateTime": "2026-07-01T04:00:00-04:00"
+                }
+              ]
+            },
+            "discountedPriceData": {
+              "pricesByDay": [
+                {
+                  "priceWithTax": {
+                    "totalPriceWithTax": 188.51,
+                    "price": 177.0,
+                    "tax1": 10.62,
+                    "tax2": 0.89,
+                    "discountType": 1,
+                    "discountAmount": 0
+                  },
+                  "pricingDateTime": "2026-07-01T04:00:00-04:00"
+                }
+              ]
+            }
+          }
+        },
+        {
+          "plu": "180120121007",
+          "productName": "1-Day Park-to-Park Ticket Adult",
+          "allowedDeliveryMethods": [
+            85,
+            92,
+            108,
+            53
+          ],
+          "bannerColor": "Green",
+          "numberOfDays": 1,
+          "uiUsageWindow": 1,
+          "isParkToPark": true,
+          "ageValue": "A",
+          "isLimitedExpress": false,
+          "isUnlimitedExpress": false,
+          "isFloridaResidentRequired": false,
+          "residencyRequirement": "Outer US",
+          "isThemeParkAccess": true,
+          "themeParkAccessNames": [
+            "USF",
+            "UIA"
+          ],
+          "isHHNAccess": false,
+          "isRTUAccess": false,
+          "isGradEventAccess": false,
+          "isEpicAccess": false,
+          "requiresFindEvents": true,
+          "productKind": "Ticket",
+          "currentPricing": {
+            "basePriceData": {
+              "pricesByDay": [
+                {
+                  "priceWithTax": {
+                    "totalPriceWithTax": 227.91,
+                    "price": 214.0,
+                    "tax1": 12.84,
+                    "tax2": 1.07
+                  },
+                  "pricingDateTime": "2026-07-01T04:00:00-04:00"
+                }
+              ]
+            },
+            "discountedPriceData": {
+              "pricesByDay": [
+                {
+                  "priceWithTax": {
+                    "totalPriceWithTax": 214.24,
+                    "price": 201.16,
+                    "tax1": 12.07,
+                    "tax2": 1.01,
+                    "discountType": 1,
+                    "discountAmount": 6
+                  },
+                  "pricingDateTime": "2026-07-01T04:00:00-04:00"
+                }
+              ]
+            }
+          },
+          "futurePricing": {
+            "basePriceData": {
+              "pricesByDay": [
+                {
+                  "priceWithTax": {
+                    "totalPriceWithTax": 227.91,
+                    "price": 214.0,
+                    "tax1": 12.84,
+                    "tax2": 1.07
+                  },
+                  "pricingDateTime": "2026-07-01T04:00:00-04:00"
+                }
+              ]
+            },
+            "discountedPriceData": {
+              "pricesByDay": [
+                {
+                  "priceWithTax": {
+                    "totalPriceWithTax": 214.24,
+                    "price": 201.16,
+                    "tax1": 12.07,
+                    "tax2": 1.01,
+                    "discountType": 1,
+                    "discountAmount": 6
+                  },
+                  "pricingDateTime": "2026-07-01T04:00:00-04:00"
+                }
+              ]
+            }
+          }
+        },
+        {
+          "plu": "180120121014",
+          "productName": "1-Day Park-to-Park In Market Program Ticket Adult",
+          "allowedDeliveryMethods": [
+            85,
+            92,
+            108,
+            53
+          ],
+          "bannerColor": "Green",
+          "numberOfDays": 1,
+          "uiUsageWindow": 1,
+          "isParkToPark": true,
+          "ageValue": "A",
+          "isLimitedExpress": false,
+          "isUnlimitedExpress": false,
+          "isFloridaResidentRequired": false,
+          "residencyRequirement": "Outer US",
+          "isThemeParkAccess": true,
+          "themeParkAccessNames": [
+            "USF",
+            "UIA"
+          ],
+          "isHHNAccess": false,
+          "isRTUAccess": false,
+          "isGradEventAccess": false,
+          "isEpicAccess": false,
+          "requiresFindEvents": true,
+          "productKind": "Ticket",
+          "currentPricing": {
+            "basePriceData": {
+              "pricesByDay": [
+                {
+                  "priceWithTax": {
+                    "totalPriceWithTax": 227.91,
+                    "price": 214.0,
+                    "tax1": 12.84,
+                    "tax2": 1.07
+                  },
+                  "pricingDateTime": "2026-07-01T04:00:00-04:00"
+                }
+              ]
+            },
+            "discountedPriceData": {
+              "pricesByDay": [
+                {
+                  "priceWithTax": {
+                    "totalPriceWithTax": 211.94,
+                    "price": 199.0,
+                    "tax1": 11.94,
+                    "tax2": 1.00,
+                    "discountType": 2,
+                    "discountAmount": 15
+                  },
+                  "pricingDateTime": "2026-07-01T04:00:00-04:00"
+                }
+              ]
+            }
+          },
+          "futurePricing": {
+            "basePriceData": {
+              "pricesByDay": [
+                {
+                  "priceWithTax": {
+                    "totalPriceWithTax": 227.91,
+                    "price": 214.0,
+                    "tax1": 12.84,
+                    "tax2": 1.07
+                  },
+                  "pricingDateTime": "2026-07-01T04:00:00-04:00"
+                }
+              ]
+            },
+            "discountedPriceData": {
+              "pricesByDay": [
+                {
+                  "priceWithTax": {
+                    "totalPriceWithTax": 211.94,
+                    "price": 199.0,
+                    "tax1": 11.94,
+                    "tax2": 1.00,
+                    "discountType": 2,
+                    "discountAmount": 15
+                  },
+                  "pricingDateTime": "2026-07-01T04:00:00-04:00"
+                }
+              ]
+            }
+          }
+        },
+        {
+          "plu": "180120125007",
+          "productName": "1-Day Park-to-Park Ticket Child",
+          "allowedDeliveryMethods": [
+            85,
+            92,
+            108,
+            53
+          ],
+          "bannerColor": "Green",
+          "numberOfDays": 1,
+          "uiUsageWindow": 1,
+          "isParkToPark": true,
+          "ageValue": "C",
+          "isLimitedExpress": false,
+          "isUnlimitedExpress": false,
+          "isFloridaResidentRequired": false,
+          "residencyRequirement": "Outer US",
+          "isThemeParkAccess": true,
+          "themeParkAccessNames": [
+            "USF",
+            "UIA"
+          ],
+          "isHHNAccess": false,
+          "isRTUAccess": false,
+          "isGradEventAccess": false,
+          "isEpicAccess": false,
+          "requiresFindEvents": true,
+          "productKind": "Ticket",
+          "currentPricing": {
+            "basePriceData": {
+              "pricesByDay": [
+                {
+                  "priceWithTax": {
+                    "totalPriceWithTax": 225.78,
+                    "price": 212.0,
+                    "tax1": 12.72,
+                    "tax2": 1.06
+                  },
+                  "pricingDateTime": "2026-07-01T04:00:00-04:00"
+                }
+              ]
+            },
+            "discountedPriceData": {
+              "pricesByDay": [
+                {
+                  "priceWithTax": {
+                    "totalPriceWithTax": 212.24,
+                    "price": 199.28,
+                    "tax1": 11.96,
+                    "tax2": 1.00,
+                    "discountType": 1,
+                    "discountAmount": 6
+                  },
+                  "pricingDateTime": "2026-07-01T04:00:00-04:00"
+                }
+              ]
+            }
+          },
+          "futurePricing": {
+            "basePriceData": {
+              "pricesByDay": [
+                {
+                  "priceWithTax": {
+                    "totalPriceWithTax": 225.78,
+                    "price": 212.0,
+                    "tax1": 12.72,
+                    "tax2": 1.06
+                  },
+                  "pricingDateTime": "2026-07-01T04:00:00-04:00"
+                }
+              ]
+            },
+            "discountedPriceData": {
+              "pricesByDay": [
+                {
+                  "priceWithTax": {
+                    "totalPriceWithTax": 212.24,
+                    "price": 199.28,
+                    "tax1": 11.96,
+                    "tax2": 1.00,
+                    "discountType": 1,
+                    "discountAmount": 6
+                  },
+                  "pricingDateTime": "2026-07-01T04:00:00-04:00"
+                }
+              ]
+            }
+          }
+        },
+        {
+          "plu": "180120125014",
+          "productName": "1-Day Park-to-Park In Market Program Ticket Child",
+          "allowedDeliveryMethods": [
+            85,
+            92,
+            108,
+            53
+          ],
+          "bannerColor": "Green",
+          "numberOfDays": 1,
+          "uiUsageWindow": 1,
+          "isParkToPark": true,
+          "ageValue": "C",
+          "isLimitedExpress": false,
+          "isUnlimitedExpress": false,
+          "isFloridaResidentRequired": false,
+          "residencyRequirement": "Outer US",
+          "isThemeParkAccess": true,
+          "themeParkAccessNames": [
+            "USF",
+            "UIA"
+          ],
+          "isHHNAccess": false,
+          "isRTUAccess": false,
+          "isGradEventAccess": false,
+          "isEpicAccess": false,
+          "requiresFindEvents": true,
+          "productKind": "Ticket",
+          "currentPricing": {
+            "basePriceData": {
+              "pricesByDay": [
+                {
+                  "priceWithTax": {
+                    "totalPriceWithTax": 225.78,
+                    "price": 212.0,
+                    "tax1": 12.72,
+                    "tax2": 1.06
+                  },
+                  "pricingDateTime": "2026-07-01T04:00:00-04:00"
+                }
+              ]
+            },
+            "discountedPriceData": {
+              "pricesByDay": [
+                {
+                  "priceWithTax": {
+                    "totalPriceWithTax": 209.81,
+                    "price": 197.0,
+                    "tax1": 11.82,
+                    "tax2": 0.99,
+                    "discountType": 2,
+                    "discountAmount": 15
+                  },
+                  "pricingDateTime": "2026-07-01T04:00:00-04:00"
+                }
+              ]
+            }
+          },
+          "futurePricing": {
+            "basePriceData": {
+              "pricesByDay": [
+                {
+                  "priceWithTax": {
+                    "totalPriceWithTax": 225.78,
+                    "price": 212.0,
+                    "tax1": 12.72,
+                    "tax2": 1.06
+                  },
+                  "pricingDateTime": "2026-07-01T04:00:00-04:00"
+                }
+              ]
+            },
+            "discountedPriceData": {
+              "pricesByDay": [
+                {
+                  "priceWithTax": {
+                    "totalPriceWithTax": 209.81,
+                    "price": 197.0,
+                    "tax1": 11.82,
+                    "tax2": 0.99,
+                    "discountType": 2,
+                    "discountAmount": 15
+                  },
+                  "pricingDateTime": "2026-07-01T04:00:00-04:00"
+                }
+              ]
+            }
+          }
+        },
+        {
+          "plu": "185120211007",
+          "productName": "2-Day Base Ticket Adult",
+          "allowedDeliveryMethods": [
+            85,
+            92,
+            108,
+            53
+          ],
+          "bannerColor": "Green",
+          "numberOfDays": 2,
+          "uiUsageWindow": 4,
+          "isParkToPark": false,
+          "ageValue": "A",
+          "isLimitedExpress": false,
+          "isUnlimitedExpress": false,
+          "isFloridaResidentRequired": false,
+          "residencyRequirement": "Outer US",
+          "isThemeParkAccess": true,
+          "themeParkAccessNames": [
+            "USF",
+            "UIA"
+          ],
+          "isHHNAccess": false,
+          "isRTUAccess": false,
+          "isGradEventAccess": false,
+          "isEpicAccess": false,
+          "requiresFindEvents": true,
+          "productKind": "Ticket",
+          "currentPricing": {
+            "basePriceData": {
+              "pricesByDay": [
+                {
+                  "priceWithTax": {
+                    "totalPriceWithTax": 337.60,
+                    "price": 316.99,
+                    "tax1": 19.02,
+                    "tax2": 1.59
+                  },
+                  "pricingDateTime": "2026-07-01T04:00:00-04:00"
+                }
+              ]
+            },
+            "discountedPriceData": {
+              "pricesByDay": [
+                {
+                  "priceWithTax": {
+                    "totalPriceWithTax": 320.72,
+                    "price": 301.14,
+                    "tax1": 18.07,
+                    "tax2": 1.51,
+                    "discountType": 1,
+                    "discountAmount": 5
+                  },
+                  "pricingDateTime": "2026-07-01T04:00:00-04:00"
+                }
+              ]
+            }
+          },
+          "futurePricing": {
+            "basePriceData": {
+              "pricesByDay": [
+                {
+                  "priceWithTax": {
+                    "totalPriceWithTax": 337.60,
+                    "price": 316.99,
+                    "tax1": 19.02,
+                    "tax2": 1.59
+                  },
+                  "pricingDateTime": "2026-07-01T04:00:00-04:00"
+                }
+              ]
+            },
+            "discountedPriceData": {
+              "pricesByDay": [
+                {
+                  "priceWithTax": {
+                    "totalPriceWithTax": 320.72,
+                    "price": 301.14,
+                    "tax1": 18.07,
+                    "tax2": 1.51,
+                    "discountType": 1,
+                    "discountAmount": 5
+                  },
+                  "pricingDateTime": "2026-07-01T04:00:00-04:00"
+                }
+              ]
+            }
+          }
+        },
+        {
+          "plu": "185120211014",
+          "productName": "2-Day Base In Market Program Ticket Adult",
+          "allowedDeliveryMethods": [
+            85,
+            92,
+            108,
+            53
+          ],
+          "bannerColor": "Green",
+          "numberOfDays": 2,
+          "uiUsageWindow": 4,
+          "isParkToPark": false,
+          "ageValue": "A",
+          "isLimitedExpress": false,
+          "isUnlimitedExpress": false,
+          "isFloridaResidentRequired": false,
+          "residencyRequirement": "Outer US",
+          "isThemeParkAccess": true,
+          "themeParkAccessNames": [
+            "USF",
+            "UIA"
+          ],
+          "isHHNAccess": false,
+          "isRTUAccess": false,
+          "isGradEventAccess": false,
+          "isEpicAccess": false,
+          "requiresFindEvents": true,
+          "productKind": "Ticket",
+          "currentPricing": {
+            "basePriceData": {
+              "pricesByDay": [
+                {
+                  "priceWithTax": {
+                    "totalPriceWithTax": 337.60,
+                    "price": 316.99,
+                    "tax1": 19.02,
+                    "tax2": 1.59
+                  },
+                  "pricingDateTime": "2026-07-01T04:00:00-04:00"
+                }
+              ]
+            },
+            "discountedPriceData": {
+              "pricesByDay": [
+                {
+                  "priceWithTax": {
+                    "totalPriceWithTax": 317.62,
+                    "price": 298.24,
+                    "tax1": 17.89,
+                    "tax2": 1.49,
+                    "discountType": 2,
+                    "discountAmount": 18.75
+                  },
+                  "pricingDateTime": "2026-07-01T04:00:00-04:00"
+                }
+              ]
+            }
+          },
+          "futurePricing": {
+            "basePriceData": {
+              "pricesByDay": [
+                {
+                  "priceWithTax": {
+                    "totalPriceWithTax": 337.60,
+                    "price": 316.99,
+                    "tax1": 19.02,
+                    "tax2": 1.59
+                  },
+                  "pricingDateTime": "2026-07-01T04:00:00-04:00"
+                }
+              ]
+            },
+            "discountedPriceData": {
+              "pricesByDay": [
+                {
+                  "priceWithTax": {
+                    "totalPriceWithTax": 317.62,
+                    "price": 298.24,
+                    "tax1": 17.89,
+                    "tax2": 1.49,
+                    "discountType": 2,
+                    "discountAmount": 18.75
+                  },
+                  "pricingDateTime": "2026-07-01T04:00:00-04:00"
+                }
+              ]
+            }
+          }
+        },
+        {
+          "plu": "185120215007",
+          "productName": "2-Day Base Ticket Child",
+          "allowedDeliveryMethods": [
+            85,
+            92,
+            108,
+            53
+          ],
+          "bannerColor": "Green",
+          "numberOfDays": 2,
+          "uiUsageWindow": 4,
+          "isParkToPark": false,
+          "ageValue": "C",
+          "isLimitedExpress": false,
+          "isUnlimitedExpress": false,
+          "isFloridaResidentRequired": false,
+          "residencyRequirement": "Outer US",
+          "isThemeParkAccess": true,
+          "themeParkAccessNames": [
+            "USF",
+            "UIA"
+          ],
+          "isHHNAccess": false,
+          "isRTUAccess": false,
+          "isGradEventAccess": false,
+          "isEpicAccess": false,
+          "requiresFindEvents": true,
+          "productKind": "Ticket",
+          "currentPricing": {
+            "basePriceData": {
+              "pricesByDay": [
+                {
+                  "priceWithTax": {
+                    "totalPriceWithTax": 332.27,
+                    "price": 311.99,
+                    "tax1": 18.72,
+                    "tax2": 1.56
+                  },
+                  "pricingDateTime": "2026-07-01T04:00:00-04:00"
+                }
+              ]
+            },
+            "discountedPriceData": {
+              "pricesByDay": [
+                {
+                  "priceWithTax": {
+                    "totalPriceWithTax": 315.65,
+                    "price": 296.39,
+                    "tax1": 17.78,
+                    "tax2": 1.48,
+                    "discountType": 1,
+                    "discountAmount": 5
+                  },
+                  "pricingDateTime": "2026-07-01T04:00:00-04:00"
+                }
+              ]
+            }
+          },
+          "futurePricing": {
+            "basePriceData": {
+              "pricesByDay": [
+                {
+                  "priceWithTax": {
+                    "totalPriceWithTax": 332.27,
+                    "price": 311.99,
+                    "tax1": 18.72,
+                    "tax2": 1.56
+                  },
+                  "pricingDateTime": "2026-07-01T04:00:00-04:00"
+                }
+              ]
+            },
+            "discountedPriceData": {
+              "pricesByDay": [
+                {
+                  "priceWithTax": {
+                    "totalPriceWithTax": 315.65,
+                    "price": 296.39,
+                    "tax1": 17.78,
+                    "tax2": 1.48,
+                    "discountType": 1,
+                    "discountAmount": 5
+                  },
+                  "pricingDateTime": "2026-07-01T04:00:00-04:00"
+                }
+              ]
+            }
+          }
+        },
+        {
+          "plu": "185120215014",
+          "productName": "2-Day Base In Market Program Ticket Child",
+          "allowedDeliveryMethods": [
+            85,
+            92,
+            108,
+            53
+          ],
+          "bannerColor": "Green",
+          "numberOfDays": 2,
+          "uiUsageWindow": 4,
+          "isParkToPark": false,
+          "ageValue": "C",
+          "isLimitedExpress": false,
+          "isUnlimitedExpress": false,
+          "isFloridaResidentRequired": false,
+          "residencyRequirement": "Outer US",
+          "isThemeParkAccess": true,
+          "themeParkAccessNames": [
+            "USF",
+            "UIA"
+          ],
+          "isHHNAccess": false,
+          "isRTUAccess": false,
+          "isGradEventAccess": false,
+          "isEpicAccess": false,
+          "requiresFindEvents": true,
+          "productKind": "Ticket",
+          "currentPricing": {
+            "basePriceData": {
+              "pricesByDay": [
+                {
+                  "priceWithTax": {
+                    "totalPriceWithTax": 332.27,
+                    "price": 311.99,
+                    "tax1": 18.72,
+                    "tax2": 1.56
+                  },
+                  "pricingDateTime": "2026-07-01T04:00:00-04:00"
+                }
+              ]
+            },
+            "discountedPriceData": {
+              "pricesByDay": [
+                {
+                  "priceWithTax": {
+                    "totalPriceWithTax": 312.30,
+                    "price": 293.24,
+                    "tax1": 17.59,
+                    "tax2": 1.47,
+                    "discountType": 2,
+                    "discountAmount": 18.75
+                  },
+                  "pricingDateTime": "2026-07-01T04:00:00-04:00"
+                }
+              ]
+            }
+          },
+          "futurePricing": {
+            "basePriceData": {
+              "pricesByDay": [
+                {
+                  "priceWithTax": {
+                    "totalPriceWithTax": 332.27,
+                    "price": 311.99,
+                    "tax1": 18.72,
+                    "tax2": 1.56
+                  },
+                  "pricingDateTime": "2026-07-01T04:00:00-04:00"
+                }
+              ]
+            },
+            "discountedPriceData": {
+              "pricesByDay": [
+                {
+                  "priceWithTax": {
+                    "totalPriceWithTax": 312.30,
+                    "price": 293.24,
+                    "tax1": 17.59,
+                    "tax2": 1.47,
+                    "discountType": 2,
+                    "discountAmount": 18.75
+                  },
+                  "pricingDateTime": "2026-07-01T04:00:00-04:00"
+                }
+              ]
+            }
+          }
+        },
+        {
+          "plu": "185120221007",
+          "productName": "2-Day Park-to-Park Ticket Adult",
+          "allowedDeliveryMethods": [
+            85,
+            92,
+            108,
+            53
+          ],
+          "bannerColor": "Green",
+          "numberOfDays": 2,
+          "uiUsageWindow": 4,
+          "isParkToPark": true,
+          "ageValue": "A",
+          "isLimitedExpress": false,
+          "isUnlimitedExpress": false,
+          "isFloridaResidentRequired": false,
+          "residencyRequirement": "Outer US",
+          "isThemeParkAccess": true,
+          "themeParkAccessNames": [
+            "USF",
+            "UIA"
+          ],
+          "isHHNAccess": false,
+          "isRTUAccess": false,
+          "isGradEventAccess": false,
+          "isEpicAccess": false,
+          "requiresFindEvents": true,
+          "productKind": "Ticket",
+          "currentPricing": {
+            "basePriceData": {
+              "pricesByDay": [
+                {
+                  "priceWithTax": {
+                    "totalPriceWithTax": 401.50,
+                    "price": 376.99,
+                    "tax1": 22.62,
+                    "tax2": 1.89
+                  },
+                  "pricingDateTime": "2026-07-01T04:00:00-04:00"
+                }
+              ]
+            },
+            "discountedPriceData": {
+              "pricesByDay": [
+                {
+                  "priceWithTax": {
+                    "totalPriceWithTax": 353.32,
+                    "price": 331.75,
+                    "tax1": 19.91,
+                    "tax2": 1.66,
+                    "discountType": 1,
+                    "discountAmount": 12
+                  },
+                  "pricingDateTime": "2026-07-01T04:00:00-04:00"
+                }
+              ]
+            }
+          },
+          "futurePricing": {
+            "basePriceData": {
+              "pricesByDay": [
+                {
+                  "priceWithTax": {
+                    "totalPriceWithTax": 401.50,
+                    "price": 376.99,
+                    "tax1": 22.62,
+                    "tax2": 1.89
+                  },
+                  "pricingDateTime": "2026-07-01T04:00:00-04:00"
+                }
+              ]
+            },
+            "discountedPriceData": {
+              "pricesByDay": [
+                {
+                  "priceWithTax": {
+                    "totalPriceWithTax": 353.32,
+                    "price": 331.75,
+                    "tax1": 19.91,
+                    "tax2": 1.66,
+                    "discountType": 1,
+                    "discountAmount": 12
+                  },
+                  "pricingDateTime": "2026-07-01T04:00:00-04:00"
+                }
+              ]
+            }
+          }
+        },
+        {
+          "plu": "185120225007",
+          "productName": "2-Day Park-to-Park Ticket Child",
+          "allowedDeliveryMethods": [
+            85,
+            92,
+            108,
+            53
+          ],
+          "bannerColor": "Green",
+          "numberOfDays": 2,
+          "uiUsageWindow": 4,
+          "isParkToPark": true,
+          "ageValue": "C",
+          "isLimitedExpress": false,
+          "isUnlimitedExpress": false,
+          "isFloridaResidentRequired": false,
+          "residencyRequirement": "Outer US",
+          "isThemeParkAccess": true,
+          "themeParkAccessNames": [
+            "USF",
+            "UIA"
+          ],
+          "isHHNAccess": false,
+          "isRTUAccess": false,
+          "isGradEventAccess": false,
+          "isEpicAccess": false,
+          "requiresFindEvents": true,
+          "productKind": "Ticket",
+          "currentPricing": {
+            "basePriceData": {
+              "pricesByDay": [
+                {
+                  "priceWithTax": {
+                    "totalPriceWithTax": 396.17,
+                    "price": 371.99,
+                    "tax1": 22.32,
+                    "tax2": 1.86
+                  },
+                  "pricingDateTime": "2026-07-01T04:00:00-04:00"
+                }
+              ]
+            },
+            "discountedPriceData": {
+              "pricesByDay": [
+                {
+                  "priceWithTax": {
+                    "totalPriceWithTax": 348.63,
+                    "price": 327.35,
+                    "tax1": 19.64,
+                    "tax2": 1.64,
+                    "discountType": 1,
+                    "discountAmount": 12
+                  },
+                  "pricingDateTime": "2026-07-01T04:00:00-04:00"
+                }
+              ]
+            }
+          },
+          "futurePricing": {
+            "basePriceData": {
+              "pricesByDay": [
+                {
+                  "priceWithTax": {
+                    "totalPriceWithTax": 396.17,
+                    "price": 371.99,
+                    "tax1": 22.32,
+                    "tax2": 1.86
+                  },
+                  "pricingDateTime": "2026-07-01T04:00:00-04:00"
+                }
+              ]
+            },
+            "discountedPriceData": {
+              "pricesByDay": [
+                {
+                  "priceWithTax": {
+                    "totalPriceWithTax": 348.63,
+                    "price": 327.35,
+                    "tax1": 19.64,
+                    "tax2": 1.64,
+                    "discountType": 1,
+                    "discountAmount": 12
+                  },
+                  "pricingDateTime": "2026-07-01T04:00:00-04:00"
+                }
+              ]
+            }
+          }
+        },
+        {
+          "plu": "185130321040",
+          "productName": "2-Day Park-to-Park PLUS 1-Day Volcano Bay In Market Program Ticket Adult",
+          "allowedDeliveryMethods": [
+            85,
+            92,
+            108,
+            53
+          ],
+          "bannerColor": "Green",
+          "numberOfDays": 3,
+          "uiUsageWindow": 4,
+          "isParkToPark": true,
+          "ageValue": "A",
+          "isLimitedExpress": false,
+          "isUnlimitedExpress": false,
+          "isFloridaResidentRequired": false,
+          "residencyRequirement": "Outer US",
+          "isThemeParkAccess": true,
+          "themeParkAccessNames": [
+            "USF",
+            "UIA",
+            "VBP"
+          ],
+          "isHHNAccess": false,
+          "isRTUAccess": false,
+          "isGradEventAccess": false,
+          "isEpicAccess": false,
+          "requiresFindEvents": true,
+          "productKind": "Ticket",
+          "currentPricing": {
+            "basePriceData": {
+              "pricesByDay": [
+                {
+                  "priceWithTax": {
+                    "totalPriceWithTax": 282.2200,
+                    "price": 264.9900,
+                    "tax1": 15.90,
+                    "tax2": 1.33
+                  },
+                  "pricingDateTime": "2026-07-01T04:00:00-04:00"
+                }
+              ]
+            },
+            "discountedPriceData": {
+              "pricesByDay": [
+                {
+                  "priceWithTax": {
+                    "totalPriceWithTax": 266.2400,
+                    "price": 249.9900,
+                    "tax1": 15.00,
+                    "tax2": 1.25,
+                    "discountType": 2,
+                    "discountAmount": 15
+                  },
+                  "pricingDateTime": "2026-07-01T04:00:00-04:00"
+                }
+              ]
+            }
+          },
+          "futurePricing": {
+            "basePriceData": {
+              "pricesByDay": [
+                {
+                  "priceWithTax": {
+                    "totalPriceWithTax": 282.2200,
+                    "price": 264.9900,
+                    "tax1": 15.90,
+                    "tax2": 1.33
+                  },
+                  "pricingDateTime": "2026-07-01T04:00:00-04:00"
+                }
+              ]
+            },
+            "discountedPriceData": {
+              "pricesByDay": [
+                {
+                  "priceWithTax": {
+                    "totalPriceWithTax": 266.2400,
+                    "price": 249.9900,
+                    "tax1": 15.00,
+                    "tax2": 1.25,
+                    "discountType": 2,
+                    "discountAmount": 15
+                  },
+                  "pricingDateTime": "2026-07-01T04:00:00-04:00"
+                }
+              ]
+            }
+          }
+        },
+        {
+          "plu": "185130325040",
+          "productName": "2-Day Park-to-Park PLUS 1-Day Volcano Bay In Market Program Ticket Child",
+          "allowedDeliveryMethods": [
+            85,
+            92,
+            108,
+            53
+          ],
+          "bannerColor": "Green",
+          "numberOfDays": 3,
+          "uiUsageWindow": 4,
+          "isParkToPark": true,
+          "ageValue": "C",
+          "isLimitedExpress": false,
+          "isUnlimitedExpress": false,
+          "isFloridaResidentRequired": false,
+          "residencyRequirement": "Outer US",
+          "isThemeParkAccess": true,
+          "themeParkAccessNames": [
+            "USF",
+            "UIA",
+            "VBP"
+          ],
+          "isHHNAccess": false,
+          "isRTUAccess": false,
+          "isGradEventAccess": false,
+          "isEpicAccess": false,
+          "requiresFindEvents": true,
+          "productKind": "Ticket",
+          "currentPricing": {
+            "basePriceData": {
+              "pricesByDay": [
+                {
+                  "priceWithTax": {
+                    "totalPriceWithTax": 276.8900,
+                    "price": 259.9900,
+                    "tax1": 15.60,
+                    "tax2": 1.30
+                  },
+                  "pricingDateTime": "2026-07-01T04:00:00-04:00"
+                }
+              ]
+            },
+            "discountedPriceData": {
+              "pricesByDay": [
+                {
+                  "priceWithTax": {
+                    "totalPriceWithTax": 260.9200,
+                    "price": 244.9900,
+                    "tax1": 14.70,
+                    "tax2": 1.23,
+                    "discountType": 2,
+                    "discountAmount": 15
+                  },
+                  "pricingDateTime": "2026-07-01T04:00:00-04:00"
+                }
+              ]
+            }
+          },
+          "futurePricing": {
+            "basePriceData": {
+              "pricesByDay": [
+                {
+                  "priceWithTax": {
+                    "totalPriceWithTax": 276.8900,
+                    "price": 259.9900,
+                    "tax1": 15.60,
+                    "tax2": 1.30
+                  },
+                  "pricingDateTime": "2026-07-01T04:00:00-04:00"
+                }
+              ]
+            },
+            "discountedPriceData": {
+              "pricesByDay": [
+                {
+                  "priceWithTax": {
+                    "totalPriceWithTax": 260.9200,
+                    "price": 244.9900,
+                    "tax1": 14.70,
+                    "tax2": 1.23,
+                    "discountType": 2,
+                    "discountAmount": 15
+                  },
+                  "pricingDateTime": "2026-07-01T04:00:00-04:00"
+                }
+              ]
+            }
+          }
+        },
+        {
+          "plu": "185150211010",
+          "productName": "1-Day Base PLUS 1-Day Universal Epic Universe Ticket Adult",
+          "allowedDeliveryMethods": [
+            85,
+            92,
+            108,
+            53
+          ],
+          "bannerColor": "Green",
+          "numberOfDays": 2,
+          "uiUsageWindow": 4,
+          "isParkToPark": false,
+          "ageValue": "A",
+          "isLimitedExpress": false,
+          "isUnlimitedExpress": false,
+          "isFloridaResidentRequired": false,
+          "residencyRequirement": "Outer US",
+          "isThemeParkAccess": true,
+          "themeParkAccessNames": [
+            "USF",
+            "UIA",
+            "EPIC"
+          ],
+          "isHHNAccess": false,
+          "isRTUAccess": false,
+          "isGradEventAccess": false,
+          "isEpicAccess": true,
+          "requiresFindEvents": true,
+          "productKind": "Ticket",
+          "currentPricing": {
+            "basePriceData": {
+              "pricesByDay": [
+                {
+                  "priceWithTax": {
+                    "totalPriceWithTax": 358.90,
+                    "price": 336.99,
+                    "tax1": 20.22,
+                    "tax2": 1.69
+                  },
+                  "pricingDateTime": "2026-07-01T04:00:00-04:00"
+                }
+              ]
+            },
+            "discountedPriceData": {
+              "pricesByDay": [
+                {
+                  "priceWithTax": {
+                    "totalPriceWithTax": 340.95,
+                    "price": 320.14,
+                    "tax1": 19.21,
+                    "tax2": 1.60,
+                    "discountType": 1,
+                    "discountAmount": 5
+                  },
+                  "pricingDateTime": "2026-07-01T04:00:00-04:00"
+                }
+              ]
+            }
+          },
+          "futurePricing": {
+            "basePriceData": {
+              "pricesByDay": [
+                {
+                  "priceWithTax": {
+                    "totalPriceWithTax": 358.90,
+                    "price": 336.99,
+                    "tax1": 20.22,
+                    "tax2": 1.69
+                  },
+                  "pricingDateTime": "2026-07-01T04:00:00-04:00"
+                }
+              ]
+            },
+            "discountedPriceData": {
+              "pricesByDay": [
+                {
+                  "priceWithTax": {
+                    "totalPriceWithTax": 340.95,
+                    "price": 320.14,
+                    "tax1": 19.21,
+                    "tax2": 1.60,
+                    "discountType": 1,
+                    "discountAmount": 5
+                  },
+                  "pricingDateTime": "2026-07-01T04:00:00-04:00"
+                }
+              ]
+            }
+          }
+        },
+        {
+          "plu": "185150215010",
+          "productName": "1-Day Base PLUS 1-Day Universal Epic Universe Ticket Child",
+          "allowedDeliveryMethods": [
+            85,
+            92,
+            108,
+            53
+          ],
+          "bannerColor": "Green",
+          "numberOfDays": 2,
+          "uiUsageWindow": 4,
+          "isParkToPark": false,
+          "ageValue": "C",
+          "isLimitedExpress": false,
+          "isUnlimitedExpress": false,
+          "isFloridaResidentRequired": false,
+          "residencyRequirement": "Outer US",
+          "isThemeParkAccess": true,
+          "themeParkAccessNames": [
+            "USF",
+            "UIA",
+            "EPIC"
+          ],
+          "isHHNAccess": false,
+          "isRTUAccess": false,
+          "isGradEventAccess": false,
+          "isEpicAccess": true,
+          "requiresFindEvents": true,
+          "productKind": "Ticket",
+          "currentPricing": {
+            "basePriceData": {
+              "pricesByDay": [
+                {
+                  "priceWithTax": {
+                    "totalPriceWithTax": 353.57,
+                    "price": 331.99,
+                    "tax1": 19.92,
+                    "tax2": 1.66
+                  },
+                  "pricingDateTime": "2026-07-01T04:00:00-04:00"
+                }
+              ]
+            },
+            "discountedPriceData": {
+              "pricesByDay": [
+                {
+                  "priceWithTax": {
+                    "totalPriceWithTax": 335.89,
+                    "price": 315.39,
+                    "tax1": 18.92,
+                    "tax2": 1.58,
+                    "discountType": 1,
+                    "discountAmount": 5
+                  },
+                  "pricingDateTime": "2026-07-01T04:00:00-04:00"
+                }
+              ]
+            }
+          },
+          "futurePricing": {
+            "basePriceData": {
+              "pricesByDay": [
+                {
+                  "priceWithTax": {
+                    "totalPriceWithTax": 353.57,
+                    "price": 331.99,
+                    "tax1": 19.92,
+                    "tax2": 1.66
+                  },
+                  "pricingDateTime": "2026-07-01T04:00:00-04:00"
+                }
+              ]
+            },
+            "discountedPriceData": {
+              "pricesByDay": [
+                {
+                  "priceWithTax": {
+                    "totalPriceWithTax": 335.89,
+                    "price": 315.39,
+                    "tax1": 18.92,
+                    "tax2": 1.58,
+                    "discountType": 1,
+                    "discountAmount": 5
+                  },
+                  "pricingDateTime": "2026-07-01T04:00:00-04:00"
+                }
+              ]
+            }
+          }
+        },
+        {
+          "plu": "185150221010",
+          "productName": "1-Day Park-to-Park PLUS 1-Day Universal Epic Universe Ticket Adult",
+          "allowedDeliveryMethods": [
+            85,
+            92,
+            108,
+            53
+          ],
+          "bannerColor": "Green",
+          "numberOfDays": 2,
+          "uiUsageWindow": 4,
+          "isParkToPark": true,
+          "ageValue": "A",
+          "isLimitedExpress": false,
+          "isUnlimitedExpress": false,
+          "isFloridaResidentRequired": false,
+          "residencyRequirement": "Outer US",
+          "isThemeParkAccess": true,
+          "themeParkAccessNames": [
+            "USF",
+            "UIA",
+            "EPIC"
+          ],
+          "isHHNAccess": false,
+          "isRTUAccess": false,
+          "isGradEventAccess": false,
+          "isEpicAccess": true,
+          "requiresFindEvents": true,
+          "productKind": "Ticket",
+          "currentPricing": {
+            "basePriceData": {
+              "pricesByDay": [
+                {
+                  "priceWithTax": {
+                    "totalPriceWithTax": 422.80,
+                    "price": 396.99,
+                    "tax1": 23.82,
+                    "tax2": 1.99
+                  },
+                  "pricingDateTime": "2026-07-01T04:00:00-04:00"
+                }
+              ]
+            },
+            "discountedPriceData": {
+              "pricesByDay": [
+                {
+                  "priceWithTax": {
+                    "totalPriceWithTax": 372.06,
+                    "price": 349.35,
+                    "tax1": 20.96,
+                    "tax2": 1.75,
+                    "discountType": 1,
+                    "discountAmount": 12
+                  },
+                  "pricingDateTime": "2026-07-01T04:00:00-04:00"
+                }
+              ]
+            }
+          },
+          "futurePricing": {
+            "basePriceData": {
+              "pricesByDay": [
+                {
+                  "priceWithTax": {
+                    "totalPriceWithTax": 422.80,
+                    "price": 396.99,
+                    "tax1": 23.82,
+                    "tax2": 1.99
+                  },
+                  "pricingDateTime": "2026-07-01T04:00:00-04:00"
+                }
+              ]
+            },
+            "discountedPriceData": {
+              "pricesByDay": [
+                {
+                  "priceWithTax": {
+                    "totalPriceWithTax": 372.06,
+                    "price": 349.35,
+                    "tax1": 20.96,
+                    "tax2": 1.75,
+                    "discountType": 1,
+                    "discountAmount": 12
+                  },
+                  "pricingDateTime": "2026-07-01T04:00:00-04:00"
+                }
+              ]
+            }
+          }
+        },
+        {
+          "plu": "185150225010",
+          "productName": "1-Day Park-to-Park PLUS 1-Day Universal Epic Universe Ticket Child",
+          "allowedDeliveryMethods": [
+            85,
+            92,
+            108,
+            53
+          ],
+          "bannerColor": "Green",
+          "numberOfDays": 2,
+          "uiUsageWindow": 4,
+          "isParkToPark": true,
+          "ageValue": "C",
+          "isLimitedExpress": false,
+          "isUnlimitedExpress": false,
+          "isFloridaResidentRequired": false,
+          "residencyRequirement": "Outer US",
+          "isThemeParkAccess": true,
+          "themeParkAccessNames": [
+            "USF",
+            "UIA",
+            "EPIC"
+          ],
+          "isHHNAccess": false,
+          "isRTUAccess": false,
+          "isGradEventAccess": false,
+          "isEpicAccess": true,
+          "requiresFindEvents": true,
+          "productKind": "Ticket",
+          "currentPricing": {
+            "basePriceData": {
+              "pricesByDay": [
+                {
+                  "priceWithTax": {
+                    "totalPriceWithTax": 417.47,
+                    "price": 391.99,
+                    "tax1": 23.52,
+                    "tax2": 1.96
+                  },
+                  "pricingDateTime": "2026-07-01T04:00:00-04:00"
+                }
+              ]
+            },
+            "discountedPriceData": {
+              "pricesByDay": [
+                {
+                  "priceWithTax": {
+                    "totalPriceWithTax": 367.37,
+                    "price": 344.95,
+                    "tax1": 20.70,
+                    "tax2": 1.72,
+                    "discountType": 1,
+                    "discountAmount": 12
+                  },
+                  "pricingDateTime": "2026-07-01T04:00:00-04:00"
+                }
+              ]
+            }
+          },
+          "futurePricing": {
+            "basePriceData": {
+              "pricesByDay": [
+                {
+                  "priceWithTax": {
+                    "totalPriceWithTax": 417.47,
+                    "price": 391.99,
+                    "tax1": 23.52,
+                    "tax2": 1.96
+                  },
+                  "pricingDateTime": "2026-07-01T04:00:00-04:00"
+                }
+              ]
+            },
+            "discountedPriceData": {
+              "pricesByDay": [
+                {
+                  "priceWithTax": {
+                    "totalPriceWithTax": 367.37,
+                    "price": 344.95,
+                    "tax1": 20.70,
+                    "tax2": 1.72,
+                    "discountType": 1,
+                    "discountAmount": 12
+                  },
+                  "pricingDateTime": "2026-07-01T04:00:00-04:00"
+                }
+              ]
+            }
+          }
+        },
+        {
+          "plu": "185150311022",
+          "productName": "3-Day Base Ticket Adult",
+          "allowedDeliveryMethods": [
+            85,
+            92,
+            108,
+            53
+          ],
+          "bannerColor": "Green",
+          "numberOfDays": 3,
+          "uiUsageWindow": 5,
+          "isParkToPark": false,
+          "ageValue": "A",
+          "isLimitedExpress": false,
+          "isUnlimitedExpress": false,
+          "isFloridaResidentRequired": false,
+          "residencyRequirement": "Outer US",
+          "isThemeParkAccess": true,
+          "themeParkAccessNames": [
+            "USF",
+            "UIA",
+            "EPIC"
+          ],
+          "isHHNAccess": false,
+          "isRTUAccess": false,
+          "isGradEventAccess": false,
+          "isEpicAccess": true,
+          "requiresFindEvents": true,
+          "productKind": "Ticket",
+          "currentPricing": {
+            "basePriceData": {
+              "pricesByDay": [
+                {
+                  "priceWithTax": {
+                    "totalPriceWithTax": 433.45,
+                    "price": 406.99,
+                    "tax1": 24.42,
+                    "tax2": 2.04
+                  },
+                  "pricingDateTime": "2026-07-01T04:00:00-04:00"
+                }
+              ]
+            },
+            "discountedPriceData": {
+              "pricesByDay": [
+                {
+                  "priceWithTax": {
+                    "totalPriceWithTax": 400.94,
+                    "price": 376.47,
+                    "tax1": 22.59,
+                    "tax2": 1.88,
+                    "discountType": 1,
+                    "discountAmount": 7.5
+                  },
+                  "pricingDateTime": "2026-07-01T04:00:00-04:00"
+                }
+              ]
+            }
+          },
+          "futurePricing": {
+            "basePriceData": {
+              "pricesByDay": [
+                {
+                  "priceWithTax": {
+                    "totalPriceWithTax": 433.45,
+                    "price": 406.99,
+                    "tax1": 24.42,
+                    "tax2": 2.04
+                  },
+                  "pricingDateTime": "2026-07-01T04:00:00-04:00"
+                }
+              ]
+            },
+            "discountedPriceData": {
+              "pricesByDay": [
+                {
+                  "priceWithTax": {
+                    "totalPriceWithTax": 400.94,
+                    "price": 376.47,
+                    "tax1": 22.59,
+                    "tax2": 1.88,
+                    "discountType": 1,
+                    "discountAmount": 7.5
+                  },
+                  "pricingDateTime": "2026-07-01T04:00:00-04:00"
+                }
+              ]
+            }
+          }
+        },
+        {
+          "plu": "185150315021",
+          "productName": "3-Day Base Ticket Child",
+          "allowedDeliveryMethods": [
+            85,
+            92,
+            108,
+            53
+          ],
+          "bannerColor": "Green",
+          "numberOfDays": 3,
+          "uiUsageWindow": 5,
+          "isParkToPark": false,
+          "ageValue": "C",
+          "isLimitedExpress": false,
+          "isUnlimitedExpress": false,
+          "isFloridaResidentRequired": false,
+          "residencyRequirement": "Outer US",
+          "isThemeParkAccess": true,
+          "themeParkAccessNames": [
+            "USF",
+            "UIA",
+            "EPIC"
+          ],
+          "isHHNAccess": false,
+          "isRTUAccess": false,
+          "isGradEventAccess": false,
+          "isEpicAccess": true,
+          "requiresFindEvents": true,
+          "productKind": "Ticket",
+          "currentPricing": {
+            "basePriceData": {
+              "pricesByDay": [
+                {
+                  "priceWithTax": {
+                    "totalPriceWithTax": 428.12,
+                    "price": 401.99,
+                    "tax1": 24.12,
+                    "tax2": 2.01
+                  },
+                  "pricingDateTime": "2026-07-01T04:00:00-04:00"
+                }
+              ]
+            },
+            "discountedPriceData": {
+              "pricesByDay": [
+                {
+                  "priceWithTax": {
+                    "totalPriceWithTax": 396.01,
+                    "price": 371.84,
+                    "tax1": 22.31,
+                    "tax2": 1.86,
+                    "discountType": 1,
+                    "discountAmount": 7.5
+                  },
+                  "pricingDateTime": "2026-07-01T04:00:00-04:00"
+                }
+              ]
+            }
+          },
+          "futurePricing": {
+            "basePriceData": {
+              "pricesByDay": [
+                {
+                  "priceWithTax": {
+                    "totalPriceWithTax": 428.12,
+                    "price": 401.99,
+                    "tax1": 24.12,
+                    "tax2": 2.01
+                  },
+                  "pricingDateTime": "2026-07-01T04:00:00-04:00"
+                }
+              ]
+            },
+            "discountedPriceData": {
+              "pricesByDay": [
+                {
+                  "priceWithTax": {
+                    "totalPriceWithTax": 396.01,
+                    "price": 371.84,
+                    "tax1": 22.31,
+                    "tax2": 1.86,
+                    "discountType": 1,
+                    "discountAmount": 7.5
+                  },
+                  "pricingDateTime": "2026-07-01T04:00:00-04:00"
+                }
+              ]
+            }
+          }
+        },
+        {
+          "plu": "185150321022",
+          "productName": "3-Day Park-to-Park Ticket Adult",
+          "allowedDeliveryMethods": [
+            85,
+            92,
+            108,
+            53
+          ],
+          "bannerColor": "Green",
+          "numberOfDays": 3,
+          "uiUsageWindow": 5,
+          "isParkToPark": true,
+          "ageValue": "A",
+          "isLimitedExpress": false,
+          "isUnlimitedExpress": false,
+          "isFloridaResidentRequired": false,
+          "residencyRequirement": "Outer US",
+          "isThemeParkAccess": true,
+          "themeParkAccessNames": [
+            "USF",
+            "UIA",
+            "EPIC"
+          ],
+          "isHHNAccess": false,
+          "isRTUAccess": false,
+          "isGradEventAccess": false,
+          "isEpicAccess": true,
+          "requiresFindEvents": true,
+          "productKind": "Ticket",
+          "currentPricing": {
+            "basePriceData": {
+              "pricesByDay": [
+                {
+                  "priceWithTax": {
+                    "totalPriceWithTax": 497.35,
+                    "price": 466.99,
+                    "tax1": 28.02,
+                    "tax2": 2.34
+                  },
+                  "pricingDateTime": "2026-07-01T04:00:00-04:00"
+                }
+              ]
+            },
+            "discountedPriceData": {
+              "pricesByDay": [
+                {
+                  "priceWithTax": {
+                    "totalPriceWithTax": 430.21,
+                    "price": 403.95,
+                    "tax1": 24.24,
+                    "tax2": 2.02,
+                    "discountType": 1,
+                    "discountAmount": 13.5
+                  },
+                  "pricingDateTime": "2026-07-01T04:00:00-04:00"
+                }
+              ]
+            }
+          },
+          "futurePricing": {
+            "basePriceData": {
+              "pricesByDay": [
+                {
+                  "priceWithTax": {
+                    "totalPriceWithTax": 497.35,
+                    "price": 466.99,
+                    "tax1": 28.02,
+                    "tax2": 2.34
+                  },
+                  "pricingDateTime": "2026-07-01T04:00:00-04:00"
+                }
+              ]
+            },
+            "discountedPriceData": {
+              "pricesByDay": [
+                {
+                  "priceWithTax": {
+                    "totalPriceWithTax": 430.21,
+                    "price": 403.95,
+                    "tax1": 24.24,
+                    "tax2": 2.02,
+                    "discountType": 1,
+                    "discountAmount": 13.5
+                  },
+                  "pricingDateTime": "2026-07-01T04:00:00-04:00"
+                }
+              ]
+            }
+          }
+        },
+        {
+          "plu": "185150325021",
+          "productName": "3-Day Park-to-Park Ticket Child",
+          "allowedDeliveryMethods": [
+            85,
+            92,
+            108,
+            53
+          ],
+          "bannerColor": "Green",
+          "numberOfDays": 3,
+          "uiUsageWindow": 5,
+          "isParkToPark": true,
+          "ageValue": "C",
+          "isLimitedExpress": false,
+          "isUnlimitedExpress": false,
+          "isFloridaResidentRequired": false,
+          "residencyRequirement": "Outer US",
+          "isThemeParkAccess": true,
+          "themeParkAccessNames": [
+            "USF",
+            "UIA",
+            "EPIC"
+          ],
+          "isHHNAccess": false,
+          "isRTUAccess": false,
+          "isGradEventAccess": false,
+          "isEpicAccess": true,
+          "requiresFindEvents": true,
+          "productKind": "Ticket",
+          "currentPricing": {
+            "basePriceData": {
+              "pricesByDay": [
+                {
+                  "priceWithTax": {
+                    "totalPriceWithTax": 492.02,
+                    "price": 461.99,
+                    "tax1": 27.72,
+                    "tax2": 2.31
+                  },
+                  "pricingDateTime": "2026-07-01T04:00:00-04:00"
+                }
+              ]
+            },
+            "discountedPriceData": {
+              "pricesByDay": [
+                {
+                  "priceWithTax": {
+                    "totalPriceWithTax": 425.60,
+                    "price": 399.62,
+                    "tax1": 23.98,
+                    "tax2": 2.00,
+                    "discountType": 1,
+                    "discountAmount": 13.5
+                  },
+                  "pricingDateTime": "2026-07-01T04:00:00-04:00"
+                }
+              ]
+            }
+          },
+          "futurePricing": {
+            "basePriceData": {
+              "pricesByDay": [
+                {
+                  "priceWithTax": {
+                    "totalPriceWithTax": 492.02,
+                    "price": 461.99,
+                    "tax1": 27.72,
+                    "tax2": 2.31
+                  },
+                  "pricingDateTime": "2026-07-01T04:00:00-04:00"
+                }
+              ]
+            },
+            "discountedPriceData": {
+              "pricesByDay": [
+                {
+                  "priceWithTax": {
+                    "totalPriceWithTax": 425.60,
+                    "price": 399.62,
+                    "tax1": 23.98,
+                    "tax2": 2.00,
+                    "discountType": 1,
+                    "discountAmount": 13.5
+                  },
+                  "pricingDateTime": "2026-07-01T04:00:00-04:00"
+                }
+              ]
+            }
+          }
+        },
+        {
+          "plu": "185150421022",
+          "productName": "4-Day Park-to-Park Ticket Adult",
+          "allowedDeliveryMethods": [
+            85,
+            92,
+            108,
+            53
+          ],
+          "bannerColor": "Green",
+          "numberOfDays": 4,
+          "uiUsageWindow": 6,
+          "isParkToPark": true,
+          "ageValue": "A",
+          "isLimitedExpress": false,
+          "isUnlimitedExpress": false,
+          "isFloridaResidentRequired": false,
+          "residencyRequirement": "Outer US",
+          "isThemeParkAccess": true,
+          "themeParkAccessNames": [
+            "USF",
+            "UIA",
+            "EPIC"
+          ],
+          "isHHNAccess": false,
+          "isRTUAccess": false,
+          "isGradEventAccess": false,
+          "isEpicAccess": true,
+          "requiresFindEvents": true,
+          "productKind": "Ticket",
+          "currentPricing": {
+            "basePriceData": {
+              "pricesByDay": [
+                {
+                  "priceWithTax": {
+                    "totalPriceWithTax": 518.65,
+                    "price": 486.99,
+                    "tax1": 29.22,
+                    "tax2": 2.44
+                  },
+                  "pricingDateTime": "2026-07-01T04:00:00-04:00"
+                }
+              ]
+            },
+            "discountedPriceData": {
+              "pricesByDay": [
+                {
+                  "priceWithTax": {
+                    "totalPriceWithTax": 446.03,
+                    "price": 418.81,
+                    "tax1": 25.13,
+                    "tax2": 2.09,
+                    "discountType": 1,
+                    "discountAmount": 14
+                  },
+                  "pricingDateTime": "2026-07-01T04:00:00-04:00"
+                }
+              ]
+            }
+          },
+          "futurePricing": {
+            "basePriceData": {
+              "pricesByDay": [
+                {
+                  "priceWithTax": {
+                    "totalPriceWithTax": 518.65,
+                    "price": 486.99,
+                    "tax1": 29.22,
+                    "tax2": 2.44
+                  },
+                  "pricingDateTime": "2026-07-01T04:00:00-04:00"
+                }
+              ]
+            },
+            "discountedPriceData": {
+              "pricesByDay": [
+                {
+                  "priceWithTax": {
+                    "totalPriceWithTax": 446.03,
+                    "price": 418.81,
+                    "tax1": 25.13,
+                    "tax2": 2.09,
+                    "discountType": 1,
+                    "discountAmount": 14
+                  },
+                  "pricingDateTime": "2026-07-01T04:00:00-04:00"
+                }
+              ]
+            }
+          }
+        },
+        {
+          "plu": "185150425021",
+          "productName": "4-Day Park-to-Park Ticket Child",
+          "allowedDeliveryMethods": [
+            85,
+            92,
+            108,
+            53
+          ],
+          "bannerColor": "Green",
+          "numberOfDays": 4,
+          "uiUsageWindow": 6,
+          "isParkToPark": true,
+          "ageValue": "C",
+          "isLimitedExpress": false,
+          "isUnlimitedExpress": false,
+          "isFloridaResidentRequired": false,
+          "residencyRequirement": "Outer US",
+          "isThemeParkAccess": true,
+          "themeParkAccessNames": [
+            "USF",
+            "UIA",
+            "EPIC"
+          ],
+          "isHHNAccess": false,
+          "isRTUAccess": false,
+          "isGradEventAccess": false,
+          "isEpicAccess": true,
+          "requiresFindEvents": true,
+          "productKind": "Ticket",
+          "currentPricing": {
+            "basePriceData": {
+              "pricesByDay": [
+                {
+                  "priceWithTax": {
+                    "totalPriceWithTax": 513.32,
+                    "price": 481.99,
+                    "tax1": 28.92,
+                    "tax2": 2.41
+                  },
+                  "pricingDateTime": "2026-07-01T04:00:00-04:00"
+                }
+              ]
+            },
+            "discountedPriceData": {
+              "pricesByDay": [
+                {
+                  "priceWithTax": {
+                    "totalPriceWithTax": 441.45,
+                    "price": 414.51,
+                    "tax1": 24.87,
+                    "tax2": 2.07,
+                    "discountType": 1,
+                    "discountAmount": 14
+                  },
+                  "pricingDateTime": "2026-07-01T04:00:00-04:00"
+                }
+              ]
+            }
+          },
+          "futurePricing": {
+            "basePriceData": {
+              "pricesByDay": [
+                {
+                  "priceWithTax": {
+                    "totalPriceWithTax": 513.32,
+                    "price": 481.99,
+                    "tax1": 28.92,
+                    "tax2": 2.41
+                  },
+                  "pricingDateTime": "2026-07-01T04:00:00-04:00"
+                }
+              ]
+            },
+            "discountedPriceData": {
+              "pricesByDay": [
+                {
+                  "priceWithTax": {
+                    "totalPriceWithTax": 441.45,
+                    "price": 414.51,
+                    "tax1": 24.87,
+                    "tax2": 2.07,
+                    "discountType": 1,
+                    "discountAmount": 14
+                  },
+                  "pricingDateTime": "2026-07-01T04:00:00-04:00"
+                }
+              ]
+            }
+          }
+        },
+        {
+          "plu": "185150521022",
+          "productName": "5-Day Park-to-Park Ticket Adult",
+          "allowedDeliveryMethods": [
+            85,
+            92,
+            108,
+            53
+          ],
+          "bannerColor": "Green",
+          "numberOfDays": 5,
+          "uiUsageWindow": 7,
+          "isParkToPark": true,
+          "ageValue": "A",
+          "isLimitedExpress": false,
+          "isUnlimitedExpress": false,
+          "isFloridaResidentRequired": false,
+          "residencyRequirement": "Outer US",
+          "isThemeParkAccess": true,
+          "themeParkAccessNames": [
+            "USF",
+            "UIA",
+            "EPIC"
+          ],
+          "isHHNAccess": false,
+          "isRTUAccess": false,
+          "isGradEventAccess": false,
+          "isEpicAccess": true,
+          "requiresFindEvents": true,
+          "productKind": "Ticket",
+          "currentPricing": {
+            "basePriceData": {
+              "pricesByDay": [
+                {
+                  "priceWithTax": {
+                    "totalPriceWithTax": 539.95,
+                    "price": 506.99,
+                    "tax1": 30.42,
+                    "tax2": 2.54
+                  },
+                  "pricingDateTime": "2026-07-01T04:00:00-04:00"
+                }
+              ]
+            },
+            "discountedPriceData": {
+              "pricesByDay": [
+                {
+                  "priceWithTax": {
+                    "totalPriceWithTax": 456.25,
+                    "price": 428.41,
+                    "tax1": 25.70,
+                    "tax2": 2.14,
+                    "discountType": 1,
+                    "discountAmount": 15.5
+                  },
+                  "pricingDateTime": "2026-07-01T04:00:00-04:00"
+                }
+              ]
+            }
+          },
+          "futurePricing": {
+            "basePriceData": {
+              "pricesByDay": [
+                {
+                  "priceWithTax": {
+                    "totalPriceWithTax": 539.95,
+                    "price": 506.99,
+                    "tax1": 30.42,
+                    "tax2": 2.54
+                  },
+                  "pricingDateTime": "2026-07-01T04:00:00-04:00"
+                }
+              ]
+            },
+            "discountedPriceData": {
+              "pricesByDay": [
+                {
+                  "priceWithTax": {
+                    "totalPriceWithTax": 456.25,
+                    "price": 428.41,
+                    "tax1": 25.70,
+                    "tax2": 2.14,
+                    "discountType": 1,
+                    "discountAmount": 15.5
+                  },
+                  "pricingDateTime": "2026-07-01T04:00:00-04:00"
+                }
+              ]
+            }
+          }
+        },
+        {
+          "plu": "185150525021",
+          "productName": "5-Day Park-to-Park Ticket Child",
+          "allowedDeliveryMethods": [
+            85,
+            92,
+            108,
+            53
+          ],
+          "bannerColor": "Green",
+          "numberOfDays": 5,
+          "uiUsageWindow": 7,
+          "isParkToPark": true,
+          "ageValue": "C",
+          "isLimitedExpress": false,
+          "isUnlimitedExpress": false,
+          "isFloridaResidentRequired": false,
+          "residencyRequirement": "Outer US",
+          "isThemeParkAccess": true,
+          "themeParkAccessNames": [
+            "USF",
+            "UIA",
+            "EPIC"
+          ],
+          "isHHNAccess": false,
+          "isRTUAccess": false,
+          "isGradEventAccess": false,
+          "isEpicAccess": true,
+          "requiresFindEvents": true,
+          "productKind": "Ticket",
+          "currentPricing": {
+            "basePriceData": {
+              "pricesByDay": [
+                {
+                  "priceWithTax": {
+                    "totalPriceWithTax": 534.62,
+                    "price": 501.99,
+                    "tax1": 30.12,
+                    "tax2": 2.51
+                  },
+                  "pricingDateTime": "2026-07-01T04:00:00-04:00"
+                }
+              ]
+            },
+            "discountedPriceData": {
+              "pricesByDay": [
+                {
+                  "priceWithTax": {
+                    "totalPriceWithTax": 451.75,
+                    "price": 424.18,
+                    "tax1": 25.45,
+                    "tax2": 2.12,
+                    "discountType": 1,
+                    "discountAmount": 15.5
+                  },
+                  "pricingDateTime": "2026-07-01T04:00:00-04:00"
+                }
+              ]
+            }
+          },
+          "futurePricing": {
+            "basePriceData": {
+              "pricesByDay": [
+                {
+                  "priceWithTax": {
+                    "totalPriceWithTax": 534.62,
+                    "price": 501.99,
+                    "tax1": 30.12,
+                    "tax2": 2.51
+                  },
+                  "pricingDateTime": "2026-07-01T04:00:00-04:00"
+                }
+              ]
+            },
+            "discountedPriceData": {
+              "pricesByDay": [
+                {
+                  "priceWithTax": {
+                    "totalPriceWithTax": 451.75,
+                    "price": 424.18,
+                    "tax1": 25.45,
+                    "tax2": 2.12,
+                    "discountType": 1,
+                    "discountAmount": 15.5
+                  },
+                  "pricingDateTime": "2026-07-01T04:00:00-04:00"
+                }
+              ]
+            }
+          }
+        },
+        {
+          "plu": "185160321022",
+          "productName": "3-Day Park-to-Park WITH Volcano Bay Ticket Adult",
+          "allowedDeliveryMethods": [
+            85,
+            92,
+            108,
+            53
+          ],
+          "bannerColor": "Green",
+          "numberOfDays": 3,
+          "uiUsageWindow": 5,
+          "isParkToPark": true,
+          "ageValue": "A",
+          "isLimitedExpress": false,
+          "isUnlimitedExpress": false,
+          "isFloridaResidentRequired": false,
+          "residencyRequirement": "Outer US",
+          "isThemeParkAccess": true,
+          "themeParkAccessNames": [
+            "USF",
+            "UIA",
+            "VBP",
+            "EPIC"
+          ],
+          "isHHNAccess": false,
+          "isRTUAccess": false,
+          "isGradEventAccess": false,
+          "isEpicAccess": true,
+          "requiresFindEvents": true,
+          "productKind": "Ticket",
+          "currentPricing": {
+            "basePriceData": {
+              "pricesByDay": [
+                {
+                  "priceWithTax": {
+                    "totalPriceWithTax": 561.25,
+                    "price": 526.99,
+                    "tax1": 31.62,
+                    "tax2": 2.64
+                  },
+                  "pricingDateTime": "2026-07-01T04:00:00-04:00"
+                }
+              ]
+            },
+            "discountedPriceData": {
+              "pricesByDay": [
+                {
+                  "priceWithTax": {
+                    "totalPriceWithTax": 485.48,
+                    "price": 455.85,
+                    "tax1": 27.35,
+                    "tax2": 2.28,
+                    "discountType": 1,
+                    "discountAmount": 13.5
+                  },
+                  "pricingDateTime": "2026-07-01T04:00:00-04:00"
+                }
+              ]
+            }
+          },
+          "futurePricing": {
+            "basePriceData": {
+              "pricesByDay": [
+                {
+                  "priceWithTax": {
+                    "totalPriceWithTax": 561.25,
+                    "price": 526.99,
+                    "tax1": 31.62,
+                    "tax2": 2.64
+                  },
+                  "pricingDateTime": "2026-07-01T04:00:00-04:00"
+                }
+              ]
+            },
+            "discountedPriceData": {
+              "pricesByDay": [
+                {
+                  "priceWithTax": {
+                    "totalPriceWithTax": 485.48,
+                    "price": 455.85,
+                    "tax1": 27.35,
+                    "tax2": 2.28,
+                    "discountType": 1,
+                    "discountAmount": 13.5
+                  },
+                  "pricingDateTime": "2026-07-01T04:00:00-04:00"
+                }
+              ]
+            }
+          }
+        },
+        {
+          "plu": "185160325021",
+          "productName": "3-Day Park-to-Park WITH Volcano Bay Ticket Child",
+          "allowedDeliveryMethods": [
+            85,
+            92,
+            108,
+            53
+          ],
+          "bannerColor": "Green",
+          "numberOfDays": 3,
+          "uiUsageWindow": 5,
+          "isParkToPark": true,
+          "ageValue": "C",
+          "isLimitedExpress": false,
+          "isUnlimitedExpress": false,
+          "isFloridaResidentRequired": false,
+          "residencyRequirement": "Outer US",
+          "isThemeParkAccess": true,
+          "themeParkAccessNames": [
+            "USF",
+            "UIA",
+            "VBP",
+            "EPIC"
+          ],
+          "isHHNAccess": false,
+          "isRTUAccess": false,
+          "isGradEventAccess": false,
+          "isEpicAccess": true,
+          "requiresFindEvents": true,
+          "productKind": "Ticket",
+          "currentPricing": {
+            "basePriceData": {
+              "pricesByDay": [
+                {
+                  "priceWithTax": {
+                    "totalPriceWithTax": 555.92,
+                    "price": 521.99,
+                    "tax1": 31.32,
+                    "tax2": 2.61
+                  },
+                  "pricingDateTime": "2026-07-01T04:00:00-04:00"
+                }
+              ]
+            },
+            "discountedPriceData": {
+              "pricesByDay": [
+                {
+                  "priceWithTax": {
+                    "totalPriceWithTax": 480.87,
+                    "price": 451.52,
+                    "tax1": 27.09,
+                    "tax2": 2.26,
+                    "discountType": 1,
+                    "discountAmount": 13.5
+                  },
+                  "pricingDateTime": "2026-07-01T04:00:00-04:00"
+                }
+              ]
+            }
+          },
+          "futurePricing": {
+            "basePriceData": {
+              "pricesByDay": [
+                {
+                  "priceWithTax": {
+                    "totalPriceWithTax": 555.92,
+                    "price": 521.99,
+                    "tax1": 31.32,
+                    "tax2": 2.61
+                  },
+                  "pricingDateTime": "2026-07-01T04:00:00-04:00"
+                }
+              ]
+            },
+            "discountedPriceData": {
+              "pricesByDay": [
+                {
+                  "priceWithTax": {
+                    "totalPriceWithTax": 480.87,
+                    "price": 451.52,
+                    "tax1": 27.09,
+                    "tax2": 2.26,
+                    "discountType": 1,
+                    "discountAmount": 13.5
+                  },
+                  "pricingDateTime": "2026-07-01T04:00:00-04:00"
+                }
+              ]
+            }
+          }
+        },
+        {
+          "plu": "185160421022",
+          "productName": "4-Day Park-to-Park WITH Volcano Bay Ticket Adult",
+          "allowedDeliveryMethods": [
+            85,
+            92,
+            108,
+            53
+          ],
+          "bannerColor": "Green",
+          "numberOfDays": 4,
+          "uiUsageWindow": 6,
+          "isParkToPark": true,
+          "ageValue": "A",
+          "isLimitedExpress": false,
+          "isUnlimitedExpress": false,
+          "isFloridaResidentRequired": false,
+          "residencyRequirement": "Outer US",
+          "isThemeParkAccess": true,
+          "themeParkAccessNames": [
+            "USF",
+            "UIA",
+            "VBP",
+            "EPIC"
+          ],
+          "isHHNAccess": false,
+          "isRTUAccess": false,
+          "isGradEventAccess": false,
+          "isEpicAccess": true,
+          "requiresFindEvents": true,
+          "productKind": "Ticket",
+          "currentPricing": {
+            "basePriceData": {
+              "pricesByDay": [
+                {
+                  "priceWithTax": {
+                    "totalPriceWithTax": 593.20,
+                    "price": 556.99,
+                    "tax1": 33.42,
+                    "tax2": 2.79
+                  },
+                  "pricingDateTime": "2026-07-01T04:00:00-04:00"
+                }
+              ]
+            },
+            "discountedPriceData": {
+              "pricesByDay": [
+                {
+                  "priceWithTax": {
+                    "totalPriceWithTax": 510.15,
+                    "price": 479.01,
+                    "tax1": 28.74,
+                    "tax2": 2.40,
+                    "discountType": 1,
+                    "discountAmount": 14
+                  },
+                  "pricingDateTime": "2026-07-01T04:00:00-04:00"
+                }
+              ]
+            }
+          },
+          "futurePricing": {
+            "basePriceData": {
+              "pricesByDay": [
+                {
+                  "priceWithTax": {
+                    "totalPriceWithTax": 593.20,
+                    "price": 556.99,
+                    "tax1": 33.42,
+                    "tax2": 2.79
+                  },
+                  "pricingDateTime": "2026-07-01T04:00:00-04:00"
+                }
+              ]
+            },
+            "discountedPriceData": {
+              "pricesByDay": [
+                {
+                  "priceWithTax": {
+                    "totalPriceWithTax": 510.15,
+                    "price": 479.01,
+                    "tax1": 28.74,
+                    "tax2": 2.40,
+                    "discountType": 1,
+                    "discountAmount": 14
+                  },
+                  "pricingDateTime": "2026-07-01T04:00:00-04:00"
+                }
+              ]
+            }
+          }
+        },
+        {
+          "plu": "185160425021",
+          "productName": "4-Day Park-to-Park WITH Volcano Bay Ticket Child",
+          "allowedDeliveryMethods": [
+            85,
+            92,
+            108,
+            53
+          ],
+          "bannerColor": "Green",
+          "numberOfDays": 4,
+          "uiUsageWindow": 6,
+          "isParkToPark": true,
+          "ageValue": "C",
+          "isLimitedExpress": false,
+          "isUnlimitedExpress": false,
+          "isFloridaResidentRequired": false,
+          "residencyRequirement": "Outer US",
+          "isThemeParkAccess": true,
+          "themeParkAccessNames": [
+            "USF",
+            "UIA",
+            "VBP",
+            "EPIC"
+          ],
+          "isHHNAccess": false,
+          "isRTUAccess": false,
+          "isGradEventAccess": false,
+          "isEpicAccess": true,
+          "requiresFindEvents": true,
+          "productKind": "Ticket",
+          "currentPricing": {
+            "basePriceData": {
+              "pricesByDay": [
+                {
+                  "priceWithTax": {
+                    "totalPriceWithTax": 587.87,
+                    "price": 551.99,
+                    "tax1": 33.12,
+                    "tax2": 2.76
+                  },
+                  "pricingDateTime": "2026-07-01T04:00:00-04:00"
+                }
+              ]
+            },
+            "discountedPriceData": {
+              "pricesByDay": [
+                {
+                  "priceWithTax": {
+                    "totalPriceWithTax": 505.56,
+                    "price": 474.71,
+                    "tax1": 28.48,
+                    "tax2": 2.37,
+                    "discountType": 1,
+                    "discountAmount": 14
+                  },
+                  "pricingDateTime": "2026-07-01T04:00:00-04:00"
+                }
+              ]
+            }
+          },
+          "futurePricing": {
+            "basePriceData": {
+              "pricesByDay": [
+                {
+                  "priceWithTax": {
+                    "totalPriceWithTax": 587.87,
+                    "price": 551.99,
+                    "tax1": 33.12,
+                    "tax2": 2.76
+                  },
+                  "pricingDateTime": "2026-07-01T04:00:00-04:00"
+                }
+              ]
+            },
+            "discountedPriceData": {
+              "pricesByDay": [
+                {
+                  "priceWithTax": {
+                    "totalPriceWithTax": 505.56,
+                    "price": 474.71,
+                    "tax1": 28.48,
+                    "tax2": 2.37,
+                    "discountType": 1,
+                    "discountAmount": 14
+                  },
+                  "pricingDateTime": "2026-07-01T04:00:00-04:00"
+                }
+              ]
+            }
+          }
+        },
+        {
+          "plu": "185160521022",
+          "productName": "5-Day Park-to-Park WITH Volcano Bay Ticket Adult",
+          "allowedDeliveryMethods": [
+            85,
+            92,
+            108,
+            53
+          ],
+          "bannerColor": "Green",
+          "numberOfDays": 5,
+          "uiUsageWindow": 7,
+          "isParkToPark": true,
+          "ageValue": "A",
+          "isLimitedExpress": false,
+          "isUnlimitedExpress": false,
+          "isFloridaResidentRequired": false,
+          "residencyRequirement": "Outer US",
+          "isThemeParkAccess": true,
+          "themeParkAccessNames": [
+            "USF",
+            "UIA",
+            "VBP",
+            "EPIC"
+          ],
+          "isHHNAccess": false,
+          "isRTUAccess": false,
+          "isGradEventAccess": false,
+          "isEpicAccess": true,
+          "requiresFindEvents": true,
+          "productKind": "Ticket",
+          "currentPricing": {
+            "basePriceData": {
+              "pricesByDay": [
+                {
+                  "priceWithTax": {
+                    "totalPriceWithTax": 625.15,
+                    "price": 586.99,
+                    "tax1": 35.22,
+                    "tax2": 2.94
+                  },
+                  "pricingDateTime": "2026-07-01T04:00:00-04:00"
+                }
+              ]
+            },
+            "discountedPriceData": {
+              "pricesByDay": [
+                {
+                  "priceWithTax": {
+                    "totalPriceWithTax": 528.25,
+                    "price": 496.01,
+                    "tax1": 29.76,
+                    "tax2": 2.48,
+                    "discountType": 1,
+                    "discountAmount": 15.5
+                  },
+                  "pricingDateTime": "2026-07-01T04:00:00-04:00"
+                }
+              ]
+            }
+          },
+          "futurePricing": {
+            "basePriceData": {
+              "pricesByDay": [
+                {
+                  "priceWithTax": {
+                    "totalPriceWithTax": 625.15,
+                    "price": 586.99,
+                    "tax1": 35.22,
+                    "tax2": 2.94
+                  },
+                  "pricingDateTime": "2026-07-01T04:00:00-04:00"
+                }
+              ]
+            },
+            "discountedPriceData": {
+              "pricesByDay": [
+                {
+                  "priceWithTax": {
+                    "totalPriceWithTax": 528.25,
+                    "price": 496.01,
+                    "tax1": 29.76,
+                    "tax2": 2.48,
+                    "discountType": 1,
+                    "discountAmount": 15.5
+                  },
+                  "pricingDateTime": "2026-07-01T04:00:00-04:00"
+                }
+              ]
+            }
+          }
+        },
+        {
+          "plu": "185160525021",
+          "productName": "5-Day Park-to-Park WITH Volcano Bay Ticket Child",
+          "allowedDeliveryMethods": [
+            85,
+            92,
+            108,
+            53
+          ],
+          "bannerColor": "Green",
+          "numberOfDays": 5,
+          "uiUsageWindow": 7,
+          "isParkToPark": true,
+          "ageValue": "C",
+          "isLimitedExpress": false,
+          "isUnlimitedExpress": false,
+          "isFloridaResidentRequired": false,
+          "residencyRequirement": "Outer US",
+          "isThemeParkAccess": true,
+          "themeParkAccessNames": [
+            "USF",
+            "UIA",
+            "VBP",
+            "EPIC"
+          ],
+          "isHHNAccess": false,
+          "isRTUAccess": false,
+          "isGradEventAccess": false,
+          "isEpicAccess": true,
+          "requiresFindEvents": true,
+          "productKind": "Ticket",
+          "currentPricing": {
+            "basePriceData": {
+              "pricesByDay": [
+                {
+                  "priceWithTax": {
+                    "totalPriceWithTax": 619.82,
+                    "price": 581.99,
+                    "tax1": 34.92,
+                    "tax2": 2.91
+                  },
+                  "pricingDateTime": "2026-07-01T04:00:00-04:00"
+                }
+              ]
+            },
+            "discountedPriceData": {
+              "pricesByDay": [
+                {
+                  "priceWithTax": {
+                    "totalPriceWithTax": 523.75,
+                    "price": 491.78,
+                    "tax1": 29.51,
+                    "tax2": 2.46,
+                    "discountType": 1,
+                    "discountAmount": 15.5
+                  },
+                  "pricingDateTime": "2026-07-01T04:00:00-04:00"
+                }
+              ]
+            }
+          },
+          "futurePricing": {
+            "basePriceData": {
+              "pricesByDay": [
+                {
+                  "priceWithTax": {
+                    "totalPriceWithTax": 619.82,
+                    "price": 581.99,
+                    "tax1": 34.92,
+                    "tax2": 2.91
+                  },
+                  "pricingDateTime": "2026-07-01T04:00:00-04:00"
+                }
+              ]
+            },
+            "discountedPriceData": {
+              "pricesByDay": [
+                {
+                  "priceWithTax": {
+                    "totalPriceWithTax": 523.75,
+                    "price": 491.78,
+                    "tax1": 29.51,
+                    "tax2": 2.46,
+                    "discountType": 1,
+                    "discountAmount": 15.5
+                  },
+                  "pricingDateTime": "2026-07-01T04:00:00-04:00"
+                }
+              ]
+            }
+          }
+        }
+      ]
+    },
+    {
+      "salesProgramId": 4689,
+      "salesProgramName": "2026 OUS Gst Svc T2",
+      "productCatalogEntries": [
+        {
+          "plu": "185350511018",
+          "productName": "3-Day Base + 2 Days Free Promotional Ticket Adult",
+          "allowedDeliveryMethods": [
+            85,
+            92,
+            108,
+            53
+          ],
+          "bannerColor": "Green",
+          "numberOfDays": 5,
+          "uiUsageWindow": 7,
+          "isParkToPark": false,
+          "ageValue": "A",
+          "isLimitedExpress": false,
+          "isUnlimitedExpress": false,
+          "isFloridaResidentRequired": false,
+          "residencyRequirement": "Outer US",
+          "isThemeParkAccess": true,
+          "themeParkAccessNames": [
+            "USF",
+            "UIA",
+            "EPIC"
+          ],
+          "isHHNAccess": false,
+          "isRTUAccess": false,
+          "isGradEventAccess": false,
+          "isEpicAccess": true,
+          "requiresFindEvents": true,
+          "productKind": "Ticket",
+          "currentPricing": {
+            "basePriceData": {
+              "pricesByDay": [
+                {
+                  "priceWithTax": {
+                    "totalPriceWithTax": 406.82,
+                    "price": 381.99,
+                    "tax1": 22.92,
+                    "tax2": 1.91
+                  },
+                  "pricingDateTime": "2026-07-07T04:00:00-04:00"
+                }
+              ]
+            },
+            "discountedPriceData": {
+              "pricesByDay": [
+                {
+                  "priceWithTax": {
+                    "totalPriceWithTax": 376.31,
+                    "price": 353.34,
+                    "tax1": 21.20,
+                    "tax2": 1.77,
+                    "discountType": 1,
+                    "discountAmount": 7.5
+                  },
+                  "pricingDateTime": "2026-07-07T04:00:00-04:00"
+                }
+              ]
+            }
+          },
+          "futurePricing": {
+            "basePriceData": {
+              "pricesByDay": [
+                {
+                  "priceWithTax": {
+                    "totalPriceWithTax": 406.82,
+                    "price": 381.99,
+                    "tax1": 22.92,
+                    "tax2": 1.91
+                  },
+                  "pricingDateTime": "2026-07-07T04:00:00-04:00"
+                }
+              ]
+            },
+            "discountedPriceData": {
+              "pricesByDay": [
+                {
+                  "priceWithTax": {
+                    "totalPriceWithTax": 376.31,
+                    "price": 353.34,
+                    "tax1": 21.20,
+                    "tax2": 1.77,
+                    "discountType": 1,
+                    "discountAmount": 7.5
+                  },
+                  "pricingDateTime": "2026-07-07T04:00:00-04:00"
+                }
+              ]
+            }
+          }
+        },
+        {
+          "plu": "185350515017",
+          "productName": "3-Day Base + 2 Days Free Promotional Ticket Child",
+          "allowedDeliveryMethods": [
+            85,
+            92,
+            108,
+            53
+          ],
+          "bannerColor": "Green",
+          "numberOfDays": 5,
+          "uiUsageWindow": 7,
+          "isParkToPark": false,
+          "ageValue": "C",
+          "isLimitedExpress": false,
+          "isUnlimitedExpress": false,
+          "isFloridaResidentRequired": false,
+          "residencyRequirement": "Outer US",
+          "isThemeParkAccess": true,
+          "themeParkAccessNames": [
+            "USF",
+            "UIA",
+            "EPIC"
+          ],
+          "isHHNAccess": false,
+          "isRTUAccess": false,
+          "isGradEventAccess": false,
+          "isEpicAccess": true,
+          "requiresFindEvents": true,
+          "productKind": "Ticket",
+          "currentPricing": {
+            "basePriceData": {
+              "pricesByDay": [
+                {
+                  "priceWithTax": {
+                    "totalPriceWithTax": 396.17,
+                    "price": 371.99,
+                    "tax1": 22.32,
+                    "tax2": 1.86
+                  },
+                  "pricingDateTime": "2026-07-07T04:00:00-04:00"
+                }
+              ]
+            },
+            "discountedPriceData": {
+              "pricesByDay": [
+                {
+                  "priceWithTax": {
+                    "totalPriceWithTax": 366.46,
+                    "price": 344.09,
+                    "tax1": 20.65,
+                    "tax2": 1.72,
+                    "discountType": 1,
+                    "discountAmount": 7.5
+                  },
+                  "pricingDateTime": "2026-07-07T04:00:00-04:00"
+                }
+              ]
+            }
+          },
+          "futurePricing": {
+            "basePriceData": {
+              "pricesByDay": [
+                {
+                  "priceWithTax": {
+                    "totalPriceWithTax": 396.17,
+                    "price": 371.99,
+                    "tax1": 22.32,
+                    "tax2": 1.86
+                  },
+                  "pricingDateTime": "2026-07-07T04:00:00-04:00"
+                }
+              ]
+            },
+            "discountedPriceData": {
+              "pricesByDay": [
+                {
+                  "priceWithTax": {
+                    "totalPriceWithTax": 366.46,
+                    "price": 344.09,
+                    "tax1": 20.65,
+                    "tax2": 1.72,
+                    "discountType": 1,
+                    "discountAmount": 7.5
+                  },
+                  "pricingDateTime": "2026-07-07T04:00:00-04:00"
+                }
+              ]
+            }
+          }
+        },
+        {
+          "plu": "185350521022",
+          "productName": "3-Day Park-to-Park + 2 Days Free Promotional Ticket Adult",
+          "allowedDeliveryMethods": [
+            85,
+            92,
+            108,
+            53
+          ],
+          "bannerColor": "Green",
+          "numberOfDays": 5,
+          "uiUsageWindow": 7,
+          "isParkToPark": true,
+          "ageValue": "A",
+          "isLimitedExpress": false,
+          "isUnlimitedExpress": false,
+          "isFloridaResidentRequired": false,
+          "residencyRequirement": "Outer US",
+          "isThemeParkAccess": true,
+          "themeParkAccessNames": [
+            "USF",
+            "UIA",
+            "EPIC"
+          ],
+          "isHHNAccess": false,
+          "isRTUAccess": false,
+          "isGradEventAccess": false,
+          "isEpicAccess": true,
+          "requiresFindEvents": true,
+          "productKind": "Ticket",
+          "currentPricing": {
+            "basePriceData": {
+              "pricesByDay": [
+                {
+                  "priceWithTax": {
+                    "totalPriceWithTax": 470.72,
+                    "price": 441.99,
+                    "tax1": 26.52,
+                    "tax2": 2.21
+                  },
+                  "pricingDateTime": "2026-07-07T04:00:00-04:00"
+                }
+              ]
+            },
+            "discountedPriceData": {
+              "pricesByDay": [
+                {
+                  "priceWithTax": {
+                    "totalPriceWithTax": 407.17,
+                    "price": 382.32,
+                    "tax1": 22.94,
+                    "tax2": 1.91,
+                    "discountType": 1,
+                    "discountAmount": 13.5
+                  },
+                  "pricingDateTime": "2026-07-07T04:00:00-04:00"
+                }
+              ]
+            }
+          },
+          "futurePricing": {
+            "basePriceData": {
+              "pricesByDay": [
+                {
+                  "priceWithTax": {
+                    "totalPriceWithTax": 470.72,
+                    "price": 441.99,
+                    "tax1": 26.52,
+                    "tax2": 2.21
+                  },
+                  "pricingDateTime": "2026-07-07T04:00:00-04:00"
+                }
+              ]
+            },
+            "discountedPriceData": {
+              "pricesByDay": [
+                {
+                  "priceWithTax": {
+                    "totalPriceWithTax": 407.17,
+                    "price": 382.32,
+                    "tax1": 22.94,
+                    "tax2": 1.91,
+                    "discountType": 1,
+                    "discountAmount": 13.5
+                  },
+                  "pricingDateTime": "2026-07-07T04:00:00-04:00"
+                }
+              ]
+            }
+          }
+        },
+        {
+          "plu": "185350525021",
+          "productName": "3-Day Park-to-Park + 2 Days Free Promotional Ticket Child",
+          "allowedDeliveryMethods": [
+            85,
+            92,
+            108,
+            53
+          ],
+          "bannerColor": "Green",
+          "numberOfDays": 5,
+          "uiUsageWindow": 7,
+          "isParkToPark": true,
+          "ageValue": "C",
+          "isLimitedExpress": false,
+          "isUnlimitedExpress": false,
+          "isFloridaResidentRequired": false,
+          "residencyRequirement": "Outer US",
+          "isThemeParkAccess": true,
+          "themeParkAccessNames": [
+            "USF",
+            "UIA",
+            "EPIC"
+          ],
+          "isHHNAccess": false,
+          "isRTUAccess": false,
+          "isGradEventAccess": false,
+          "isEpicAccess": true,
+          "requiresFindEvents": true,
+          "productKind": "Ticket",
+          "currentPricing": {
+            "basePriceData": {
+              "pricesByDay": [
+                {
+                  "priceWithTax": {
+                    "totalPriceWithTax": 460.07,
+                    "price": 431.99,
+                    "tax1": 25.92,
+                    "tax2": 2.16
+                  },
+                  "pricingDateTime": "2026-07-07T04:00:00-04:00"
+                }
+              ]
+            },
+            "discountedPriceData": {
+              "pricesByDay": [
+                {
+                  "priceWithTax": {
+                    "totalPriceWithTax": 397.96,
+                    "price": 373.67,
+                    "tax1": 22.42,
+                    "tax2": 1.87,
+                    "discountType": 1,
+                    "discountAmount": 13.5
+                  },
+                  "pricingDateTime": "2026-07-07T04:00:00-04:00"
+                }
+              ]
+            }
+          },
+          "futurePricing": {
+            "basePriceData": {
+              "pricesByDay": [
+                {
+                  "priceWithTax": {
+                    "totalPriceWithTax": 460.07,
+                    "price": 431.99,
+                    "tax1": 25.92,
+                    "tax2": 2.16
+                  },
+                  "pricingDateTime": "2026-07-07T04:00:00-04:00"
+                }
+              ]
+            },
+            "discountedPriceData": {
+              "pricesByDay": [
+                {
+                  "priceWithTax": {
+                    "totalPriceWithTax": 397.96,
+                    "price": 373.67,
+                    "tax1": 22.42,
+                    "tax2": 1.87,
+                    "discountType": 1,
+                    "discountAmount": 13.5
+                  },
+                  "pricingDateTime": "2026-07-07T04:00:00-04:00"
+                }
+              ]
+            }
+          }
+        },
+        {
+          "plu": "185360521022",
+          "productName": "3-Day Park-to-Park WITH Volcano Bay + 2 Days Free Promotional Ticket Adult",
+          "allowedDeliveryMethods": [
+            85,
+            92,
+            108,
+            53
+          ],
+          "bannerColor": "Green",
+          "numberOfDays": 5,
+          "uiUsageWindow": 7,
+          "isParkToPark": true,
+          "ageValue": "A",
+          "isLimitedExpress": false,
+          "isUnlimitedExpress": false,
+          "isFloridaResidentRequired": false,
+          "residencyRequirement": "Outer US",
+          "isThemeParkAccess": true,
+          "themeParkAccessNames": [
+            "USF",
+            "UIA",
+            "VBP",
+            "EPIC"
+          ],
+          "isHHNAccess": false,
+          "isRTUAccess": false,
+          "isGradEventAccess": false,
+          "isEpicAccess": true,
+          "requiresFindEvents": true,
+          "productKind": "Ticket",
+          "currentPricing": {
+            "basePriceData": {
+              "pricesByDay": [
+                {
+                  "priceWithTax": {
+                    "totalPriceWithTax": 534.62,
+                    "price": 501.99,
+                    "tax1": 30.12,
+                    "tax2": 2.51
+                  },
+                  "pricingDateTime": "2026-07-07T04:00:00-04:00"
+                }
+              ]
+            },
+            "discountedPriceData": {
+              "pricesByDay": [
+                {
+                  "priceWithTax": {
+                    "totalPriceWithTax": 462.44,
+                    "price": 434.22,
+                    "tax1": 26.05,
+                    "tax2": 2.17,
+                    "discountType": 1,
+                    "discountAmount": 13.5
+                  },
+                  "pricingDateTime": "2026-07-07T04:00:00-04:00"
+                }
+              ]
+            }
+          },
+          "futurePricing": {
+            "basePriceData": {
+              "pricesByDay": [
+                {
+                  "priceWithTax": {
+                    "totalPriceWithTax": 534.62,
+                    "price": 501.99,
+                    "tax1": 30.12,
+                    "tax2": 2.51
+                  },
+                  "pricingDateTime": "2026-07-07T04:00:00-04:00"
+                }
+              ]
+            },
+            "discountedPriceData": {
+              "pricesByDay": [
+                {
+                  "priceWithTax": {
+                    "totalPriceWithTax": 462.44,
+                    "price": 434.22,
+                    "tax1": 26.05,
+                    "tax2": 2.17,
+                    "discountType": 1,
+                    "discountAmount": 13.5
+                  },
+                  "pricingDateTime": "2026-07-07T04:00:00-04:00"
+                }
+              ]
+            }
+          }
+        },
+        {
+          "plu": "185360525021",
+          "productName": "3-Day Park-to-Park WITH Volcano Bay + 2 Days Free Promotional Ticket Child",
+          "allowedDeliveryMethods": [
+            85,
+            92,
+            108,
+            53
+          ],
+          "bannerColor": "Green",
+          "numberOfDays": 5,
+          "uiUsageWindow": 7,
+          "isParkToPark": true,
+          "ageValue": "C",
+          "isLimitedExpress": false,
+          "isUnlimitedExpress": false,
+          "isFloridaResidentRequired": false,
+          "residencyRequirement": "Outer US",
+          "isThemeParkAccess": true,
+          "themeParkAccessNames": [
+            "USF",
+            "UIA",
+            "VBP",
+            "EPIC"
+          ],
+          "isHHNAccess": false,
+          "isRTUAccess": false,
+          "isGradEventAccess": false,
+          "isEpicAccess": true,
+          "requiresFindEvents": true,
+          "productKind": "Ticket",
+          "currentPricing": {
+            "basePriceData": {
+              "pricesByDay": [
+                {
+                  "priceWithTax": {
+                    "totalPriceWithTax": 523.97,
+                    "price": 491.99,
+                    "tax1": 29.52,
+                    "tax2": 2.46
+                  },
+                  "pricingDateTime": "2026-07-07T04:00:00-04:00"
+                }
+              ]
+            },
+            "discountedPriceData": {
+              "pricesByDay": [
+                {
+                  "priceWithTax": {
+                    "totalPriceWithTax": 453.23,
+                    "price": 425.57,
+                    "tax1": 25.53,
+                    "tax2": 2.13,
+                    "discountType": 1,
+                    "discountAmount": 13.5
+                  },
+                  "pricingDateTime": "2026-07-07T04:00:00-04:00"
+                }
+              ]
+            }
+          },
+          "futurePricing": {
+            "basePriceData": {
+              "pricesByDay": [
+                {
+                  "priceWithTax": {
+                    "totalPriceWithTax": 523.97,
+                    "price": 491.99,
+                    "tax1": 29.52,
+                    "tax2": 2.46
+                  },
+                  "pricingDateTime": "2026-07-07T04:00:00-04:00"
+                }
+              ]
+            },
+            "discountedPriceData": {
+              "pricesByDay": [
+                {
+                  "priceWithTax": {
+                    "totalPriceWithTax": 453.23,
+                    "price": 425.57,
+                    "tax1": 25.53,
+                    "tax2": 2.13,
+                    "discountType": 1,
+                    "discountAmount": 13.5
+                  },
+                  "pricingDateTime": "2026-07-07T04:00:00-04:00"
+                }
+              ]
+            }
+          }
+        }
+      ]
+    }
+  ]
+}
