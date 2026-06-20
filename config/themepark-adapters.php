@@ -72,32 +72,4 @@ return [
             'token_cache' => env('SMARTORDER_TOKEN_CACHE', true),
         ],
     ],
-
-    /*
-    |--------------------------------------------------------------------------
-    | Cache Configuration
-    |--------------------------------------------------------------------------
-    |
-    | Configure caching behavior for API responses to improve performance
-    | and reduce API calls.
-    |
-    */
-    'cache' => [
-        'enabled' => env('THEMEPARK_CACHE_ENABLED', true),
-        'ttl' => env('THEMEPARK_CACHE_TTL', 3600), // in seconds
-        'prefix' => 'themepark_',
-    ],
-
-    /*
-    |--------------------------------------------------------------------------
-    | Logging Configuration
-    |--------------------------------------------------------------------------
-    |
-    | Enable logging of API requests and responses for debugging purposes.
-    |
-    */
-    'logging' => [
-        'enabled' => env('THEMEPARK_LOGGING_ENABLED', false),
-        'channel' => env('THEMEPARK_LOG_CHANNEL', 'stack'),
-    ],
 ];
