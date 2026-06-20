@@ -175,8 +175,8 @@ jobs:
       - name: Install dependencies
         run: composer update --prefer-dist --no-interaction
 
-      - name: Run feature tests
-        run: composer test:feature
+      - name: Run adapter tests
+        run: composer test:adapters
 
       - name: Test package installation
         run: |
