@@ -2,6 +2,8 @@
 
 namespace Iabduul7\ThemeParkAdapters\DataTransferObjects\Results;
 
+use Iabduul7\ThemeParkAdapters\Contracts\Capabilities\ProvidesTicketArtifacts;
+
 /**
  * A single redeemable artifact extracted from a provider booking/order response —
  * the provider-native half of a "voucher". This DTO carries only what the provider
@@ -9,7 +11,7 @@ namespace Iabduul7\ThemeParkAdapters\DataTransferObjects\Results;
  * branded PDF (barcode image, template, terms, delivery) is a consuming-app concern.
  *
  * Each provider exposes the identifier in a different place and shape, which is why
- * extraction lives in the adapters ({@see \Iabduul7\ThemeParkAdapters\Contracts\Capabilities\ProvidesTicketArtifacts}):
+ * extraction lives in the adapters ({@see ProvidesTicketArtifacts}):
  *  - Disney (Redeam):   booking.ext["supplier.reference"] — one will-call reference per order.
  *  - SeaWorld (Redeam): booking.tickets[].barcode.value   — one scannable barcode per guest.
  *  - Universal (SO2):   createdTicketResponses[].visualID — one scannable id per ticket.
