@@ -21,24 +21,22 @@
         }
     ],
     "require": {
-        "php": "^8.1",
+        "php": "^8.2",
         "spatie/laravel-package-tools": "^1.15",
-        "illuminate/contracts": "^10.0|^11.0|^12.0|^13.0",
+        "illuminate/contracts": "^12.0|^13.0",
         "guzzlehttp/guzzle": "^7.5"
     },
     "require-dev": {
-        "brianium/paratest": "^7.3",
+        "brianium/paratest": "^7.4",
         "laravel/pint": "^1.13",
         "mockery/mockery": "^1.6",
-        "nunomaduro/collision": "^7.0",
-        "larastan/larastan": "^2.0",
-        "orchestra/testbench": "^8.0",
-        "pestphp/pest": "^2.0",
-        "pestphp/pest-plugin-laravel": "^2.0",
+        "nunomaduro/collision": "^8.0",
+        "larastan/larastan": "^3.0",
+        "orchestra/testbench": "^10.0|^11.0",
         "phpstan/extension-installer": "^1.1",
-        "phpstan/phpstan-deprecation-rules": "^1.0",
-        "phpstan/phpstan-phpunit": "^1.0",
-        "phpunit/phpunit": "^10.0",
+        "phpstan/phpstan-deprecation-rules": "^2.0",
+        "phpstan/phpstan-phpunit": "^2.0",
+        "phpunit/phpunit": "^11.5.3|^12.0",
         "spatie/laravel-ray": "^1.32"
     },
     "autoload": {
@@ -54,15 +52,15 @@
     },
     "scripts": {
         "post-autoload-dump": "@composer validate --strict",
-        "analyse": "vendor/bin/phpstan analyse",
-        "test": "vendor/bin/pest",
+        "analyse": "vendor/bin/phpstan analyse --memory-limit=1G",
+        "test": "vendor/bin/phpunit",
         "test:adapters": "vendor/bin/phpunit tests/Adapters",
-        "test:coverage": "vendor/bin/pest --coverage",
-        "test:coverage-html": "vendor/bin/pest --coverage --coverage-html=build/coverage",
+        "test:coverage": "vendor/bin/phpunit --coverage-text --coverage-clover=build/logs/clover.xml",
+        "test:coverage-html": "vendor/bin/phpunit --coverage-html=build/coverage",
         "test:parallel": "vendor/bin/paratest --processes=4 --cache-directory=/tmp/paratest-cache --no-coverage",
         "format": "vendor/bin/pint",
         "format:check": "vendor/bin/pint --test",
-        "quality": "vendor/bin/pint --test && vendor/bin/phpstan analyse && vendor/bin/phpunit tests/Adapters",
+        "quality": "vendor/bin/pint --test && vendor/bin/phpstan analyse --memory-limit=1G && vendor/bin/phpunit tests/Adapters",
         "quality:fix": "vendor/bin/pint && vendor/bin/phpunit tests/Adapters",
         "hooks:install": "npx simple-git-hooks",
         "hooks:uninstall": "git config --unset-all core.hooksPath || true",
@@ -71,7 +69,6 @@
     "config": {
         "sort-packages": true,
         "allow-plugins": {
-            "pestphp/pest-plugin": true,
             "phpstan/extension-installer": true
         }
     },

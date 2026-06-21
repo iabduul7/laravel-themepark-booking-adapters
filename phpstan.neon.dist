@@ -4,6 +4,5 @@ parameters:
     tmpDir: build/phpstan
     checkOctaneCompatibility: false
     checkModelProperties: false
-    checkMissingIterableValueType: false
     paths:
         - src
