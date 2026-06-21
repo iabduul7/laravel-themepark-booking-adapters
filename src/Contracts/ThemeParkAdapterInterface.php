@@ -2,50 +2,29 @@
 
 namespace Iabduul7\ThemeParkAdapters\Contracts;
 
-use Iabduul7\ThemeParkAdapters\DataTransferObjects\Order;
-use Iabduul7\ThemeParkAdapters\DataTransferObjects\Product;
-
+/**
+ * Minimal contract every theme-park provider adapter satisfies.
+ *
+ * Provider-specific operations (product catalog, rates, availability, pricing
+ * schedules and holds/bookings for Redeam; events/orders for SmartOrder)
+ * intentionally live on the concrete adapters and the capability interfaces
+ * (SupportsHolds, SupportsEvents). Their signatures differ per provider — Disney
+ * keys by a configured supplier, SeaWorld/United Parks takes supplier_id per call,
+ * SmartOrder has no holds at all — so forcing them into one interface would be
+ * lossy and break drop-in compatibility with the upstream clients.
+ *
+ * A cleaner, fully-normalised booking interface is proposed for a future major
+ * version in guides/CLEANER_API_REFERENCE.md.
+ */
 interface ThemeParkAdapterInterface
 {
     /**
-     * Get available products/tickets.
-     *
-     * @return array<Product>
-     */
-    public function getProducts(array $filters = []): array;
-
-    /**
-     * Get a specific product by ID.
-     */
-    public function getProduct(string $productId): Product;
-
-    /**
-     * Create an order.
-     */
-    public function createOrder(array $orderData): Order;
-
-    /**
-     * Get order details.
-     */
-    public function getOrder(string $orderId): Order;
-
-    /**
-     * Cancel an order.
-     */
-    public function cancelOrder(string $orderId): bool;
-
-    /**
-     * Get available dates for a product.
-     */
-    public function getAvailability(string $productId, array $filters = []): array;
-
-    /**
-     * Validate API credentials.
-     */
-    public function validateCredentials(): bool;
-
-    /**
-     * Get the provider name.
+     * Short provider/park identifier (e.g. "disney", "seaworld", "universal").
      */
     public function getProviderName(): string;
+
+    /**
+     * Verify the configured credentials can reach the provider.
+     */
+    public function validateCredentials(): bool;
 }

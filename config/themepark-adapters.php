@@ -34,6 +34,11 @@ return [
             'api_secret' => env('REDEAM_DISNEY_API_SECRET'),
             'timeout' => env('REDEAM_TIMEOUT', 600),
             'verify_ssl' => env('REDEAM_VERIFY_SSL', true),
+            // Idempotent reads are retried on connection drops / 5xx; writes never are.
+            'retry_attempts' => env('REDEAM_RETRY_ATTEMPTS', 3),
+            'retry_sleep_ms' => env('REDEAM_RETRY_SLEEP_MS', 1000),
+            // Disney public park-availability (observability) endpoint.
+            'park_availability_url' => env('REDEAM_DISNEY_PARK_AVAILABILITY_URL', 'https://dis-obs.redeam.io/disney/park/availability'),
         ],
 
         'seaworld' => [
@@ -46,6 +51,8 @@ return [
             'api_secret' => env('REDEAM_UNITED_PARKS_API_SECRET'),
             'timeout' => env('REDEAM_TIMEOUT', 600),
             'verify_ssl' => env('REDEAM_VERIFY_SSL', true),
+            'retry_attempts' => env('REDEAM_RETRY_ATTEMPTS', 3),
+            'retry_sleep_ms' => env('REDEAM_RETRY_SLEEP_MS', 1000),
         ],
 
         'universal' => [
@@ -58,34 +65,11 @@ return [
             'client_secret' => env('SMARTORDER_CLIENT_SECRET'),
             'timeout' => env('SMARTORDER_TIMEOUT', 600),
             'verify_ssl' => env('SMARTORDER_VERIFY_SSL', true),
+            'retry_attempts' => env('SMARTORDER_RETRY_ATTEMPTS', 3),
+            'retry_sleep_ms' => env('SMARTORDER_RETRY_SLEEP_MS', 1000),
+            // OAuth token caching. Upstream disables this (always refresh) because the
+            // SmartOrder server can invalidate tokens before local expiry; set false to match.
+            'token_cache' => env('SMARTORDER_TOKEN_CACHE', true),
         ],
-    ],
-
-    /*
-    |--------------------------------------------------------------------------
-    | Cache Configuration
-    |--------------------------------------------------------------------------
-    |
-    | Configure caching behavior for API responses to improve performance
-    | and reduce API calls.
-    |
-    */
-    'cache' => [
-        'enabled' => env('THEMEPARK_CACHE_ENABLED', true),
-        'ttl' => env('THEMEPARK_CACHE_TTL', 3600), // in seconds
-        'prefix' => 'themepark_',
-    ],
-
-    /*
-    |--------------------------------------------------------------------------
-    | Logging Configuration
-    |--------------------------------------------------------------------------
-    |
-    | Enable logging of API requests and responses for debugging purposes.
-    |
-    */
-    'logging' => [
-        'enabled' => env('THEMEPARK_LOGGING_ENABLED', false),
-        'channel' => env('THEMEPARK_LOG_CHANNEL', 'stack'),
     ],
 ];

@@ -2,18 +2,30 @@
 
 namespace Iabduul7\ThemeParkAdapters\Providers\SeaWorld;
 
-use Iabduul7\ThemeParkAdapters\Abstracts\BaseThemeParkAdapter;
-use Iabduul7\ThemeParkAdapters\DataTransferObjects\Booking;
-use Iabduul7\ThemeParkAdapters\DataTransferObjects\Hold;
-use Iabduul7\ThemeParkAdapters\DataTransferObjects\Product;
+use Iabduul7\ThemeParkAdapters\Abstracts\AbstractRedeamAdapter;
+use Iabduul7\ThemeParkAdapters\DataTransferObjects\Results\PriceSchedule;
+use Iabduul7\ThemeParkAdapters\DataTransferObjects\Results\Product;
+use Iabduul7\ThemeParkAdapters\DataTransferObjects\Results\Rate;
+use Iabduul7\ThemeParkAdapters\DataTransferObjects\Results\RatePriceSchedule;
+use Iabduul7\ThemeParkAdapters\Contracts\Capabilities\ProvidesTicketArtifacts;
+use Iabduul7\ThemeParkAdapters\DataTransferObjects\Results\Supplier;
+use Iabduul7\ThemeParkAdapters\DataTransferObjects\Results\TicketArtifact;
 use Iabduul7\ThemeParkAdapters\Exceptions\ThemeParkApiException;
+use Illuminate\Support\Arr;
+use Illuminate\Support\Carbon;
+use Illuminate\Support\Collection;
 
-class SeaWorldRedeamAdapter extends BaseThemeParkAdapter
+/**
+ * SeaWorld / United Parks adapter (Redeam). Drop-in compatible with the upstream
+ * CodeCreatives\LaravelRedeam\LaravelRedeamForUnitedParks facade: the supplier is
+ * passed per call (United Parks is multi-supplier), unlike the Disney adapter.
+ * Holds and bookings remain top-level and are inherited from the Redeam base.
+ */
+class SeaWorldRedeamAdapter extends AbstractRedeamAdapter implements ProvidesTicketArtifacts
 {
-    protected string $baseUrl;
-    protected ?string $supplierId;
-    protected string $version;
-
+    /**
+     * @param  array<string, mixed>  $config
+     */
     public function __construct(array $config = [])
     {
         parent::__construct($config);
@@ -21,254 +33,215 @@ class SeaWorldRedeamAdapter extends BaseThemeParkAdapter
         if (! $this->hasRequiredConfig(['api_key', 'api_secret'])) {
             throw ThemeParkApiException::invalidCredentials();
         }
-
-        $host = $this->getConfig('host', 'booking.redeam.io');
-        $this->version = $this->getConfig('version', 'v1.2');
-        $this->supplierId = $this->getConfig('supplier_id'); // May be null for United Parks
-        $this->baseUrl = "https://{$host}/{$this->version}";
     }
 
-    /**
-     * Get all products for the supplier.
-     */
-    public function getAllProducts(array $parameters = []): array
+    public function getProviderName(): string
     {
-        $endpoint = $this->supplierId
-            ? "{$this->baseUrl}/suppliers/{$this->supplierId}/products"
-            : "{$this->baseUrl}/products";
-
-        $response = $this->makeRequest('GET', $endpoint, [
-            'headers' => $this->getAuthHeaders(),
-            'query' => $parameters,
-        ]);
-
-        return $this->parseJsonResponse($response);
+        return 'seaworld';
     }
 
     /**
-     * Get a specific product by ID.
+     * @param  array<string, mixed>  $parameters
+     * @return array<int, Supplier>
      */
-    public function getProduct(string $productId, array $parameters = []): array
+    public function getAllSuppliers(array $parameters = []): array
     {
-        $endpoint = $this->supplierId
-            ? "{$this->baseUrl}/suppliers/{$this->supplierId}/products/{$productId}"
-            : "{$this->baseUrl}/products/{$productId}";
-
-        $response = $this->makeRequest('GET', $endpoint, [
-            'headers' => $this->getAuthHeaders(),
-            'query' => $parameters,
-        ]);
-
-        return $this->parseJsonResponse($response);
+        return $this->parseArrayData(
+            Arr::get($this->getRequest('suppliers', $parameters), 'suppliers', []),
+            Supplier::class
+        );
     }
 
     /**
-     * Get available rates for a product.
+     * @param  array<string, mixed>  $parameters
      */
-    public function getProductRates(string $productId, array $parameters = []): array
+    public function getSupplier(string $supplierId, array $parameters = []): Supplier
     {
-        $endpoint = $this->supplierId
-            ? "{$this->baseUrl}/suppliers/{$this->supplierId}/products/{$productId}/rates"
-            : "{$this->baseUrl}/products/{$productId}/rates";
-
-        $response = $this->makeRequest('GET', $endpoint, [
-            'headers' => $this->getAuthHeaders(),
-            'query' => $parameters,
-        ]);
-
-        return $this->parseJsonResponse($response);
+        return $this->parseData(
+            Arr::get($this->getRequest("suppliers/{$supplierId}", $parameters), 'supplier', []),
+            Supplier::class
+        );
     }
 
     /**
-     * Get a specific rate for a product.
+     * @param  array<string, mixed>  $parameters
+     * @return array<int, Product>
      */
-    public function getProductRate(string $productId, string $rateId, array $parameters = []): array
+    public function getAllProducts(string $supplierId, array $parameters = []): array
     {
-        $endpoint = $this->supplierId
-            ? "{$this->baseUrl}/suppliers/{$this->supplierId}/products/{$productId}/rates/{$rateId}"
-            : "{$this->baseUrl}/products/{$productId}/rates/{$rateId}";
-
-        $response = $this->makeRequest('GET', $endpoint, [
-            'headers' => $this->getAuthHeaders(),
-            'query' => $parameters,
-        ]);
-
-        return $this->parseJsonResponse($response);
+        return $this->parseArrayData(
+            Arr::get($this->getRequest("suppliers/{$supplierId}/products", $parameters), 'products', []),
+            Product::class
+        );
     }
 
     /**
-     * Check availability for a single date.
+     * @param  array<string, mixed>  $parameters
      */
-    public function checkAvailability(string $productId, string $date, int $quantity, array $parameters = []): array
+    public function getProduct(string $supplierId, string $productId, array $parameters = []): Product
     {
-        $params = array_merge($parameters, [
-            'at' => $date,
-            'qty' => $quantity,
-        ]);
-
-        $endpoint = $this->supplierId
-            ? "{$this->baseUrl}/suppliers/{$this->supplierId}/products/{$productId}/availability"
-            : "{$this->baseUrl}/products/{$productId}/availability";
-
-        $response = $this->makeRequest('GET', $endpoint, [
-            'headers' => $this->getAuthHeaders(),
-            'query' => $params,
-        ]);
-
-        return $this->parseJsonResponse($response);
+        return $this->parseData(
+            Arr::get($this->getRequest("suppliers/{$supplierId}/products/{$productId}", $parameters), 'product', []),
+            Product::class
+        );
     }
 
     /**
-     * Check availability for a date range.
+     * @param  array<string, mixed>  $parameters
+     * @return array<int, Rate>
      */
-    public function checkAvailabilities(string $productId, string $startDate, string $endDate, array $parameters = []): array
+    public function getProductRates(string $supplierId, string $productId, array $parameters = []): array
     {
-        $params = array_merge($parameters, [
-            'start' => $startDate,
-            'end' => $endDate,
-        ]);
-
-        $endpoint = $this->supplierId
-            ? "{$this->baseUrl}/suppliers/{$this->supplierId}/products/{$productId}/availabilities"
-            : "{$this->baseUrl}/products/{$productId}/availabilities";
-
-        $response = $this->makeRequest('GET', $endpoint, [
-            'headers' => $this->getAuthHeaders(),
-            'query' => $params,
-        ]);
-
-        return $this->parseJsonResponse($response);
+        return $this->parseArrayData(
+            Arr::get($this->getRequest("suppliers/{$supplierId}/products/{$productId}/rates", $parameters), 'rates', []),
+            Rate::class
+        );
     }
 
     /**
-     * Get pricing schedule for a product.
+     * @param  array<string, mixed>  $parameters
      */
-    public function getProductPricingSchedule(string $productId, string $startDate, string $endDate, array $parameters = []): array
+    public function getProductRate(string $supplierId, string $productId, string $rateId, array $parameters = []): Rate
     {
-        $params = array_merge($parameters, [
-            'start_date' => $startDate,
-            'end_date' => $endDate,
-        ]);
-
-        $endpoint = $this->supplierId
-            ? "{$this->baseUrl}/suppliers/{$this->supplierId}/products/{$productId}/pricing-schedule"
-            : "{$this->baseUrl}/products/{$productId}/pricing-schedule";
-
-        $response = $this->makeRequest('GET', $endpoint, [
-            'headers' => $this->getAuthHeaders(),
-            'query' => $params,
-        ]);
-
-        return $this->parseJsonResponse($response);
+        return $this->parseData(
+            Arr::get($this->getRequest("suppliers/{$supplierId}/products/{$productId}/rates/{$rateId}", $parameters), 'rate', []),
+            Rate::class
+        );
     }
 
     /**
-     * Create a new hold/reservation.
+     * @param  array<string, mixed>  $parameters
+     * @return array<string, mixed>
      */
-    public function createNewHold(array $data): array
+    public function checkAvailability(string $supplierId, string $productId, Carbon|string $at, int $qty, array $parameters = []): array
     {
-        $response = $this->makeRequest('POST', "{$this->baseUrl}/holds", [
-            'headers' => $this->getAuthHeaders(),
-            'json' => $data,
-        ]);
+        $at = $at instanceof Carbon ? $at->toISOString() : $at;
 
-        return $this->parseJsonResponse($response);
+        return $this->getRequest(
+            "suppliers/{$supplierId}/products/{$productId}/availability",
+            array_merge($parameters, ['at' => $at, 'qty' => $qty])
+        );
     }
 
     /**
-     * Get hold details.
+     * @param  array<string, mixed>  $parameters
+     * @return array<string, mixed>
      */
-    public function getHold(string $holdId): array
+    public function checkAvailabilities(string $supplierId, string $productId, Carbon|string $start, Carbon|string $end, array $parameters = []): array
     {
-        $response = $this->makeRequest('GET', "{$this->baseUrl}/holds/{$holdId}", [
-            'headers' => $this->getAuthHeaders(),
-        ]);
+        $start = $start instanceof Carbon ? $start->toISOString() : $start;
+        $end = $end instanceof Carbon ? $end->toISOString() : $end;
 
-        return $this->parseJsonResponse($response);
+        return $this->getRequest(
+            "suppliers/{$supplierId}/products/{$productId}/availabilities",
+            array_merge($parameters, ['start' => $start, 'end' => $end])
+        );
     }
 
     /**
-     * Delete/release a hold.
+     * @param  array<string, mixed>  $parameters
+     * @return array<string, mixed>
      */
-    public function deleteHold(string $holdId): array
+    public function getProductAvailability(string $supplierId, string $productId, Carbon|string $at, int $qty, array $parameters = []): array
     {
-        $response = $this->makeRequest('DELETE', "{$this->baseUrl}/holds/{$holdId}", [
-            'headers' => $this->getAuthHeaders(),
-        ]);
+        $at = $at instanceof Carbon ? $at->toISOString() : $at;
 
-        return $this->parseJsonResponse($response);
+        return $this->getRequest(
+            "suppliers/{$supplierId}/products/{$productId}/availability",
+            array_merge($parameters, ['at' => $at, 'qty' => $qty])
+        );
     }
 
     /**
-     * Create a confirmed booking.
+     * @param  array<string, mixed>  $parameters
      */
-    public function createNewBooking(array $data): array
-    {
-        $response = $this->makeRequest('POST', "{$this->baseUrl}/bookings", [
-            'headers' => $this->getAuthHeaders(),
-            'json' => $data,
-        ]);
+    public function getProductPricingSchedule(
+        string $supplierId,
+        string $productId,
+        Carbon|string $startDate,
+        Carbon|string $endDate,
+        array $parameters = []
+    ): PriceSchedule {
+        $startDate = $startDate instanceof Carbon ? $startDate->toDateString() : $startDate;
+        $endDate = $endDate instanceof Carbon ? $endDate->toDateString() : $endDate;
 
-        return $this->parseJsonResponse($response);
+        return $this->parseData(
+            $this->getRequest(
+                "suppliers/{$supplierId}/products/{$productId}/pricing/schedule",
+                array_merge($parameters, ['start_date' => $startDate, 'end_date' => $endDate])
+            ),
+            PriceSchedule::class
+        );
     }
 
     /**
-     * Get booking details.
+     * @param  array<string, mixed>  $parameters
      */
-    public function getBooking(string $bookingId): array
-    {
-        $response = $this->makeRequest('GET', "{$this->baseUrl}/bookings/{$bookingId}", [
-            'headers' => $this->getAuthHeaders(),
-        ]);
+    public function getProductRatePricingSchedule(
+        string $supplierId,
+        string $productId,
+        Carbon|string $startDate,
+        Carbon|string $endDate,
+        ?string $rateId = null,
+        array $parameters = []
+    ): RatePriceSchedule {
+        $startDate = $startDate instanceof Carbon ? $startDate->toDateString() : $startDate;
+        $endDate = $endDate instanceof Carbon ? $endDate->toDateString() : $endDate;
 
-        return $this->parseJsonResponse($response);
+        return $this->parseData(
+            Arr::get($this->getRequest(
+                "suppliers/{$supplierId}/products/{$productId}/pricing/schedule",
+                array_merge($parameters, ['start_date' => $startDate, 'end_date' => $endDate, 'rate_id' => $rateId])
+            ), $rateId ?? '', []),
+            RatePriceSchedule::class
+        );
     }
 
-    /**
-     * Cancel a booking.
-     */
-    public function deleteBooking(string $bookingId)
-    {
-        $response = $this->makeRequest('DELETE', "{$this->baseUrl}/bookings/{$bookingId}", [
-            'headers' => $this->getAuthHeaders(),
-        ]);
-
-        return $this->parseJsonResponse($response);
-    }
-
-    /**
-     * Validate API credentials.
-     */
     public function validateCredentials(): bool
     {
         try {
-            // Try to fetch products list as a way to validate credentials
-            $this->getAllProducts();
+            $this->getAllSuppliers();
 
             return true;
-        } catch (ThemeParkApiException $e) {
+        } catch (ThemeParkApiException) {
             return false;
         }
     }
 
     /**
-     * Get the provider name.
+     * United Parks returns one scannable barcode per guest in booking.tickets[],
+     * each with barcode.value and a leadTraveler. Modeled on the backend's
+     * RedeamServiceForUnitedParks voucher extraction — the SeaWorld sandbox has no
+     * bookable availability (Discovery Cove only) to capture this shape live.
+     *
+     * @param  array<string, mixed>  $response
+     * @return Collection<int, TicketArtifact>
      */
-    public function getProviderName(): string
+    public function tickets(array $response): Collection
     {
-        return 'SeaWorld/United Parks (Redeam)';
-    }
+        /** @var array<string, mixed> $booking */
+        $booking = Arr::get($response, 'booking', $response);
+        $status = Arr::get($booking, 'status', 'OPEN');
 
-    /**
-     * Get authentication headers.
-     */
-    protected function getAuthHeaders(): array
-    {
-        return [
-            'X-API-Key' => $this->getConfig('api_key'),
-            'X-API-Secret' => $this->getConfig('api_secret'),
-            'Accept' => 'application/json',
-            'Content-Type' => 'application/json',
-        ];
+        return collect(Arr::get($booking, 'tickets', []))
+            ->map(function ($ticket) use ($status): TicketArtifact {
+                $ticket = (array) $ticket;
+                /** @var array<string, mixed> $traveler */
+                $traveler = Arr::get($ticket, 'leadTraveler', []);
+                $name = trim(Arr::get($traveler, 'firstName', '') . ' ' . Arr::get($traveler, 'lastName', ''));
+
+                return new TicketArtifact([
+                    'provider' => 'seaworld',
+                    'identifier' => Arr::get($ticket, 'barcode.value'),
+                    'format' => TicketArtifact::FORMAT_CODE39,
+                    'redemption' => TicketArtifact::REDEMPTION_SCAN,
+                    'traveler_name' => $name !== '' ? $name : null,
+                    'product_name' => Arr::get($ticket, 'productName', Arr::get($ticket, 'name')),
+                    'valid_from' => Arr::get($ticket, 'start'),
+                    'valid_to' => Arr::get($ticket, 'end'),
+                    'status' => $status,
+                ]);
+            })
+            ->values();
     }
 }

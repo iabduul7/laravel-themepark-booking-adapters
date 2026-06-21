@@ -1,6 +1,6 @@
 {
     "name": "iabduul7/laravel-themepark-booking-adapters",
-    "description": "A Laravel package providing unified booking adapters for theme park providers like Redeam, SmartOrder, and others",
+    "description": "Self-contained, drop-in Laravel booking adapters for Walt Disney World & SeaWorld/United Parks (Redeam) and Universal Orlando (SmartOrder): catalog, pricing, availability, holds/bookings, orders and voucher data.",
     "keywords": [
         "iabduul7",
         "laravel",
@@ -23,9 +23,8 @@
     "require": {
         "php": "^8.1",
         "spatie/laravel-package-tools": "^1.15",
-        "illuminate/contracts": "^10.0",
-        "guzzlehttp/guzzle": "^7.5",
-        "ramsey/uuid": "^4.7"
+        "illuminate/contracts": "^10.0|^11.0|^12.0|^13.0",
+        "guzzlehttp/guzzle": "^7.5"
     },
     "require-dev": {
         "brianium/paratest": "^7.3",
@@ -44,29 +43,27 @@
     },
     "autoload": {
         "psr-4": {
-            "iabduul7\\ThemeParkBooking\\": "src",
-            "iabduul7\\ThemeParkBooking\\Database\\Factories\\": "database/factories"
+            "Iabduul7\\ThemeParkAdapters\\": "src",
+            "Iabduul7\\ThemeParkAdapters\\Database\\Factories\\": "database/factories"
         }
     },
     "autoload-dev": {
         "psr-4": {
-            "iabduul7\\ThemeParkBooking\\Tests\\": "tests"
+            "Iabduul7\\ThemeParkAdapters\\Tests\\": "tests"
         }
     },
     "scripts": {
         "post-autoload-dump": "@composer validate --strict",
         "analyse": "vendor/bin/phpstan analyse",
         "test": "vendor/bin/pest",
-        "test:unit": "vendor/bin/pest tests/Unit",
-        "test:feature": "vendor/bin/pest tests/Feature",
-        "test:implemented": "vendor/bin/pest tests/Unit/ConfigurationTest.php tests/Unit/Commands/ tests/Unit/Data/ tests/Unit/Concerns/",
+        "test:adapters": "vendor/bin/phpunit tests/Adapters",
         "test:coverage": "vendor/bin/pest --coverage",
         "test:coverage-html": "vendor/bin/pest --coverage --coverage-html=build/coverage",
         "test:parallel": "vendor/bin/paratest --processes=4 --cache-directory=/tmp/paratest-cache --no-coverage",
         "format": "vendor/bin/pint",
         "format:check": "vendor/bin/pint --test",
-        "quality": "vendor/bin/pint --test && vendor/bin/phpstan analyse && vendor/bin/pest tests/Unit/ConfigurationTest.php",
-        "quality:fix": "vendor/bin/pint && vendor/bin/pest tests/Unit/ConfigurationTest.php",
+        "quality": "vendor/bin/pint --test && vendor/bin/phpstan analyse && vendor/bin/phpunit tests/Adapters",
+        "quality:fix": "vendor/bin/pint && vendor/bin/phpunit tests/Adapters",
         "hooks:install": "npx simple-git-hooks",
         "hooks:uninstall": "git config --unset-all core.hooksPath || true",
         "refactor": "vendor/bin/rector process"
@@ -81,10 +78,10 @@
     "extra": {
         "laravel": {
             "providers": [
-                "iabduul7\\ThemeParkBooking\\ThemeParkBookingServiceProvider"
+                "Iabduul7\\ThemeParkAdapters\\ThemeParkAdaptersServiceProvider"
             ],
             "aliases": {
-                "ThemeParkBooking": "iabduul7\\ThemeParkBooking\\Facades\\ThemeParkBooking"
+                "ThemePark": "Iabduul7\\ThemeParkAdapters\\Facades\\ThemePark"
             }
         }
     },
