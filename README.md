@@ -38,6 +38,14 @@ DTOs over the raw responses. Auth, retries and OAuth token management are handle
 - 🧱 **No app coupling**: pure API integration; persistence, jobs, commission/margins and voucher *rendering* stay in your app
 - 🧪 **Contract-tested** with `Http::fake()`, analysed with PHPStan, and exercised live against the provider sandboxes
 
+## Requirements
+
+- **PHP** 8.2, 8.3 or 8.4
+- **Laravel** 12.x or 13.x (`illuminate/contracts ^12.0|^13.0`)
+
+> Earlier releases targeted PHP 8.1 / Laravel 10–11. Support for those was dropped in 3.0.0 to stay
+> on the security-patched Laravel line (≥ 12.60 / ≥ 13.10); see the [changelog](CHANGELOG.md).
+
 ## Installation
 
 ```bash

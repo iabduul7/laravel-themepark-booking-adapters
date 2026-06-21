@@ -43,7 +43,7 @@ composer hooks:uninstall
 **Actions:**
 
 -   🔍 **Security Scan**: Composer audit for vulnerabilities
--   🧪 **Comprehensive Testing**: Full test matrix (PHP 8.1, 8.2, 8.3 × Laravel 10.x)
+-   🧪 **Comprehensive Testing**: Full test matrix (PHP 8.2, 8.3, 8.4 × Laravel 12.x / 13.x)
 -   📋 **Code Quality**: Pint style check + PHPStan analysis + Composer validation
 -   ⚡ **Performance Tests**: Parallel test execution
 -   🔗 **Integration Tests**: Feature tests + Package installation validation
@@ -132,7 +132,7 @@ composer test:coverage
 
 ### PR Level
 
--   ✅ **Multi-Environment Testing**: PHP 8.1, 8.2, 8.3 with different dependencies
+-   ✅ **Multi-Environment Testing**: PHP 8.2, 8.3, 8.4 with different dependencies
 -   ✅ **Security Validation**: Dependency vulnerability scanning
 -   ✅ **Performance Validation**: Parallel test execution
 -   ✅ **Integration Validation**: Real package installation testing

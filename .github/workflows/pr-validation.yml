@@ -62,12 +62,18 @@ jobs:
       fail-fast: false
       matrix:
         os: [ubuntu-latest]
-        php: [8.1, 8.2, 8.3]
-        laravel: ['10.*']
+        php: [8.2, 8.3, 8.4]
+        laravel: ['12.*', '13.*']
         dependency-version: [prefer-lowest, prefer-stable]
         include:
-          - laravel: '10.*'
-            testbench: 8.*
+          - laravel: '12.*'
+            testbench: 10.*
+          - laravel: '13.*'
+            testbench: 11.*
+        exclude:
+          # Laravel 13 requires PHP 8.3+
+          - php: 8.2
+            laravel: '13.*'
 
     name: 🧪 PHP ${{ matrix.php }} - Laravel ${{ matrix.laravel }} (${{ matrix.dependency-version }})
 
@@ -99,7 +105,7 @@ jobs:
         if: matrix.php == '8.2' && matrix.dependency-version == 'prefer-stable'
         uses: codecov/codecov-action@v3
         with:
-          files: ./coverage.xml
+          files: ./build/logs/clover.xml
           flags: unittests
           name: codecov-umbrella
 
@@ -180,7 +186,7 @@ jobs:
 
       - name: Test package installation
         run: |
-          composer create-project laravel/laravel:^10.0 test-app --prefer-dist
+          composer create-project laravel/laravel:^12.0 test-app --prefer-dist
           cd test-app
           composer config repositories.local path ../
           composer config minimum-stability dev

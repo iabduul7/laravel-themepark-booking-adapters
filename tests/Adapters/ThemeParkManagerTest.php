@@ -8,11 +8,12 @@ use Iabduul7\ThemeParkAdapters\Providers\Disney\DisneyRedeamAdapter;
 use Iabduul7\ThemeParkAdapters\Providers\SeaWorld\SeaWorldRedeamAdapter;
 use Iabduul7\ThemeParkAdapters\Providers\Universal\UniversalSmartOrder2Adapter;
 use Iabduul7\ThemeParkAdapters\Tests\AdapterTestCase;
+use Illuminate\Foundation\Application;
 
 class ThemeParkManagerTest extends AdapterTestCase
 {
     /**
-     * @param  \Illuminate\Foundation\Application  $app
+     * @param  Application  $app
      */
     protected function defineEnvironment($app): void
     {
