@@ -18,15 +18,25 @@ Each adapter exposes the provider's real API surface (catalog, rates, availabili
 schedules, holds/bookings for Redeam; events/orders for SmartOrder) and returns lightweight
 DTOs over the raw responses. Auth, retries and OAuth token management are handled for you.
 
+> **What's working today:** all three adapters are contract-tested with `Http::fake` and analysed
+> with PHPStan (level 3). Read paths (catalog, rates, pricing, availability) are additionally
+> verified against the live provider sandboxes, and the full write lifecycle is proven **live** for
+> **Disney** (Redeam hold → book → cancel) and **Universal** (SmartOrder place → cancel).
+> **SeaWorld / United Parks** is contract-tested only — its sandbox (Discovery Cove) exposes no
+> bookable availability. Full parity matrix in
+> [`guides/PACKAGE_COMPATIBILITY.md`](guides/PACKAGE_COMPATIBILITY.md).
+
 ## Features
 
 - 🎢 **Three production parks supported**: Disney (Redeam), SeaWorld/United Parks (Redeam), Universal (SmartOrder)
 - 🧩 **Driver-based resolution** via a Laravel `Manager` + `ThemePark` facade
 - 🔐 **Auth handled**: Redeam `X-API-Key`/`X-API-Secret`; SmartOrder OAuth2 client-credentials with token caching and 401 self-heal
 - ♻️ **Resilient transport**: idempotent reads retried on connection drops / 5xx; writes never retried (no double-booking)
-- 📦 **Typed result objects**: `Supplier`, `Product`, `Rate`, `PriceSchedule`, `RatePriceSchedule`, …
-- 🧱 **No app coupling**: pure API integration; persistence, jobs and vouchers stay in your app (with opt-in helpers)
-- 🧪 **Contract-tested** with `Http::fake()` and analysed with PHPStan
+- 📦 **Typed result objects**: `Supplier`, `Product`, `Rate`, `PriceSchedule`, `RatePriceSchedule`, `Availability`, `Hold`, `Booking`, …
+- 🎫 **Voucher data exposed**: `tickets()` normalises each booking/order response into typed `TicketArtifact`s (redeemable identifier + format + validity); barcode/PDF rendering stays in your app
+- 🧩 **Capability interfaces**: `SupportsHolds`, `SupportsEvents`, `ProvidesTicketArtifacts` — type-hint a capability instead of a concrete park
+- 🧱 **No app coupling**: pure API integration; persistence, jobs, commission/margins and voucher *rendering* stay in your app
+- 🧪 **Contract-tested** with `Http::fake()`, analysed with PHPStan, and exercised live against the provider sandboxes
 
 ## Installation
 

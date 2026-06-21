@@ -1,6 +1,6 @@
 {
     "name": "iabduul7/laravel-themepark-booking-adapters",
-    "description": "A Laravel package providing unified booking adapters for theme park providers like Redeam, SmartOrder, and others",
+    "description": "Self-contained, drop-in Laravel booking adapters for Walt Disney World & SeaWorld/United Parks (Redeam) and Universal Orlando (SmartOrder): catalog, pricing, availability, holds/bookings, orders and voucher data.",
     "keywords": [
         "iabduul7",
         "laravel",
