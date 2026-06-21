@@ -2,6 +2,31 @@
 
 All notable changes to `laravel-themepark-booking-adapters` will be documented in this file.
 
+## 3.0.0 - 2026-06-21
+
+### Changed (breaking)
+
+- **Raised the PHP floor to `^8.2`** (dropped PHP 8.1) and **moved to Laravel 12/13 only**
+  (`illuminate/contracts ^12.0|^13.0`, dropping Laravel 10 and 11). Rationale:
+  `CVE-2026-48019` (CRLF injection in the framework's default email rule) affects every
+  Laravel release below 12.60 / 13.10 with **no back-patch to the 10.x or 11.x lines**, and the
+  last Pest/PHPUnit toolchain that supported PHP 8.1 was itself pinned to a CVE-affected PHPUnit.
+  Staying on the security-patched Laravel line is only possible on PHP 8.2+. The production
+  footprint (`illuminate/contracts`, `guzzlehttp/guzzle`, `spatie/laravel-package-tools`) now
+  audits clean across the whole matrix.
+
+### Internal / CI
+
+- Upgraded the dev toolchain to Laravel 12/13: `orchestra/testbench ^10|^11`,
+  `phpunit/phpunit ^11.5.3|^12.0`, `larastan/larastan ^3.0`, `phpstan/phpstan-* ^2.0`,
+  `nunomaduro/collision ^8.0`, `brianium/paratest ^7.4`.
+- Removed the unused Pest dependency (`pestphp/pest*`) — every test is plain PHPUnit; `composer test`
+  now runs `phpunit` directly.
+- Modernised `phpunit.xml.dist` to the current schema and made coverage **on-demand** (a plain
+  `composer test` no longer forces coverage, so jobs without a driver don't trip `failOnWarning`).
+- Refreshed the CI matrices to PHP 8.2/8.3/8.4 × Laravel 12/13 and applied the latest Pint style
+  rules.
+
 ## 2.0.0 - 2026-06-21
 
 ### Changed (breaking)

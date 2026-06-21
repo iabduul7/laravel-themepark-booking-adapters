@@ -3,6 +3,7 @@
 namespace Iabduul7\ThemeParkAdapters\Facades;
 
 use Illuminate\Support\Facades\Facade;
+use Iabduul7\ThemeParkAdapters\ThemeParkManager;
 
 /**
  * @method static \Iabduul7\ThemeParkAdapters\Contracts\ThemeParkAdapterInterface provider(?string $name = null)
@@ -16,7 +17,7 @@ use Illuminate\Support\Facades\Facade;
  * surface — see the concrete adapter classes and the SupportsHolds / SupportsEvents
  * capability interfaces.
  *
- * @see \Iabduul7\ThemeParkAdapters\ThemeParkManager
+ * @see ThemeParkManager
  */
 class ThemePark extends Facade
 {

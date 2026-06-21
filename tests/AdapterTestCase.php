@@ -4,6 +4,7 @@ namespace Iabduul7\ThemeParkAdapters\Tests;
 
 use Iabduul7\ThemeParkAdapters\ThemeParkAdaptersServiceProvider;
 use Orchestra\Testbench\TestCase as Orchestra;
+use Illuminate\Foundation\Application;
 
 /**
  * Lightweight Testbench base for the independent-namespace adapter contract tests.
@@ -14,7 +15,7 @@ use Orchestra\Testbench\TestCase as Orchestra;
 abstract class AdapterTestCase extends Orchestra
 {
     /**
-     * @param  \Illuminate\Foundation\Application  $app
+     * @param  Application  $app
      * @return array<int, class-string>
      */
     protected function getPackageProviders($app)
