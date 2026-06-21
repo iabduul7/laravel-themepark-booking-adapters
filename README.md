@@ -5,363 +5,196 @@
 [![GitHub PHPStan Action Status](https://img.shields.io/github/actions/workflow/status/iabduul7/laravel-themepark-booking-adapters/phpstan.yml?branch=dev&label=phpstan&style=flat-square)](https://github.com/iabduul7/laravel-themepark-booking-adapters/actions?query=workflow%3Aphpstan+branch%3Adev)
 [![Total Downloads](https://img.shields.io/packagist/dt/iabduul7/laravel-themepark-booking-adapters.svg?style=flat-square)](https://packagist.org/packages/iabduul7/laravel-themepark-booking-adapters)
 
-A comprehensive Laravel package providing unified booking adapters for major theme park providers including Disney World (via Redeam), Universal Studios (via SmartOrder), and United Parks. This package provides a clean, consistent interface for handling theme park bookings, managing order details, and processing vouchers.
+A Laravel package providing self-contained, drop-in booking adapters for major theme park
+distribution APIs:
+
+| Park | Provider | Adapter |
+| --- | --- | --- |
+| Walt Disney World | Redeam | `DisneyRedeamAdapter` |
+| SeaWorld / United Parks | Redeam | `SeaWorldRedeamAdapter` |
+| Universal Orlando | SmartOrder ("SmartOrder2") | `UniversalSmartOrder2Adapter` |
+
+Each adapter exposes the provider's real API surface (catalog, rates, availability, pricing
+schedules, holds/bookings for Redeam; events/orders for SmartOrder) and returns lightweight
+DTOs over the raw responses. Auth, retries and OAuth token management are handled for you.
+
+> **What's working today:** all three adapters are contract-tested with `Http::fake` and analysed
+> with PHPStan (level 3). Read paths (catalog, rates, pricing, availability) are additionally
+> verified against the live provider sandboxes, and the full write lifecycle is proven **live** for
+> **Disney** (Redeam hold → book → cancel) and **Universal** (SmartOrder place → cancel).
+> **SeaWorld / United Parks** is contract-tested only — its sandbox (Discovery Cove) exposes no
+> bookable availability. Full parity matrix in
+> [`guides/PACKAGE_COMPATIBILITY.md`](guides/PACKAGE_COMPATIBILITY.md).
 
 ## Features
 
--   🎢 **Multiple Provider Support**: Disney World, Universal Studios, United Parks, SeaWorld
--   🔄 **Unified Interface**: Consistent API across all booking providers
--   📊 **Order Management**: Complete order details tracking with relationships
--   🎫 **Voucher Generation**: Automated voucher creation and management
--   ⚡ **Performance Optimized**: Built-in caching, rate limiting, and circuit breakers
--   🔍 **Query Scopes**: Pre-built scopes for Disney, Universal, and United Parks product filtering
--   📝 **Rich Documentation**: Comprehensive examples and configuration
--   🧪 **Full Test Coverage**: Reliable and well-tested codebase
--   🔧 **Easy Installation**: One-command setup with migrations and configuration
+- 🎢 **Three production parks supported**: Disney (Redeam), SeaWorld/United Parks (Redeam), Universal (SmartOrder)
+- 🧩 **Driver-based resolution** via a Laravel `Manager` + `ThemePark` facade
+- 🔐 **Auth handled**: Redeam `X-API-Key`/`X-API-Secret`; SmartOrder OAuth2 client-credentials with token caching and 401 self-heal
+- ♻️ **Resilient transport**: idempotent reads retried on connection drops / 5xx; writes never retried (no double-booking)
+- 📦 **Typed result objects**: `Supplier`, `Product`, `Rate`, `PriceSchedule`, `RatePriceSchedule`, `Availability`, `Hold`, `Booking`, …
+- 🎫 **Voucher data exposed**: `tickets()` normalises each booking/order response into typed `TicketArtifact`s (redeemable identifier + format + validity); barcode/PDF rendering stays in your app
+- 🧩 **Capability interfaces**: `SupportsHolds`, `SupportsEvents`, `ProvidesTicketArtifacts` — type-hint a capability instead of a concrete park
+- 🧱 **No app coupling**: pure API integration; persistence, jobs, commission/margins and voucher *rendering* stay in your app
+- 🧪 **Contract-tested** with `Http::fake()`, analysed with PHPStan, and exercised live against the provider sandboxes
 
 ## Installation
-
-You can install the package via composer:
 
 ```bash
 composer require iabduul7/laravel-themepark-booking-adapters
 ```
 
-For development work, you'll also need to install Node.js dependencies:
+Publish the config file:
 
 ```bash
-pnpm install
+php artisan vendor:publish --tag="themepark-adapters-config"
 ```
 
-You can publish the config file with:
+Add credentials to your `.env` (see [`.env.example`](.env.example) for the full list):
 
-```bash
-php artisan vendor:publish --tag="themepark-booking-config"
-```
+```env
+THEMEPARK_DEFAULT_PROVIDER=disney
 
-This is the contents of the published config file:
+# Disney (Redeam)
+REDEAM_DISNEY_SUPPLIER_ID=your_disney_supplier_id
+REDEAM_DISNEY_API_KEY=your_disney_api_key
+REDEAM_DISNEY_API_SECRET=your_disney_api_secret
 
-```php
-return [
-    'adapters' => [
-        'redeam_disney' => [
-            'driver' => 'redeam',
-            'park_type' => 'disney',
-            'base_url' => env('REDEAM_BASE_URL', 'https://booking.redeam.io/v1.2'),
-            'api_key' => env('REDEAM_DISNEY_API_KEY'),
-            'api_secret' => env('REDEAM_DISNEY_API_SECRET'),
-            'supplier_id' => env('REDEAM_DISNEY_SUPPLIER_ID'),
-            'timeout' => 600,
-        ],
-        'redeam_united' => [
-            'driver' => 'redeam',
-            'park_type' => 'united_parks',
-            'base_url' => env('REDEAM_BASE_URL', 'https://booking.redeam.io/v1.2'),
-            'api_key' => env('REDEAM_UNITED_API_KEY'),
-            'api_secret' => env('REDEAM_UNITED_API_SECRET'),
-            'timeout' => 600,
-        ],
-        'smartorder' => [
-            'driver' => 'smartorder',
-            'base_url' => env('SMARTORDER_BASE_URL', 'https://QACorpAPI.ucdp.net'),
-            'client_username' => env('SMARTORDER_CLIENT_USERNAME'),
-            'client_secret' => env('SMARTORDER_CLIENT_SECRET'),
-            'customer_id' => env('SMARTORDER_CUSTOMER_ID', 134853),
-            'approved_suffix' => env('SMARTORDER_APPROVED_SUFFIX', '-2KNOW'),
-            'timeout' => 600,
-        ],
-    ],
-    'default' => env('THEMEPARK_BOOKING_DEFAULT_ADAPTER', 'redeam_disney'),
-];
+# SeaWorld / United Parks (Redeam) — supplier is passed per call
+REDEAM_UNITED_PARKS_API_KEY=your_seaworld_api_key
+REDEAM_UNITED_PARKS_API_SECRET=your_seaworld_api_secret
+
+# Universal (SmartOrder)
+SMARTORDER_CUSTOMER_ID=134853
+SMARTORDER_APPROVED_SUFFIX=-2KNOW
+SMARTORDER_CLIENT_USERNAME=your_client_username
+SMARTORDER_CLIENT_SECRET=your_client_secret
 ```
 
 ## Usage
 
-### Basic Configuration
-
-Add these environment variables to your `.env` file:
-
-```env
-# Redeam API (Disney World)
-REDEAM_DISNEY_API_KEY=your_disney_api_key
-REDEAM_DISNEY_API_SECRET=your_disney_api_secret
-REDEAM_DISNEY_SUPPLIER_ID=your_disney_supplier_id
-
-# Redeam API (Universal Parks)
-REDEAM_UNITED_API_KEY=your_united_api_key
-REDEAM_UNITED_API_SECRET=your_united_api_secret
-
-# SmartOrder API
-SMARTORDER_CLIENT_USERNAME=your_smartorder_client_id
-SMARTORDER_CLIENT_SECRET=your_smartorder_client_secret
-SMARTORDER_CUSTOMER_ID=134853
-```
-
-### Using the Independent HTTP Clients
-
-The package includes self-contained HTTP clients that don't depend on external packages:
-
-#### Redeam HTTP Client
+### Resolving an adapter
 
 ```php
-use iabduul7\LaravelThemeparkBookingAdapters\Http\RedeamHttpClient;
+use Iabduul7\ThemeParkAdapters\Facades\ThemePark;
 
-$client = new RedeamHttpClient(
-    baseUrl: 'https://booking.redeam.io/v1.2',
-    apiKey: 'your_api_key',
-    apiSecret: 'your_api_secret',
-    timeout: 600
-);
-
-// Make API calls directly
-$suppliers = $client->get('suppliers');
-$products = $client->get('suppliers/123/products');
-$booking = $client->post('suppliers/123/bookings', $bookingData);
+$disney    = ThemePark::provider('disney');     // DisneyRedeamAdapter
+$seaworld  = ThemePark::provider('seaworld');   // SeaWorldRedeamAdapter
+$universal = ThemePark::provider('universal');  // UniversalSmartOrder2Adapter
 ```
 
-#### SmartOrder HTTP Client
+You can also resolve via the container (`app('themepark')` / `ThemeParkManager`) or construct an
+adapter directly with a config array:
 
 ```php
-use iabduul7\LaravelThemeparkBookingAdapters\Http\SmartOrderHttpClient;
+use Iabduul7\ThemeParkAdapters\Providers\Disney\DisneyRedeamAdapter;
 
-$client = new SmartOrderHttpClient(
-    baseUrl: 'https://QACorpAPI.ucdp.net',
-    clientId: 'your_client_username',
-    clientSecret: 'your_client_secret',
-    customerId: 134853,
-    timeout: 600
-);
-
-// Automatic OAuth2 token management
-$catalog = $client->get('smartorder/MyProductCatalog');
-$events = $client->post('smartorder/FindEvents', $searchParams);
-$order = $client->post('smartorder/PlaceOrder', $orderData);
+$disney = new DisneyRedeamAdapter(config('themepark-adapters.providers.disney'));
 ```
 
-## API Authentication
-
-### Redeam API Authentication
-
--   Uses **X-API-Key** and **X-API-Secret** headers
--   GET requests send data as form parameters
--   POST/PUT requests send data as JSON
--   600-second timeout by default
-
-### SmartOrder API Authentication
-
--   Uses **OAuth2 Client Credentials** flow
--   Automatic token refresh and caching
--   Bearer token authentication
--   Customer ID embedded in requests
-
-## Product Filtering Scopes
-
-The package provides three traits with pre-built query scopes for different theme park providers:
-
-### HasDisneyScopes
-
-Add Disney-specific filtering to your Product model:
+### Disney (Redeam) — supplier fixed from config
 
 ```php
-use iabduul7\ThemeParkBooking\Concerns\HasDisneyScopes;
+$products = $disney->getAllProducts();                                  // Product[]
+$product  = $disney->getProduct('PRODUCT_ID');                          // Product
+$rates    = $disney->getProductRates('PRODUCT_ID');                     // Rate[]
+$schedule = $disney->getProductPricingSchedule('PRODUCT_ID', '2026-06-01', '2026-06-30'); // PriceSchedule
+$rateSched = $disney->getProductRatePricingSchedule('PRODUCT_ID', '2026-06-01', '2026-06-30', 'RATE_ID');
+$avail    = $disney->checkAvailabilities('PRODUCT_ID', '2026-06-01', '2026-06-30');
 
-class Product extends Model
-{
-    use HasDisneyScopes;
+// Hold → book → cancel
+$hold    = $disney->createNewHold(['hold' => ['items' => [/* … */]]]);
+$booking = $disney->createNewBooking(['booking' => [/* … */]]);
+$disney->deleteBooking('BOOKING_ID');
+
+echo $product->getName();
+echo $product->getId();
+```
+
+### SeaWorld / United Parks (Redeam) — supplier passed per call
+
+```php
+$products = $seaworld->getAllProducts('SUPPLIER_ID');
+$product  = $seaworld->getProduct('SUPPLIER_ID', 'PRODUCT_ID');
+$rates    = $seaworld->getProductRates('SUPPLIER_ID', 'PRODUCT_ID');
+$schedule = $seaworld->getProductPricingSchedule('SUPPLIER_ID', 'PRODUCT_ID', '2026-06-01', '2026-06-30');
+```
+
+### Universal (SmartOrder)
+
+```php
+$catalog = $universal->getAllProducts();                 // GET smartorder/MyProductCatalog
+$months  = $universal->getAvailableMonths();             // next 12 months
+$events  = $universal->findEvents([/* plu, dates, … */]); // POST smartorder/FindEvents
+$order   = $universal->placeOrder([/* order lines, … */]);// POST smartorder/PlaceOrder
+
+if ($universal->canCancelOrder(['ExternalOrderId' => 'E1'])) {
+    $universal->cancelOrder(['ExternalOrderId' => 'E1']);
 }
-
-// Usage examples
-$disneyProducts = Product::disneyWorld()->get();
-$magicKingdom = Product::disneyMagicKingdom()->get();
-$epcot = Product::disneyEpcot()->get();
-$hollywoodStudios = Product::disneyHollywoodStudios()->get();
-$animalKingdom = Product::disneyAnimalKingdom()->get();
-$waterParks = Product::disneyWaterPark()->get();
-$parkHopper = Product::disneyParkHopper()->get();
-$genie = Product::disneyGenie()->get();
-$specialEvents = Product::disneySpecialEvent()->get();
 ```
 
-### HasUniversalScopes
+> The adapters mirror the method names and signatures of the production
+> `LaravelRedeamForWaltDisney`, `LaravelRedeamForUnitedParks` and `SmartOrderClient` clients so
+> they can serve as a drop-in replacement. A normalised, provider-agnostic interface is proposed
+> for a future major version in [`guides/CLEANER_API_REFERENCE.md`](guides/CLEANER_API_REFERENCE.md).
 
-Add Universal Studios-specific filtering:
+## Capability interfaces
 
-```php
-use iabduul7\ThemeParkBooking\Concerns\HasUniversalScopes;
+- `Contracts\Capabilities\SupportsHolds` — `createNewHold`, `getHold`, `deleteHold`, `createNewBooking`, `getBooking`, `deleteBooking` (Redeam adapters)
+- `Contracts\Capabilities\SupportsEvents` — `findEvents`, `placeOrder`, `getExistingOrder`, `canCancelOrder`, `cancelOrder` (SmartOrder adapter)
 
-class Product extends Model
-{
-    use HasUniversalScopes;
-}
+Type-hint these when you only need a capability rather than a specific park.
 
-// Usage examples
-$promoProducts = Product::universalPromo()->get();
-$expressPass = Product::universalExpressPass()->get();
-$datedTickets = Product::universalDated()->get();
-$hhn = Product::universalHHN()->get(); // Halloween Horror Nights
-$volcanoBay = Product::universalVolcanoBay()->get();
-$islandsOfAdventure = Product::universalIslandsOfAdventure()->get();
-$universalStudios = Product::universalStudios()->get();
-$multiDay = Product::universalMultiDay()->get();
-```
+## Optional building blocks
 
-### HasUnitedParksScopes
+Business logic that is specific to a deployment is kept out of the core adapters and shipped as
+opt-in helpers under `Support/`:
 
-Add United Parks (SeaWorld, Busch Gardens) filtering:
+- `Support\Redeam\OptionCodeResolver` — maps a Walt Disney World ticket name to its Redeam
+  option code (also exposed on the Redeam adapters as `getOptionCode()` for drop-in parity).
 
-```php
-use iabduul7\ThemeParkBooking\Concerns\HasUnitedParksScopes;
+Persistence (Eloquent models, migrations), queue/sync jobs, commission/operator margins and voucher *rendering* (barcode images,
+templates, PDF, delivery) are intentionally left to the consuming application. The package does expose
+the provider-native voucher **data** — `tickets()` normalises each booking/order response into typed
+`TicketArtifact`s (the redeemable identifier + format + validity). See `guides/VOUCHERS.md`.
 
-class Product extends Model
-{
-    use HasUnitedParksScopes;
-}
+## Authentication
 
-// Usage examples
-$unitedParks = Product::unitedParks()->get();
-$seaWorld = Product::seaWorld()->get();
-$seaWorldOrlando = Product::seaWorldOrlando()->get();
-$seaWorldSanDiego = Product::seaWorldSanDiego()->get();
-$buschGardens = Product::buschGardens()->get();
-$buschGardensTampa = Product::buschGardensTampa()->get();
-$buschGardensWilliamsburg = Product::buschGardensWilliamsburg()->get();
-$aquatica = Product::aquatica()->get();
-$adventureIsland = Product::adventureIsland()->get();
-$multiPark = Product::unitedParksMultiPark()->get();
-$seasonPass = Product::unitedParksSeasonPass()->get();
-$vip = Product::unitedParksVIP()->get();
-$dining = Product::unitedParksDining()->get();
-$parking = Product::unitedParksParking()->get();
-$specialEvents = Product::unitedParksSpecialEvent()->get();
-$waterParks = Product::unitedParksWaterPark()->get();
-```
+- **Redeam** — `X-API-Key` / `X-API-Secret` headers; GET is form-encoded, writes are JSON.
+- **SmartOrder** — OAuth2 client-credentials (`/connect/token`, `scope=SmartOrder`); bearer token
+  cached via a `TokenRepository` (set `SMARTORDER_TOKEN_CACHE=false` to always refresh, matching
+  upstream); `customerId` injected into every request; transparent refresh-and-retry on `401`.
 
-### Using Multiple Scopes
-
-You can combine multiple scope traits for comprehensive filtering:
+## Error handling
 
 ```php
-class Product extends Model
-{
-    use HasDisneyScopes, HasUniversalScopes, HasUnitedParksScopes;
-}
-
-// Filter by park type
-$disneyProducts = Product::disneyWorld()->get();
-$universalProducts = Product::universalExpressPass()->get();
-$unitedParksProducts = Product::seaWorld()->get();
-
-// Negate scopes (exclude products)
-$nonDisneyProducts = Product::disneyWorld(true)->get(); // negate = true
-$nonPromo = Product::universalPromo(true)->get();
-```
-
-## Error Handling
-
-The package provides comprehensive error handling:
-
-```php
-use iabduul7\ThemeParkBooking\Exceptions\AdapterException;
-use iabduul7\ThemeParkBooking\Exceptions\BookingException;
-use iabduul7\ThemeParkBooking\Exceptions\ConfigurationException;
+use Iabduul7\ThemeParkAdapters\Exceptions\ThemeParkApiException;
 
 try {
-    $adapter = new RedeamAdapter('disney', $config);
-    $products = $adapter->getAllProducts();
-} catch (ConfigurationException $e) {
-    // Handle configuration issues
-    Log::error('Configuration error: ' . $e->getMessage());
-} catch (AdapterException $e) {
-    // Handle adapter-specific issues
-    Log::error('Adapter error: ' . $e->getMessage());
-} catch (BookingException $e) {
-    // Handle booking-related errors
-    Log::error('Booking error: ' . $e->getMessage());
+    $products = ThemePark::provider('disney')->getAllProducts();
+} catch (ThemeParkApiException $e) {
+    report($e);
 }
 ```
 
 ## Development
 
-### Initial Setup
-
-After cloning the repository, install dependencies and set up git hooks:
-
 ```bash
-# Install PHP dependencies
 composer install
-
-# Install Node.js dependencies (using pnpm)
-pnpm install
-
-# IMPORTANT: Manually install git hooks for code quality enforcement
-pnpm run hooks:install
-```
-
-### Git Hooks
-
-This package uses git hooks to maintain code quality:
-
--   **Pre-commit hook**: Automatically checks PHP code style using Laravel Pint
--   **Pre-push hook**: Runs tests before pushing to ensure code quality
-
-If you encounter style issues during commit, fix them with:
-
-```bash
-composer format
-```
-
-To uninstall git hooks (if needed):
-
-```bash
-pnpm run hooks:uninstall
 ```
 
 ## Testing
 
-Run the tests with:
-
 ```bash
-composer test
-```
+# Adapter contract tests (Http::fake)
+composer test:adapters
 
-Run specific test suites:
-
-```bash
-# Unit tests only
-composer test:unit
-
-# Feature tests only
-composer test:feature
-
-# With coverage report
-composer test:coverage
-
-# HTML coverage report
-composer test:coverage-html
-```
-
-## Code Style
-
-Check code style:
-
-```bash
-composer format:check
-```
-
-Fix code style issues:
-
-```bash
-composer format
-```
-
-**Note**: Code style is automatically enforced via git hooks. Commits will be blocked if style violations are detected.
-
-## Static Analysis
-
-Run static analysis:
-
-```bash
+# Static analysis
 composer analyse
+
+# Code style
+composer format        # fix
+composer format:check  # check only
 ```
 
 ## Changelog
@@ -370,16 +203,12 @@ Please see [CHANGELOG](CHANGELOG.md) for more information on what has changed re
 
 ## Contributing
 
-Please see [CONTRIBUTING](CONTRIBUTING.md) for details.
-
-## Security Vulnerabilities
-
-Please review [our security policy](../../security/policy) on how to report security vulnerabilities.
+Please see [CONTRIBUTING](.github/CONTRIBUTING.md) for details.
 
 ## Credits
 
--   [Abdullah](https://github.com/iabduul7)
--   [All Contributors](../../contributors)
+- [Abdullah](https://github.com/iabduul7)
+- [All Contributors](../../contributors)
 
 ## License
 

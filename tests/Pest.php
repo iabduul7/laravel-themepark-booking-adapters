@@ -1,5 +1,5 @@
 <?php
 
-use iabduul7\ThemeParkBooking\Tests\TestCase;
+use Iabduul7\ThemeParkAdapters\Tests\AdapterTestCase;
 
-uses(TestCase::class)->in(__DIR__);
+uses(AdapterTestCase::class)->in(__DIR__);

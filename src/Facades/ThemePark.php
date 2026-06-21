@@ -7,14 +7,14 @@ use Illuminate\Support\Facades\Facade;
 /**
  * @method static \Iabduul7\ThemeParkAdapters\Contracts\ThemeParkAdapterInterface provider(?string $name = null)
  * @method static \Iabduul7\ThemeParkAdapters\Contracts\ThemeParkAdapterInterface driver(?string $driver = null)
- * @method static array getProducts(array $filters = [])
- * @method static \Iabduul7\ThemeParkAdapters\DataTransferObjects\Product getProduct(string $productId)
- * @method static \Iabduul7\ThemeParkAdapters\DataTransferObjects\Order createOrder(array $orderData)
- * @method static \Iabduul7\ThemeParkAdapters\DataTransferObjects\Order getOrder(string $orderId)
- * @method static bool cancelOrder(string $orderId)
- * @method static array getAvailability(string $productId, array $filters = [])
- * @method static bool validateCredentials()
- * @method static string getProviderName()
+ * @method static \Iabduul7\ThemeParkAdapters\Providers\Disney\DisneyRedeamAdapter createDisneyDriver()
+ * @method static \Iabduul7\ThemeParkAdapters\Providers\SeaWorld\SeaWorldRedeamAdapter createSeaworldDriver()
+ * @method static \Iabduul7\ThemeParkAdapters\Providers\Universal\UniversalSmartOrder2Adapter createUniversalDriver()
+ * @method static string getDefaultDriver()
+ *
+ * Note: each resolved provider exposes its own (drop-in compatible) method
+ * surface — see the concrete adapter classes and the SupportsHolds / SupportsEvents
+ * capability interfaces.
  *
  * @see \Iabduul7\ThemeParkAdapters\ThemeParkManager
  */
