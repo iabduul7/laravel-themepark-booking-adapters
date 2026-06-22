@@ -13,3 +13,6 @@ vendor
 node_modules
 .php-cs-fixer.cache
 .phpunit.cache/test-results
+
+# Local session work-tracking notes (not part of the published package)
+/data

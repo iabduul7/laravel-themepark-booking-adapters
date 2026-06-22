@@ -84,5 +84,5 @@
         "unary_operator_spaces": true,
         "whitespace_after_comma_in_array": true
     },
-    "exclude": ["bootstrap", "storage", "vendor"]
+    "exclude": ["bootstrap", "storage", "vendor", "data"]
 }
