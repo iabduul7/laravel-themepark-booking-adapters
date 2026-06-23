@@ -23,8 +23,7 @@ DTOs over the raw responses. Auth, retries and OAuth token management are handle
 > verified against the live provider sandboxes, and the full write lifecycle is proven **live** for
 > **Disney** (Redeam hold → book → cancel) and **Universal** (SmartOrder place → cancel).
 > **SeaWorld / United Parks** is contract-tested only — its sandbox (Discovery Cove) exposes no
-> bookable availability. Full parity matrix in
-> [`guides/PACKAGE_COMPATIBILITY.md`](guides/PACKAGE_COMPATIBILITY.md).
+> bookable availability.
 
 ## Features
 
@@ -144,7 +143,7 @@ if ($universal->canCancelOrder(['ExternalOrderId' => 'E1'])) {
 > The adapters mirror the method names and signatures of the production
 > `LaravelRedeamForWaltDisney`, `LaravelRedeamForUnitedParks` and `SmartOrderClient` clients so
 > they can serve as a drop-in replacement. A normalised, provider-agnostic interface is proposed
-> for a future major version in [`guides/CLEANER_API_REFERENCE.md`](guides/CLEANER_API_REFERENCE.md).
+> for a future major version.
 
 ## Capability interfaces
 
@@ -164,7 +163,7 @@ opt-in helpers under `Support/`:
 Persistence (Eloquent models, migrations), queue/sync jobs, commission/operator margins and voucher *rendering* (barcode images,
 templates, PDF, delivery) are intentionally left to the consuming application. The package does expose
 the provider-native voucher **data** — `tickets()` normalises each booking/order response into typed
-`TicketArtifact`s (the redeemable identifier + format + validity). See `guides/VOUCHERS.md`.
+`TicketArtifact`s (the redeemable identifier + format + validity).
 
 ## Authentication
 
