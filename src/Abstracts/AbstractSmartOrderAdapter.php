@@ -112,6 +112,10 @@ abstract class AbstractSmartOrderAdapter extends BaseThemeParkAdapter implements
             'scope' => 'SmartOrder',
         ]);
 
+        if ($response->failed()) {
+            throw ThemeParkApiException::requestFailed($response->status(), $response->json() ?? []);
+        }
+
         $token = $response->json('access_token');
 
         if (! is_string($token) || $token === '') {
@@ -138,6 +142,10 @@ abstract class AbstractSmartOrderAdapter extends BaseThemeParkAdapter implements
         if ($response->status() === 401) {
             $this->refreshToken();
             $response = $request();
+        }
+
+        if ($response->failed()) {
+            throw ThemeParkApiException::requestFailed($response->status(), $response->json() ?? []);
         }
 
         return $response->json();
@@ -189,7 +197,13 @@ abstract class AbstractSmartOrderAdapter extends BaseThemeParkAdapter implements
 
     public function getExistingOrder(array $parameters): ?array
     {
-        return $this->getRequest('smartorder/GetExistingOrderId', $parameters);
+        try {
+            return $this->getRequest('smartorder/GetExistingOrderId', $parameters);
+        } catch (ThemeParkApiException $e) {
+            throw $e->getCode() === 404
+                ? ThemeParkApiException::orderNotFound((string) ($parameters['ExternalOrderId'] ?? ''))
+                : $e;
+        }
     }
 
     public function canCancelOrder(array $parameters): ?array

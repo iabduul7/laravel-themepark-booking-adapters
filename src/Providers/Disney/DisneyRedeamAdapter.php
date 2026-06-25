@@ -79,10 +79,13 @@ class DisneyRedeamAdapter extends AbstractRedeamAdapter implements ProvidesTicke
      */
     public function getProduct(string $productId, array $parameters = []): Product
     {
-        return $this->parseData(
-            Arr::get($this->getRequest("suppliers/{$this->supplierId}/products/{$productId}", $parameters), 'product', []),
-            Product::class
-        );
+        try {
+            $data = $this->getRequest("suppliers/{$this->supplierId}/products/{$productId}", $parameters);
+        } catch (ThemeParkApiException $e) {
+            throw $e->getCode() === 404 ? ThemeParkApiException::productNotFound($productId) : $e;
+        }
+
+        return $this->parseData(Arr::get($data, 'product', []), Product::class);
     }
 
     /**
@@ -217,10 +220,12 @@ class DisneyRedeamAdapter extends AbstractRedeamAdapter implements ProvidesTicke
 
         $url = (string) $this->getConfig('park_availability_url', 'https://dis-obs.redeam.io/disney/park/availability');
 
-        $response = $this->http()->asForm()->get($url, [
-            'startDate' => $startDate,
-            'endDate' => $endDate,
-        ])->json() ?? [];
+        $response = $this->decodeOrThrow(
+            $this->retryReads($this->http()->asForm())->get($url, [
+                'startDate' => $startDate,
+                'endDate' => $endDate,
+            ])
+        );
 
         return collect($response)
             ->transform(function ($value, $key) {

@@ -174,15 +174,26 @@ the provider-native voucher **data** — `tickets()` normalises each booking/ord
 
 ## Error handling
 
+Any non-2xx provider response is raised as a `ThemeParkApiException` — reads and writes alike (a
+failure is never silently returned as an empty array). The exception carries the HTTP status via
+`getCode()` and the decoded provider error body via `getResponseData()`. Single-entity lookups raise
+a dedicated 404: `getProduct()` throws `productNotFound()`, `getExistingOrder()` throws
+`orderNotFound()`.
+
 ```php
 use Iabduul7\ThemeParkAdapters\Exceptions\ThemeParkApiException;
 
 try {
-    $products = ThemePark::provider('disney')->getAllProducts();
+    $product = ThemePark::provider('disney')->getProduct('PRODUCT_ID');
 } catch (ThemeParkApiException $e) {
+    $status = $e->getCode();          // e.g. 404, 422, 503
+    $body   = $e->getResponseData();  // decoded provider error payload (nullable)
     report($e);
 }
 ```
+
+Idempotent reads are retried on connection drops / 5xx before the failure surfaces; writes are never
+retried (no double-booking).
 
 ## Development
 
