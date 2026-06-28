@@ -2,7 +2,7 @@
 
 All notable changes to `laravel-themepark-booking-adapters` will be documented in this file.
 
-## 4.0.0 - Unreleased
+## 4.0.0 - 2026-06-28
 
 ### Changed (breaking)
 
