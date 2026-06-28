@@ -2,6 +2,7 @@
 
 namespace Iabduul7\ThemeParkAdapters\Tests\Adapters;
 
+use Iabduul7\ThemeParkAdapters\Exceptions\ThemeParkApiException;
 use Iabduul7\ThemeParkAdapters\Providers\Universal\UniversalSmartOrder2Adapter;
 use Iabduul7\ThemeParkAdapters\Tests\AdapterTestCase;
 use Illuminate\Http\Client\Request;
@@ -102,5 +103,54 @@ class UniversalSmartOrder2AdapterTest extends AdapterTestCase
         $this->assertArrayHasKey('class', $months[0]);
         $this->assertArrayHasKey('text', $months[0]);
         $this->assertArrayHasKey('value', $months[0]);
+    }
+
+    public function test_token_request_failure_throws(): void
+    {
+        Http::fake([
+            'qacorpapi.ucdp.net/connect/token' => Http::response(['error' => 'invalid_client'], 401),
+        ]);
+
+        $this->expectException(ThemeParkApiException::class);
+
+        $this->adapter()->getAllProducts();
+    }
+
+    public function test_write_failure_throws_with_status_and_body(): void
+    {
+        Http::fake([
+            'qacorpapi.ucdp.net/connect/token' => Http::response(['access_token' => 'T', 'expires_in' => 3600]),
+            'qacorpapi.ucdp.net/smartorder/PlaceOrder' => Http::response(['message' => 'boom'], 500),
+        ]);
+
+        try {
+            $this->adapter()->placeOrder(['externalOrderId' => 'E1']);
+            $this->fail('Expected ThemeParkApiException was not thrown.');
+        } catch (ThemeParkApiException $e) {
+            $this->assertSame(500, $e->getCode());
+            $this->assertSame(['message' => 'boom'], $e->getResponseData());
+        }
+    }
+
+    public function test_get_existing_order_throws_order_not_found_on_404(): void
+    {
+        Http::fake([
+            'qacorpapi.ucdp.net/connect/token' => Http::response(['access_token' => 'T', 'expires_in' => 3600]),
+            'qacorpapi.ucdp.net/smartorder/GetExistingOrderId*' => Http::response(['error' => 'no order'], 404),
+        ]);
+
+        $this->expectException(ThemeParkApiException::class);
+        $this->expectExceptionMessage("Order with ID 'E1' not found.");
+
+        $this->adapter()->getExistingOrder(['ExternalOrderId' => 'E1']);
+    }
+
+    public function test_validate_credentials_returns_false_when_token_request_fails(): void
+    {
+        Http::fake([
+            'qacorpapi.ucdp.net/connect/token' => Http::response(['error' => 'invalid_client'], 401),
+        ]);
+
+        $this->assertFalse($this->adapter()->validateCredentials());
     }
 }

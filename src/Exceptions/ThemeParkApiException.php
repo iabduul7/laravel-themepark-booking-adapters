@@ -27,12 +27,20 @@ class ThemeParkApiException extends Exception
 
     public static function productNotFound(string $productId): self
     {
-        return new self("Product with ID '{$productId}' not found.");
+        return new self("Product with ID '{$productId}' not found.", 404);
     }
 
     public static function orderNotFound(string $orderId): self
     {
-        return new self("Order with ID '{$orderId}' not found.");
+        return new self("Order with ID '{$orderId}' not found.", 404);
+    }
+
+    /**
+     * @param  array<string, mixed>  $responseData
+     */
+    public static function requestFailed(int $status, array $responseData = []): self
+    {
+        return new self("ThemePark API request failed with HTTP {$status}.", $status, null, $responseData);
     }
 
     public static function apiError(string $message, array $responseData = []): self

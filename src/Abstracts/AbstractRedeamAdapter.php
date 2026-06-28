@@ -69,9 +69,11 @@ abstract class AbstractRedeamAdapter extends BaseThemeParkAdapter implements Sup
      */
     protected function getRequest(string $uri, array $payload = []): array
     {
-        return $this->retryReads(
+        $response = $this->retryReads(
             $this->http()->asForm()->withHeaders($this->authHeaders())
-        )->get($this->url($uri), $payload)->json() ?? [];
+        )->get($this->url($uri), $payload);
+
+        return $this->decodeOrThrow($response);
     }
 
     /**
@@ -80,8 +82,10 @@ abstract class AbstractRedeamAdapter extends BaseThemeParkAdapter implements Sup
      */
     protected function postRequest(string $uri, array $payload = []): array
     {
-        return $this->http()->asJson()->withHeaders($this->authHeaders())
-            ->post($this->url($uri), $payload)->json() ?? [];
+        $response = $this->http()->asJson()->withHeaders($this->authHeaders())
+            ->post($this->url($uri), $payload);
+
+        return $this->decodeOrThrow($response);
     }
 
     /**
@@ -90,8 +94,10 @@ abstract class AbstractRedeamAdapter extends BaseThemeParkAdapter implements Sup
      */
     protected function deleteRequest(string $uri, array $payload = []): array
     {
-        return $this->http()->withHeaders($this->authHeaders())
-            ->delete($this->url($uri), $payload)->json() ?? [];
+        $response = $this->http()->withHeaders($this->authHeaders())
+            ->delete($this->url($uri), $payload);
+
+        return $this->decodeOrThrow($response);
     }
 
     protected function putRequest(string $uri): Response

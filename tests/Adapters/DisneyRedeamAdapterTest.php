@@ -5,6 +5,7 @@ namespace Iabduul7\ThemeParkAdapters\Tests\Adapters;
 use Iabduul7\ThemeParkAdapters\DataTransferObjects\Results\PriceSchedule;
 use Iabduul7\ThemeParkAdapters\DataTransferObjects\Results\Product;
 use Iabduul7\ThemeParkAdapters\DataTransferObjects\Results\RatePriceSchedule;
+use Iabduul7\ThemeParkAdapters\Exceptions\ThemeParkApiException;
 use Iabduul7\ThemeParkAdapters\Providers\Disney\DisneyRedeamAdapter;
 use Iabduul7\ThemeParkAdapters\Tests\AdapterTestCase;
 use Illuminate\Http\Client\Request;
@@ -97,5 +98,52 @@ class DisneyRedeamAdapterTest extends AdapterTestCase
         $this->assertCount(1, $products);
         $this->assertSame('p9', $products[0]->getId());
         Http::assertSentCount(2);
+    }
+
+    public function test_get_product_throws_product_not_found_on_404(): void
+    {
+        Http::fake([
+            'booking.redeam.io/v1.2/suppliers/20/products/missing*' => Http::response(['error' => 'gone'], 404),
+        ]);
+
+        $this->expectException(ThemeParkApiException::class);
+        $this->expectExceptionMessage("Product with ID 'missing' not found.");
+
+        $this->adapter()->getProduct('missing');
+    }
+
+    public function test_write_failure_throws_with_status_and_body(): void
+    {
+        Http::fake([
+            'booking.redeam.io/v1.2/bookings' => Http::response(['message' => 'price mismatch'], 422),
+        ]);
+
+        try {
+            $this->adapter()->createNewBooking(['booking' => []]);
+            $this->fail('Expected ThemeParkApiException was not thrown.');
+        } catch (ThemeParkApiException $e) {
+            $this->assertSame(422, $e->getCode());
+            $this->assertSame(['message' => 'price mismatch'], $e->getResponseData());
+        }
+    }
+
+    public function test_reads_throw_after_exhausting_retries_on_persistent_server_error(): void
+    {
+        Http::fake([
+            'booking.redeam.io/v1.2/suppliers/20/products*' => Http::response('', 500),
+        ]);
+
+        $this->expectException(ThemeParkApiException::class);
+
+        $this->adapter()->getAllProducts();
+    }
+
+    public function test_validate_credentials_returns_false_on_unauthorized(): void
+    {
+        Http::fake([
+            'booking.redeam.io/v1.2/suppliers/20/products*' => Http::response(['error' => 'bad key'], 401),
+        ]);
+
+        $this->assertFalse($this->adapter()->validateCredentials());
     }
 }

@@ -3,6 +3,7 @@
 namespace Iabduul7\ThemeParkAdapters\Abstracts;
 
 use Iabduul7\ThemeParkAdapters\Contracts\ThemeParkAdapterInterface;
+use Iabduul7\ThemeParkAdapters\Exceptions\ThemeParkApiException;
 use Illuminate\Http\Client\ConnectionException;
 use Illuminate\Http\Client\PendingRequest;
 use Illuminate\Http\Client\RequestException;
@@ -65,10 +66,20 @@ abstract class BaseThemeParkAdapter implements ThemeParkAdapterInterface
     }
 
     /**
+     * Decode a successful JSON response to an array, or throw a typed
+     * ThemeParkApiException carrying the HTTP status (as the exception code) and
+     * the response body. Idempotent reads are still retried upstream via
+     * retryReads(); by the time a response reaches here the retries are exhausted,
+     * so a persistent 5xx surfaces as an exception instead of an empty array.
+     *
      * @return array<string, mixed>
      */
-    protected function parseJsonResponse(Response $response): array
+    protected function decodeOrThrow(Response $response): array
     {
+        if ($response->failed()) {
+            throw ThemeParkApiException::requestFailed($response->status(), $response->json() ?? []);
+        }
+
         return $response->json() ?? [];
     }
 }

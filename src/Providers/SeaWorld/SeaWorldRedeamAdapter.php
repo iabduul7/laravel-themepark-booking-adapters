@@ -80,10 +80,13 @@ class SeaWorldRedeamAdapter extends AbstractRedeamAdapter implements ProvidesTic
      */
     public function getProduct(string $supplierId, string $productId, array $parameters = []): Product
     {
-        return $this->parseData(
-            Arr::get($this->getRequest("suppliers/{$supplierId}/products/{$productId}", $parameters), 'product', []),
-            Product::class
-        );
+        try {
+            $data = $this->getRequest("suppliers/{$supplierId}/products/{$productId}", $parameters);
+        } catch (ThemeParkApiException $e) {
+            throw $e->getCode() === 404 ? ThemeParkApiException::productNotFound($productId) : $e;
+        }
+
+        return $this->parseData(Arr::get($data, 'product', []), Product::class);
     }
 
     /**
