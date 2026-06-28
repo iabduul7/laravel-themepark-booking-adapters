@@ -2,27 +2,6 @@
 
 All notable changes to `laravel-themepark-booking-adapters` will be documented in this file.
 
-## v4.0.0 - 2026-06-28
-
-### Breaking
-
-Upstream HTTP failures now surface as `ThemeParkApiException` instead of being silently swallowed into empty arrays.
-
-- Every read **and** write throws on a 4xx/5xx — status via `getCode()`, decoded provider body via `getResponseData()`. Retry policy unchanged: idempotent reads retried on connection drops / 5xx, writes never retried; only the *final* response is inspected.
-- Single-entity 404s raise dedicated exceptions: `getProduct()` → `productNotFound()`, SmartOrder `getExistingOrder()` → `orderNotFound()`.
-
-### Fixed
-
-- `validateCredentials()` now genuinely returns `false` on auth failure (previously could only return `true`).
-- SmartOrder OAuth token request and the post-401 self-heal now status-check the response.
-- Disney park-availability is now a retried, status-checked read.
-
-### Internal
-
-- Failure-propagation tests across all three adapters, plus `OptionCodeResolver` and SeaWorld supplier coverage — 52 tests / 146 assertions.
-
-**Full changelog:** https://github.com/iabduul7/laravel-themepark-booking-adapters/blob/main/CHANGELOG.md
-
 ## 4.0.0 - 2026-06-28
 
 ### Changed (breaking)
