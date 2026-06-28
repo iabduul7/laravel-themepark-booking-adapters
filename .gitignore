@@ -14,4 +14,4 @@ node_modules
 .php-cs-fixer.cache
 .phpunit.cache/test-results
 
-/data
+/docs
