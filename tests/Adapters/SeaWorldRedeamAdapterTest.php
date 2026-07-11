@@ -4,6 +4,7 @@ namespace Iabduul7\ThemeParkAdapters\Tests\Adapters;
 
 use Iabduul7\ThemeParkAdapters\DataTransferObjects\Results\Product;
 use Iabduul7\ThemeParkAdapters\DataTransferObjects\Results\Rate;
+use Iabduul7\ThemeParkAdapters\DataTransferObjects\Results\RatePriceSchedule;
 use Iabduul7\ThemeParkAdapters\DataTransferObjects\Results\Supplier;
 use Iabduul7\ThemeParkAdapters\Exceptions\ThemeParkApiException;
 use Iabduul7\ThemeParkAdapters\Providers\SeaWorld\SeaWorldRedeamAdapter;
@@ -56,6 +57,46 @@ class SeaWorldRedeamAdapterTest extends AdapterTestCase
         $this->assertCount(1, $rates);
         $this->assertInstanceOf(Rate::class, $rates[0]);
         $this->assertSame('opt-1', $rates[0]->getOptionId());
+    }
+
+    public function test_product_get_rates_resolves_supplier_from_the_product_payload(): void
+    {
+        Http::fake([
+            // The rates pattern must be registered before the broader products
+            // pattern below — Http::fake() applies the first matching pattern, and
+            // "products*" would otherwise also match "products/sw1/rates".
+            'booking.redeam.io/v1.2/suppliers/30/products/sw1/rates*' => Http::response([
+                'rates' => [['id' => 'r1', 'name' => 'Adult', 'optionId' => 'opt-1']],
+            ]),
+            'booking.redeam.io/v1.2/suppliers/30/products*' => Http::response([
+                'products' => [['id' => 'sw1', 'name' => 'SeaWorld Orlando 1-Day', 'supplierId' => '30']],
+            ]),
+        ]);
+
+        $products = $this->adapter()->getAllProducts('30');
+        $rates = $products[0]->getRates();
+
+        $this->assertCount(1, $rates);
+        $this->assertInstanceOf(Rate::class, $rates[0]);
+        $this->assertSame('opt-1', $rates[0]->getOptionId());
+
+        Http::assertSent(fn (Request $r) => $r->method() === 'GET'
+            && str_starts_with($r->url(), 'https://booking.redeam.io/v1.2/suppliers/30/products/sw1/rates'));
+    }
+
+    public function test_pricing_schedule_without_rate_id_returns_the_full_multi_rate_payload(): void
+    {
+        Http::fake([
+            'booking.redeam.io/v1.2/suppliers/30/products/sw1/pricing/schedule*' => Http::response([
+                'rate-a' => ['x' => 1],
+                'rate-b' => ['y' => 2],
+            ]),
+        ]);
+
+        $rateSchedule = $this->adapter()->getProductRatePricingSchedule('30', 'sw1', '2026-06-15', '2026-06-20');
+
+        $this->assertInstanceOf(RatePriceSchedule::class, $rateSchedule);
+        $this->assertSame(['rate-a' => ['x' => 1], 'rate-b' => ['y' => 2]], $rateSchedule->getPriceData());
     }
 
     public function test_get_all_suppliers_maps_supplier_envelope_with_auth_headers(): void

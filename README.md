@@ -180,6 +180,11 @@ failure is never silently returned as an empty array). The exception carries the
 a dedicated 404: `getProduct()` throws `productNotFound()`, `getExistingOrder()` throws
 `orderNotFound()`.
 
+One deliberate exception: `deleteBooking()` (the Redeam booking cancel) returns the raw
+`Illuminate\Http\Client\Response` instead of throwing, since Redeam replies `204` with no body. This
+keeps drop-in parity with the upstream client — callers check `->status()` themselves rather than
+catching an exception.
+
 ```php
 use Iabduul7\ThemeParkAdapters\Exceptions\ThemeParkApiException;
 

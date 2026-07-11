@@ -2,6 +2,7 @@
 
 namespace Iabduul7\ThemeParkAdapters\Providers\Disney;
 
+use DateTimeInterface;
 use Iabduul7\ThemeParkAdapters\Abstracts\AbstractRedeamAdapter;
 use Iabduul7\ThemeParkAdapters\DataTransferObjects\Results\PriceSchedule;
 use Iabduul7\ThemeParkAdapters\DataTransferObjects\Results\Product;
@@ -101,6 +102,18 @@ class DisneyRedeamAdapter extends AbstractRedeamAdapter implements ProvidesTicke
     }
 
     /**
+     * Entry point for {@see Product::getRates()} — takes the Product DTO directly
+     * instead of requiring the caller to re-supply its id.
+     *
+     * @param  array<string, mixed>  $parameters
+     * @return array<int, Rate>
+     */
+    public function ratesFor(Product $product, array $parameters = []): array
+    {
+        return $this->getProductRates($product->getId(), $parameters);
+    }
+
+    /**
      * @param  array<string, mixed>  $parameters
      */
     public function getProductRate(string $productId, string $rateId, array $parameters = []): Rate
@@ -115,9 +128,9 @@ class DisneyRedeamAdapter extends AbstractRedeamAdapter implements ProvidesTicke
      * @param  array<string, mixed>  $parameters
      * @return array<string, mixed>
      */
-    public function checkAvailability(string $productId, Carbon|string $at, int $qty, array $parameters = []): array
+    public function checkAvailability(string $productId, DateTimeInterface|string $at, int $qty, array $parameters = []): array
     {
-        $at = $at instanceof Carbon ? $at->toISOString() : $at;
+        $at = $at instanceof DateTimeInterface ? Carbon::instance($at)->toISOString() : $at;
 
         return $this->getRequest(
             "suppliers/{$this->supplierId}/products/{$productId}/availability",
@@ -129,10 +142,10 @@ class DisneyRedeamAdapter extends AbstractRedeamAdapter implements ProvidesTicke
      * @param  array<string, mixed>  $parameters
      * @return array<string, mixed>
      */
-    public function checkAvailabilities(string $productId, Carbon|string $start, Carbon|string $end, array $parameters = []): array
+    public function checkAvailabilities(string $productId, DateTimeInterface|string $start, DateTimeInterface|string $end, array $parameters = []): array
     {
-        $start = $start instanceof Carbon ? $start->toISOString() : $start;
-        $end = $end instanceof Carbon ? $end->toISOString() : $end;
+        $start = $start instanceof DateTimeInterface ? Carbon::instance($start)->toISOString() : $start;
+        $end = $end instanceof DateTimeInterface ? Carbon::instance($end)->toISOString() : $end;
 
         return $this->getRequest(
             "suppliers/{$this->supplierId}/products/{$productId}/availabilities",
@@ -144,9 +157,9 @@ class DisneyRedeamAdapter extends AbstractRedeamAdapter implements ProvidesTicke
      * @param  array<string, mixed>  $parameters
      * @return array<string, mixed>
      */
-    public function getProductAvailability(string $productId, Carbon|string $at, int $qty, array $parameters = []): array
+    public function getProductAvailability(string $productId, DateTimeInterface|string $at, int $qty, array $parameters = []): array
     {
-        $at = $at instanceof Carbon ? $at->toISOString() : $at;
+        $at = $at instanceof DateTimeInterface ? Carbon::instance($at)->toISOString() : $at;
 
         return $this->getRequest(
             "suppliers/{$this->supplierId}/products/{$productId}/availability",
@@ -159,12 +172,12 @@ class DisneyRedeamAdapter extends AbstractRedeamAdapter implements ProvidesTicke
      */
     public function getProductPricingSchedule(
         string $productId,
-        Carbon|string $startDate,
-        Carbon|string $endDate,
+        DateTimeInterface|string $startDate,
+        DateTimeInterface|string $endDate,
         array $parameters = []
     ): PriceSchedule {
-        $startDate = $startDate instanceof Carbon ? $startDate->toDateString() : $startDate;
-        $endDate = $endDate instanceof Carbon ? $endDate->toDateString() : $endDate;
+        $startDate = $startDate instanceof DateTimeInterface ? Carbon::instance($startDate)->toDateString() : $startDate;
+        $endDate = $endDate instanceof DateTimeInterface ? Carbon::instance($endDate)->toDateString() : $endDate;
 
         return $this->parseData(
             $this->getRequest(
@@ -180,19 +193,21 @@ class DisneyRedeamAdapter extends AbstractRedeamAdapter implements ProvidesTicke
      */
     public function getProductRatePricingSchedule(
         string $productId,
-        Carbon|string $startDate,
-        Carbon|string $endDate,
+        DateTimeInterface|string $startDate,
+        DateTimeInterface|string $endDate,
         ?string $rateId = null,
         array $parameters = []
     ): RatePriceSchedule {
-        $startDate = $startDate instanceof Carbon ? $startDate->toDateString() : $startDate;
-        $endDate = $endDate instanceof Carbon ? $endDate->toDateString() : $endDate;
+        $startDate = $startDate instanceof DateTimeInterface ? Carbon::instance($startDate)->toDateString() : $startDate;
+        $endDate = $endDate instanceof DateTimeInterface ? Carbon::instance($endDate)->toDateString() : $endDate;
 
         return $this->parseData(
+            // A null $rateId is intentional: Arr::get() with a null key returns the
+            // whole array, i.e. the full multi-rate schedule.
             Arr::get($this->getRequest(
                 "suppliers/{$this->supplierId}/products/{$productId}/pricing/schedule",
                 array_merge($parameters, ['start_date' => $startDate, 'end_date' => $endDate, 'rate_id' => $rateId])
-            ), $rateId ?? '', []),
+            ), $rateId, []),
             RatePriceSchedule::class
         );
     }
@@ -213,10 +228,10 @@ class DisneyRedeamAdapter extends AbstractRedeamAdapter implements ProvidesTicke
      *
      * @return array<string, mixed>
      */
-    public function getParkAvailability(Carbon|string $startDate, Carbon|string $endDate): array
+    public function getParkAvailability(DateTimeInterface|string $startDate, DateTimeInterface|string $endDate): array
     {
-        $startDate = $startDate instanceof Carbon ? $startDate->format('Y-m-d') : $startDate;
-        $endDate = $endDate instanceof Carbon ? $endDate->format('Y-m-d') : $endDate;
+        $startDate = $startDate instanceof DateTimeInterface ? Carbon::instance($startDate)->format('Y-m-d') : $startDate;
+        $endDate = $endDate instanceof DateTimeInterface ? Carbon::instance($endDate)->format('Y-m-d') : $endDate;
 
         $url = (string) $this->getConfig('park_availability_url', 'https://dis-obs.redeam.io/disney/park/availability');
 
@@ -239,10 +254,14 @@ class DisneyRedeamAdapter extends AbstractRedeamAdapter implements ProvidesTicke
                     }
                 }
 
-                $parks = (string) json_encode($value['parks'] ?? []);
-                $parks = str_replace('®', '', $parks);
-                $decoded = json_decode($parks, true);
-                $parks = is_array($decoded) ? array_reverse($decoded) : [];
+                // The feed keys each entry by park name ("Magic Kingdom® Park" => "available"),
+                // so the ® mark has to be stripped from the keys, not the values.
+                $parks = [];
+                foreach ((is_array($value['parks'] ?? null) ? $value['parks'] : []) as $name => $availability) {
+                    $name = is_string($name) ? str_replace('®', '', $name) : $name;
+                    $parks[$name] = is_string($availability) ? str_replace('®', '', $availability) : $availability;
+                }
+                $parks = array_reverse($parks);
 
                 return [
                     'availability' => $count === 4 ? 'none' : $status,
@@ -261,10 +280,10 @@ class DisneyRedeamAdapter extends AbstractRedeamAdapter implements ProvidesTicke
      * per booking. ("supplier.reference" is a literal key containing a dot, so it is
      * read from the ext array directly, not via a nested dot-path.).
      *
-     * @param  array<string, mixed>  $response
+     * @param  array<string, mixed>|null  $response
      * @return Collection<int, TicketArtifact>
      */
-    public function tickets(array $response): Collection
+    public function tickets(?array $response): Collection
     {
         /** @var array<string, mixed> $booking */
         $booking = Arr::get($response, 'booking', $response);

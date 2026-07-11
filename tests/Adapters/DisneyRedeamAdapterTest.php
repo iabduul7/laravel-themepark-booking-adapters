@@ -4,12 +4,14 @@ namespace Iabduul7\ThemeParkAdapters\Tests\Adapters;
 
 use Iabduul7\ThemeParkAdapters\DataTransferObjects\Results\PriceSchedule;
 use Iabduul7\ThemeParkAdapters\DataTransferObjects\Results\Product;
+use Iabduul7\ThemeParkAdapters\DataTransferObjects\Results\Rate;
 use Iabduul7\ThemeParkAdapters\DataTransferObjects\Results\RatePriceSchedule;
 use Iabduul7\ThemeParkAdapters\Exceptions\ThemeParkApiException;
 use Iabduul7\ThemeParkAdapters\Providers\Disney\DisneyRedeamAdapter;
 use Iabduul7\ThemeParkAdapters\Tests\AdapterTestCase;
 use Illuminate\Http\Client\Request;
 use Illuminate\Support\Facades\Http;
+use Carbon\Carbon;
 
 class DisneyRedeamAdapterTest extends AdapterTestCase
 {
@@ -62,6 +64,107 @@ class DisneyRedeamAdapterTest extends AdapterTestCase
         $rateSchedule = $adapter->getProductRatePricingSchedule('p1', '2026-06-15', '2026-06-20', 'rate-7');
         $this->assertInstanceOf(RatePriceSchedule::class, $rateSchedule);
         $this->assertSame(['2026-06-15' => ['net' => ['amount' => 100]]], $rateSchedule->getPriceData());
+    }
+
+    public function test_pricing_schedule_without_rate_id_returns_the_full_multi_rate_payload(): void
+    {
+        Http::fake([
+            'booking.redeam.io/v1.2/suppliers/20/products/p1/pricing/schedule*' => Http::response([
+                'rate-a' => ['x' => 1],
+                'rate-b' => ['y' => 2],
+            ]),
+        ]);
+
+        $rateSchedule = $this->adapter()->getProductRatePricingSchedule('p1', '2026-06-15', '2026-06-20');
+
+        $this->assertInstanceOf(RatePriceSchedule::class, $rateSchedule);
+        $this->assertSame(['rate-a' => ['x' => 1], 'rate-b' => ['y' => 2]], $rateSchedule->getPriceData());
+    }
+
+    public function test_check_availabilities_accepts_base_carbon_class_instances(): void
+    {
+        Http::fake([
+            'booking.redeam.io/v1.2/suppliers/20/products/p1/availabilities*' => Http::response(['available' => true]),
+        ]);
+
+        $this->adapter()->checkAvailabilities(
+            'p1',
+            new Carbon('2026-06-15 09:30:00'),
+            new Carbon('2026-06-20 09:30:00')
+        );
+
+        Http::assertSent(fn (Request $r) => str_contains(urldecode($r->url()), '2026-06-15T09:30'));
+    }
+
+    public function test_get_product_pricing_schedule_accepts_base_carbon_class_instances(): void
+    {
+        Http::fake([
+            'booking.redeam.io/v1.2/suppliers/20/products/p1/pricing/schedule*' => Http::response([]),
+        ]);
+
+        $this->adapter()->getProductPricingSchedule(
+            'p1',
+            new Carbon('2026-06-15 09:30:00'),
+            new Carbon('2026-06-20 09:30:00')
+        );
+
+        Http::assertSent(fn (Request $r) => str_contains(urldecode($r->url()), 'start_date=2026-06-15'));
+    }
+
+    public function test_product_get_rates_delegates_to_the_adapter(): void
+    {
+        Http::fake([
+            // The rates pattern must be registered before the broader products
+            // pattern below — Http::fake() applies the first matching pattern, and
+            // "products*" would otherwise also match "products/p1/rates".
+            'booking.redeam.io/v1.2/suppliers/20/products/p1/rates*' => Http::response([
+                'rates' => [['id' => 'r1', 'name' => 'Adult', 'optionId' => 'opt-1']],
+            ]),
+            'booking.redeam.io/v1.2/suppliers/20/products*' => Http::response([
+                'products' => [['id' => 'p1', 'name' => 'Magic Kingdom 1-Day']],
+            ]),
+        ]);
+
+        $products = $this->adapter()->getAllProducts();
+        $rates = $products[0]->getRates();
+
+        $this->assertCount(1, $rates);
+        $this->assertInstanceOf(Rate::class, $rates[0]);
+        $this->assertSame('opt-1', $rates[0]->getOptionId());
+
+        Http::assertSent(fn (Request $r) => $r->method() === 'GET'
+            && str_starts_with($r->url(), 'https://booking.redeam.io/v1.2/suppliers/20/products/p1/rates'));
+    }
+
+    public function test_get_park_availability_strips_registered_trademark_and_reverses_park_order(): void
+    {
+        // Real feed shape: each entry keys the parks map BY PARK NAME
+        // ("Magic Kingdom® Park" => "available"), so the ® strip must hit the keys.
+        Http::fake([
+            'dis-obs.redeam.io/disney/park/availability*' => Http::response([
+                '2026-06-15' => ['parks' => [
+                    'EPCOT®' => 'available',
+                    'Magic Kingdom® Park' => 'available',
+                ]],
+                '2026-06-16' => ['parks' => [
+                    'EPCOT®' => 'notAvailable',
+                    'Magic Kingdom® Park' => 'available',
+                ]],
+            ]),
+        ]);
+
+        $availability = $this->adapter()->getParkAvailability('2026-06-15', '2026-06-20');
+
+        $this->assertArrayHasKey('2026-06-15', $availability);
+        $entry = $availability['2026-06-15'];
+        $this->assertSame('full', $entry['availability']);
+        $this->assertSame('2026-06-15', $entry['date']);
+        $this->assertSame([
+            'Magic Kingdom Park' => 'available',
+            'EPCOT' => 'available',
+        ], $entry['parks']);
+
+        $this->assertSame('partial', $availability['2026-06-16']['availability']);
     }
 
     public function test_create_new_hold_posts_to_holds_endpoint(): void

@@ -17,8 +17,8 @@ use Illuminate\Support\Collection;
 interface ProvidesTicketArtifacts
 {
     /**
-     * @param  array<string, mixed>  $response  the raw response from createNewBooking/getBooking (Redeam) or placeOrder (SmartOrder)
+     * @param  array<string, mixed>|null  $response  the raw response from createNewBooking/getBooking (Redeam) or placeOrder (SmartOrder)
      * @return Collection<int, TicketArtifact>
      */
-    public function tickets(array $response): Collection;
+    public function tickets(?array $response): Collection;
 }
