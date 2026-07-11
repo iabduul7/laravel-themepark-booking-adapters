@@ -54,4 +54,28 @@ abstract class Result
     {
         return $this->data;
     }
+
+    /**
+     * Exclude the adapter back-reference from serialization. Result DTOs get
+     * queued directly by consuming apps (e.g. a sync job type-hinting Product),
+     * and the adapter's config array carries provider credentials — letting it
+     * ride along would leak those credentials into the queue payload. Adapter-
+     * backed accessors (e.g. Product::getRates()) degrade gracefully once the
+     * DTO comes back from unserialize() with no adapter attached.
+     *
+     * @return array<string, mixed>
+     */
+    public function __serialize(): array
+    {
+        return ['data' => $this->data];
+    }
+
+    /**
+     * @param  array<string, mixed>  $data
+     */
+    public function __unserialize(array $data): void
+    {
+        $this->data = $data['data'] ?? [];
+        $this->adapter = null;
+    }
 }

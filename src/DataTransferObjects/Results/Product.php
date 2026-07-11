@@ -45,6 +45,10 @@ class Product extends Result
      */
     public function getRates(array $parameters = []): array
     {
+        if ($this->adapter !== null && method_exists($this->adapter, 'ratesFor')) {
+            return $this->adapter->ratesFor($this, $parameters);
+        }
+
         if ($this->adapter !== null && method_exists($this->adapter, 'getProductRates')) {
             return $this->adapter->getProductRates($this->getId(), $parameters);
         }

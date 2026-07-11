@@ -2,6 +2,73 @@
 
 All notable changes to `laravel-themepark-booking-adapters` will be documented in this file.
 
+## 4.1.0 - 2026-07-12
+
+### Added
+
+- `DisneyRedeamAdapter::getParkAvailabilityData()` — the raw park-availability feed, decoded exactly
+  as the observability endpoint returns it (each date maps to a status plus a parks map keyed by
+  park name). This is the boundary-correct primitive: shaping the feed for display belongs to the
+  consuming app.
+
+### Deprecated
+
+- `DisneyRedeamAdapter::getParkAvailability()` — the transformed calendar shape (full/partial/none
+  rollup, reversed park order, `®` stripping, `nice_date` with embedded HTML) is presentation logic,
+  not provider data. Kept as a drop-in parity wrapper over `getParkAvailabilityData()`; will be
+  removed in the next major version.
+
+### Fixed
+
+- Result DTOs no longer serialize their adapter back-reference — queued DTOs (e.g. a sync job
+  type-hinting `Product`) previously embedded provider credentials in queue payloads. Unserialized
+  DTOs degrade to adapter-less behaviour (adapter-backed accessors like `Product::getRates()` return
+  an empty result instead of erroring).
+- `Product::getRates()` no longer throws a `TypeError` for SeaWorld/United Parks products — it now
+  delegates to the adapter's supplier-aware rate lookup instead of assuming the Disney-style
+  `getProductRates(string $productId, ...)` signature.
+- Date parameters across the Redeam adapters (`checkAvailability()`, `checkAvailabilities()`,
+  `getProductAvailability()`, `getProductPricingSchedule()`, `getProductRatePricingSchedule()`, and
+  Disney's `getParkAvailability()`) now accept any `DateTimeInterface`, not just
+  `Illuminate\Support\Carbon`. A base `Carbon\Carbon` instance previously failed the class check and
+  was silently coerced via `__toString()` into the wrong format before reaching the API.
+- `getProductRatePricingSchedule()` called without a `$rateId` now returns the full multi-rate
+  schedule again, matching upstream — a `?? ''` coalesce was breaking `Arr::get()`'s "a null key
+  returns the whole array" behaviour.
+- `CacheTokenRepository::storeToken()` no longer hands the cache a non-positive TTL, which Laravel
+  silently treats as `forget()`. Tokens shorter than the 60 second safety buffer are now simply
+  never cached, instead of appearing to cache and then vanishing.
+- Disney's `getParkAvailability()` now actually strips `®` from park names — the previous
+  encode/replace/decode dance never matched, because `json_encode()` escapes `®` before the
+  `str_replace()` runs.
+- The SmartOrder 401 self-heal retry no longer mints a redundant third OAuth token when the token
+  cache is disabled — the token minted for the retry is now reused by the retried request instead
+  of being discarded.
+
+### Changed
+
+- The SmartOrder token cache key now derives from the adapter's provider name plus a credentials
+  fingerprint (a short hash of host, `client_username` and `customer_id`), instead of just the
+  provider name, so two same-provider adapter instances with different credentials no longer share
+  a cached token.
+- The Universal adapter now requires `customer_id` at construction, alongside `client_username` and
+  `client_secret` — a missing value previously dropped `customerId` out of every request silently
+  instead of failing fast.
+- `Contracts\Capabilities\ProvidesTicketArtifacts::tickets()` now accepts `?array` — the natural
+  `$adapter->tickets($adapter->placeOrder(...))` pattern previously risked a `TypeError`, since
+  `placeOrder()`/`getExistingOrder()` return `?array`.
+- Removed the never-read `providers.*.enabled` config keys (`DISNEY_ENABLED`, `SEAWORLD_ENABLED`,
+  `UNIVERSAL_ENABLED`).
+- Removed the dead `Database\Factories` autoload mapping (the directory does not exist).
+
+### Docs
+
+- README now documents `deleteBooking()`'s raw-Response return.
+
+### Internal / CI
+
+- Removed emojis from the GitHub workflows, git hooks, WORKFLOW.md and README.
+
 ## 4.0.0 - 2026-06-28
 
 ### Changed (breaking)

@@ -2,14 +2,14 @@
 
 This document explains the git workflow and quality gates implemented in this package.
 
-## 🔒 Branch Protection Strategy
+## Branch Protection Strategy
 
 ### Main Branch Protection
 
--   ❌ **No direct pushes to main** - All changes must go through pull requests
--   ✅ **Require pull request reviews** - At least one approval required
--   ✅ **Require status checks** - All CI checks must pass before merge
--   ✅ **Require up-to-date branches** - Must be current with main before merge
+-   **No direct pushes to main** - All changes must go through pull requests
+-   **Require pull request reviews** - At least one approval required
+-   **Require status checks** - All CI checks must pass before merge
+-   **Require up-to-date branches** - Must be current with main before merge
 
 ### Git Hooks
 
@@ -26,28 +26,28 @@ composer hooks:install
 composer hooks:uninstall
 ```
 
-## 🎯 Automated Workflows
+## Automated Workflows
 
 ### 1. **Push to Feature Branches** (`dev`, `feature/*`, `bugfix/*`, `hotfix/*`)
 
 **Triggers:** Any push to non-main branches
 **Actions:**
 
--   ✅ **Code Style Auto-Fix**: Automatically runs Pint and commits fixes
--   ✅ **Basic Tests**: Runs test suite to ensure functionality
--   ✅ **Static Analysis**: PHPStan analysis for code quality
+-   **Code Style Auto-Fix**: Automatically runs Pint and commits fixes
+-   **Basic Tests**: Runs test suite to ensure functionality
+-   **Static Analysis**: PHPStan analysis for code quality
 
 ### 2. **Pull Request to Main**
 
 **Triggers:** PR opened/updated targeting main branch
 **Actions:**
 
--   🔍 **Security Scan**: Composer audit for vulnerabilities
--   🧪 **Comprehensive Testing**: Full test matrix (PHP 8.2, 8.3, 8.4 × Laravel 12.x / 13.x)
--   📋 **Code Quality**: Pint style check + PHPStan analysis + Composer validation
--   ⚡ **Performance Tests**: Parallel test execution
--   🔗 **Integration Tests**: Feature tests + Package installation validation
--   📊 **Coverage Report**: Code coverage analysis
+-   **Security Scan**: Composer audit for vulnerabilities
+-   **Comprehensive Testing**: Full test matrix (PHP 8.2, 8.3, 8.4 × Laravel 12.x / 13.x)
+-   **Code Quality**: Pint style check + PHPStan analysis + Composer validation
+-   **Performance Tests**: Parallel test execution
+-   **Integration Tests**: Feature tests + Package installation validation
+-   **Coverage Report**: Code coverage analysis
 
 ### 3. **Git Hooks (Local)**
 
@@ -69,7 +69,7 @@ composer hooks:uninstall
 -   **Blocks direct pushes to main branch**
 -   Provides helpful guidance for proper workflow
 
-## 💡 Developer Workflow
+## Developer Workflow
 
 ### Starting New Work
 
@@ -114,31 +114,31 @@ composer test:coverage
     - Code quality analysis
     - Performance tests
     - Integration tests
-4. **Request review** once all checks pass ✅
+4. **Request review** once all checks pass
 5. **Merge** after approval
 
-## 🚨 Quality Gates
+## Quality Gates
 
 ### Commit Level
 
--   ✅ **Style Check**: Pre-commit hook ensures consistent formatting
--   ✅ **Syntax Check**: Pre-commit validates PHP syntax
+-   **Style Check**: Pre-commit hook ensures consistent formatting
+-   **Syntax Check**: Pre-commit validates PHP syntax
 
 ### Push Level
 
--   ✅ **Full Style Validation**: Pre-push hook runs complete Pint check
--   ✅ **Main Branch Protection**: Prevents accidental direct pushes
--   ✅ **Auto Style Fix**: CI automatically fixes and commits style issues
+-   **Full Style Validation**: Pre-push hook runs complete Pint check
+-   **Main Branch Protection**: Prevents accidental direct pushes
+-   **Auto Style Fix**: CI automatically fixes and commits style issues
 
 ### PR Level
 
--   ✅ **Multi-Environment Testing**: PHP 8.2, 8.3, 8.4 with different dependencies
--   ✅ **Security Validation**: Dependency vulnerability scanning
--   ✅ **Performance Validation**: Parallel test execution
--   ✅ **Integration Validation**: Real package installation testing
--   ✅ **Code Coverage**: Ensures adequate test coverage
+-   **Multi-Environment Testing**: PHP 8.2, 8.3, 8.4 with different dependencies
+-   **Security Validation**: Dependency vulnerability scanning
+-   **Performance Validation**: Parallel test execution
+-   **Integration Validation**: Real package installation testing
+-   **Code Coverage**: Ensures adequate test coverage
 
-## 🎛️ Configuration
+## Configuration
 
 ### Git Hooks Configuration (`.simple-git-hooks.json`)
 
@@ -161,7 +161,7 @@ composer test:coverage
 -   **`pr-validation.yml`**: Comprehensive PR validation
 -   **`style-fix.yml`**: Automatic code style fixing
 
-## 🔧 Troubleshooting
+## Troubleshooting
 
 ### Hook Issues
 

@@ -15,7 +15,7 @@ concurrency:
 jobs:
   code-style-check:
     runs-on: ubuntu-latest
-    name: 🎨 Code Style Check
+    name: Code Style Check
     
     # Skip if commit message contains '[skip style]'
     if: "!contains(github.event.head_commit.message, '[skip style]')"
@@ -37,22 +37,22 @@ jobs:
       - name: Check code style
         run: |
           if ! composer format:check --quiet; then
-            echo "❌ Code style issues detected!"
-            echo "💡 Please run 'composer format' locally and commit the changes."
-            echo "💡 Git hooks should prevent this - make sure they are installed with 'composer hooks:install'"
+            echo "Code style issues detected!"
+            echo "Please run 'composer format' locally and commit the changes."
+            echo "Git hooks should prevent this - make sure they are installed with 'composer hooks:install'"
             exit 1
           else
-            echo "✅ Code style is compliant"
+            echo "Code style is compliant"
           fi
 
   notification:
     runs-on: ubuntu-latest
     needs: [code-style-check]
     if: needs.code-style-check.result == 'success'
-    name: 📢 Success Notification
+    name: Success Notification
 
     steps:
       - name: Success notification
         run: |
-          echo "🎨 Code style check passed for ${{ github.ref_name }}"
-          echo "📝 All PHP files are properly formatted"
+          echo "Code style check passed for ${{ github.ref_name }}"
+          echo "All PHP files are properly formatted"

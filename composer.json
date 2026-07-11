@@ -41,8 +41,7 @@
     },
     "autoload": {
         "psr-4": {
-            "Iabduul7\\ThemeParkAdapters\\": "src",
-            "Iabduul7\\ThemeParkAdapters\\Database\\Factories\\": "database/factories"
+            "Iabduul7\\ThemeParkAdapters\\": "src"
         }
     },
     "autoload-dev": {

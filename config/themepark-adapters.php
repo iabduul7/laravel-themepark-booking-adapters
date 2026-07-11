@@ -26,7 +26,6 @@ return [
     'providers' => [
         'disney' => [
             'driver' => 'redeam',
-            'enabled' => env('DISNEY_ENABLED', false),
             'supplier_id' => env('REDEAM_DISNEY_SUPPLIER_ID'),
             'host' => env('REDEAM_API_HOST', 'booking.redeam.io'),
             'version' => env('REDEAM_API_VERSION', 'v1.2'),
@@ -43,7 +42,6 @@ return [
 
         'seaworld' => [
             'driver' => 'redeam',
-            'enabled' => env('SEAWORLD_ENABLED', false),
             'supplier_id' => env('REDEAM_UNITED_PARKS_SUPPLIER_ID'), // May be null for United Parks
             'host' => env('REDEAM_API_HOST', 'booking.redeam.io'),
             'version' => env('REDEAM_API_VERSION', 'v1.2'),
@@ -57,7 +55,6 @@ return [
 
         'universal' => [
             'driver' => 'smartorder2',
-            'enabled' => env('UNIVERSAL_ENABLED', false),
             'customer_id' => env('SMARTORDER_CUSTOMER_ID'),
             'approved_suffix' => env('SMARTORDER_APPROVED_SUFFIX', ''),
             'host' => env('SMARTORDER_API_HOST', 'QACorpAPI.ucdp.net'),

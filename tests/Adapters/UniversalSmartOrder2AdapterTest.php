@@ -81,6 +81,27 @@ class UniversalSmartOrder2AdapterTest extends AdapterTestCase
         $this->assertCount(2, $catalogCalls);
     }
 
+    public function test_401_self_heal_does_not_mint_a_redundant_token_when_the_cache_is_disabled(): void
+    {
+        Http::fake([
+            'qacorpapi.ucdp.net/connect/token' => Http::response(['access_token' => 'T', 'expires_in' => 3600]),
+            'qacorpapi.ucdp.net/smartorder/MyProductCatalog*' => Http::sequence()
+                ->push('', 401)
+                ->push(['ok' => true], 200),
+        ]);
+
+        $this->adapter()->getAllProducts();
+
+        // Without the fix, the 401 branch's own refreshToken() call and the
+        // retried request's getToken() call (cache disabled) each mint a
+        // token, for 3 total. The fix reuses the 401 branch's fresh token,
+        // so only the initial token + the one refresh are ever requested.
+        $tokenCalls = Http::recorded(
+            fn (Request $r) => str_contains($r->url(), 'connect/token')
+        );
+        $this->assertCount(2, $tokenCalls);
+    }
+
     public function test_can_cancel_order_uses_get(): void
     {
         Http::fake([

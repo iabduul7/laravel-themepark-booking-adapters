@@ -29,7 +29,7 @@ class UniversalSmartOrder2Adapter extends AbstractSmartOrderAdapter implements P
     {
         parent::__construct($config, $tokenRepository);
 
-        if (! $this->hasRequiredConfig(['client_username', 'client_secret'])) {
+        if (! $this->hasRequiredConfig(['client_username', 'client_secret', 'customer_id'])) {
             throw ThemeParkApiException::invalidCredentials();
         }
     }
@@ -154,10 +154,10 @@ class UniversalSmartOrder2Adapter extends AbstractSmartOrderAdapter implements P
      * are scanned as QR upstream; the format hint defaults to CODE39 here since the
      * response carries no product type — the app can upgrade it via the catalog.
      *
-     * @param  array<string, mixed>  $response
+     * @param  array<string, mixed>|null  $response
      * @return Collection<int, TicketArtifact>
      */
-    public function tickets(array $response): Collection
+    public function tickets(?array $response): Collection
     {
         return collect(Arr::get($response, 'createdTicketResponses', []))
             ->map(function ($ticket) use ($response): TicketArtifact {

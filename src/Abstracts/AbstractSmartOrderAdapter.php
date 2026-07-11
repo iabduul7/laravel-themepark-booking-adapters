@@ -31,6 +31,14 @@ abstract class AbstractSmartOrderAdapter extends BaseThemeParkAdapter implements
     protected TokenRepositoryInterface $tokenRepository;
 
     /**
+     * A token minted mid-request by the 401 self-heal retry in
+     * {@see sendWithAuthRetry()}. Scoped to that single retry (reset in its
+     * `finally`) so the retried request reuses it instead of {@see getToken()}
+     * triggering yet another refresh when the token cache is disabled.
+     */
+    protected ?string $freshToken = null;
+
+    /**
      * @param  array<string, mixed>  $config
      */
     public function __construct(array $config = [], ?TokenRepositoryInterface $tokenRepository = null)
@@ -48,7 +56,17 @@ abstract class AbstractSmartOrderAdapter extends BaseThemeParkAdapter implements
         // call (a server-side invalidation otherwise looks like an empty catalog).
         // Default to caching here, but expose a toggle to exactly match upstream.
         $this->useTokenCache = (bool) $this->getConfig('token_cache', true);
-        $this->tokenRepository = $tokenRepository ?? new CacheTokenRepository('smartorder');
+
+        // Scope the cache key by a credentials fingerprint, not just the provider
+        // name, so two same-provider adapter instances with different credentials
+        // (e.g. two SmartOrder accounts) never share a cached token.
+        $scope = substr(sha1(implode('|', [
+            (string) $this->getConfig('host'),
+            (string) $this->getConfig('client_username'),
+            (string) $this->customerId,
+        ])), 0, 12);
+
+        $this->tokenRepository = $tokenRepository ?? new CacheTokenRepository($this->getProviderName() . '_' . $scope);
     }
 
     public function getProviderName(): string
@@ -93,6 +111,10 @@ abstract class AbstractSmartOrderAdapter extends BaseThemeParkAdapter implements
 
     protected function getToken(): string
     {
+        if ($this->freshToken !== null) {
+            return $this->freshToken;
+        }
+
         if ($this->useTokenCache) {
             $token = $this->tokenRepository->getValidToken();
             if ($token !== null && $token !== '') {
@@ -140,8 +162,17 @@ abstract class AbstractSmartOrderAdapter extends BaseThemeParkAdapter implements
         $response = $request();
 
         if ($response->status() === 401) {
-            $this->refreshToken();
-            $response = $request();
+            // Mint the replacement token once and hand it to getToken() via
+            // $freshToken, so the retried $request() call reuses it instead of
+            // triggering a second, redundant refresh (notably when the token
+            // cache is disabled and getToken() would otherwise refresh again).
+            $this->freshToken = $this->refreshToken();
+
+            try {
+                $response = $request();
+            } finally {
+                $this->freshToken = null;
+            }
         }
 
         if ($response->failed()) {

@@ -122,4 +122,14 @@ class TicketArtifactTest extends AdapterTestCase
         $this->assertCount(0, $this->seaworld()->tickets([]));
         $this->assertCount(0, $this->universal()->tickets([]));
     }
+
+    public function test_null_response_yields_no_artifacts_for_every_provider(): void
+    {
+        // placeOrder()/getExistingOrder() return ?array, so tickets() must accept
+        // the natural `$adapter->tickets($adapter->placeOrder(...))` pattern without
+        // a TypeError when the provider returned no body.
+        $this->assertCount(0, $this->disney()->tickets(null));
+        $this->assertCount(0, $this->seaworld()->tickets(null));
+        $this->assertCount(0, $this->universal()->tickets(null));
+    }
 }

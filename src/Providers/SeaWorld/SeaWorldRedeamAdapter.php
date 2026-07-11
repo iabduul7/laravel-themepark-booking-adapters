@@ -2,6 +2,7 @@
 
 namespace Iabduul7\ThemeParkAdapters\Providers\SeaWorld;
 
+use DateTimeInterface;
 use Iabduul7\ThemeParkAdapters\Abstracts\AbstractRedeamAdapter;
 use Iabduul7\ThemeParkAdapters\DataTransferObjects\Results\PriceSchedule;
 use Iabduul7\ThemeParkAdapters\DataTransferObjects\Results\Product;
@@ -102,6 +103,25 @@ class SeaWorldRedeamAdapter extends AbstractRedeamAdapter implements ProvidesTic
     }
 
     /**
+     * Entry point for {@see Product::getRates()}. United Parks products carry their
+     * own supplierId, so a product-only call can still resolve the correct
+     * supplier without the caller re-supplying it.
+     *
+     * @param  array<string, mixed>  $parameters
+     * @return array<int, Rate>
+     */
+    public function ratesFor(Product $product, array $parameters = []): array
+    {
+        $supplierId = $product->getProductSupplierId() ?? $this->supplierId;
+
+        if ($supplierId === null) {
+            throw ThemeParkApiException::apiError('Cannot resolve the supplier for product rates: the product payload has no supplierId and no supplier id is set on the adapter.');
+        }
+
+        return $this->getProductRates($supplierId, $product->getId(), $parameters);
+    }
+
+    /**
      * @param  array<string, mixed>  $parameters
      */
     public function getProductRate(string $supplierId, string $productId, string $rateId, array $parameters = []): Rate
@@ -116,9 +136,9 @@ class SeaWorldRedeamAdapter extends AbstractRedeamAdapter implements ProvidesTic
      * @param  array<string, mixed>  $parameters
      * @return array<string, mixed>
      */
-    public function checkAvailability(string $supplierId, string $productId, Carbon|string $at, int $qty, array $parameters = []): array
+    public function checkAvailability(string $supplierId, string $productId, DateTimeInterface|string $at, int $qty, array $parameters = []): array
     {
-        $at = $at instanceof Carbon ? $at->toISOString() : $at;
+        $at = $at instanceof DateTimeInterface ? Carbon::instance($at)->toISOString() : $at;
 
         return $this->getRequest(
             "suppliers/{$supplierId}/products/{$productId}/availability",
@@ -130,10 +150,10 @@ class SeaWorldRedeamAdapter extends AbstractRedeamAdapter implements ProvidesTic
      * @param  array<string, mixed>  $parameters
      * @return array<string, mixed>
      */
-    public function checkAvailabilities(string $supplierId, string $productId, Carbon|string $start, Carbon|string $end, array $parameters = []): array
+    public function checkAvailabilities(string $supplierId, string $productId, DateTimeInterface|string $start, DateTimeInterface|string $end, array $parameters = []): array
     {
-        $start = $start instanceof Carbon ? $start->toISOString() : $start;
-        $end = $end instanceof Carbon ? $end->toISOString() : $end;
+        $start = $start instanceof DateTimeInterface ? Carbon::instance($start)->toISOString() : $start;
+        $end = $end instanceof DateTimeInterface ? Carbon::instance($end)->toISOString() : $end;
 
         return $this->getRequest(
             "suppliers/{$supplierId}/products/{$productId}/availabilities",
@@ -145,9 +165,9 @@ class SeaWorldRedeamAdapter extends AbstractRedeamAdapter implements ProvidesTic
      * @param  array<string, mixed>  $parameters
      * @return array<string, mixed>
      */
-    public function getProductAvailability(string $supplierId, string $productId, Carbon|string $at, int $qty, array $parameters = []): array
+    public function getProductAvailability(string $supplierId, string $productId, DateTimeInterface|string $at, int $qty, array $parameters = []): array
     {
-        $at = $at instanceof Carbon ? $at->toISOString() : $at;
+        $at = $at instanceof DateTimeInterface ? Carbon::instance($at)->toISOString() : $at;
 
         return $this->getRequest(
             "suppliers/{$supplierId}/products/{$productId}/availability",
@@ -161,12 +181,12 @@ class SeaWorldRedeamAdapter extends AbstractRedeamAdapter implements ProvidesTic
     public function getProductPricingSchedule(
         string $supplierId,
         string $productId,
-        Carbon|string $startDate,
-        Carbon|string $endDate,
+        DateTimeInterface|string $startDate,
+        DateTimeInterface|string $endDate,
         array $parameters = []
     ): PriceSchedule {
-        $startDate = $startDate instanceof Carbon ? $startDate->toDateString() : $startDate;
-        $endDate = $endDate instanceof Carbon ? $endDate->toDateString() : $endDate;
+        $startDate = $startDate instanceof DateTimeInterface ? Carbon::instance($startDate)->toDateString() : $startDate;
+        $endDate = $endDate instanceof DateTimeInterface ? Carbon::instance($endDate)->toDateString() : $endDate;
 
         return $this->parseData(
             $this->getRequest(
@@ -183,19 +203,21 @@ class SeaWorldRedeamAdapter extends AbstractRedeamAdapter implements ProvidesTic
     public function getProductRatePricingSchedule(
         string $supplierId,
         string $productId,
-        Carbon|string $startDate,
-        Carbon|string $endDate,
+        DateTimeInterface|string $startDate,
+        DateTimeInterface|string $endDate,
         ?string $rateId = null,
         array $parameters = []
     ): RatePriceSchedule {
-        $startDate = $startDate instanceof Carbon ? $startDate->toDateString() : $startDate;
-        $endDate = $endDate instanceof Carbon ? $endDate->toDateString() : $endDate;
+        $startDate = $startDate instanceof DateTimeInterface ? Carbon::instance($startDate)->toDateString() : $startDate;
+        $endDate = $endDate instanceof DateTimeInterface ? Carbon::instance($endDate)->toDateString() : $endDate;
 
         return $this->parseData(
+            // A null $rateId is intentional: Arr::get() with a null key returns the
+            // whole array, i.e. the full multi-rate schedule.
             Arr::get($this->getRequest(
                 "suppliers/{$supplierId}/products/{$productId}/pricing/schedule",
                 array_merge($parameters, ['start_date' => $startDate, 'end_date' => $endDate, 'rate_id' => $rateId])
-            ), $rateId ?? '', []),
+            ), $rateId, []),
             RatePriceSchedule::class
         );
     }
@@ -217,10 +239,10 @@ class SeaWorldRedeamAdapter extends AbstractRedeamAdapter implements ProvidesTic
      * RedeamServiceForUnitedParks voucher extraction — the SeaWorld sandbox has no
      * bookable availability (Discovery Cove only) to capture this shape live.
      *
-     * @param  array<string, mixed>  $response
+     * @param  array<string, mixed>|null  $response
      * @return Collection<int, TicketArtifact>
      */
-    public function tickets(array $response): Collection
+    public function tickets(?array $response): Collection
     {
         /** @var array<string, mixed> $booking */
         $booking = Arr::get($response, 'booking', $response);
