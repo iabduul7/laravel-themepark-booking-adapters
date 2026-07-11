@@ -136,6 +136,23 @@ class DisneyRedeamAdapterTest extends AdapterTestCase
             && str_starts_with($r->url(), 'https://booking.redeam.io/v1.2/suppliers/20/products/p1/rates'));
     }
 
+    public function test_get_park_availability_data_returns_the_raw_feed_untouched(): void
+    {
+        $feed = [
+            '2026-06-15' => [
+                'status' => 'full',
+                'parks' => [
+                    'EPCOT®' => 'available',
+                    'Magic Kingdom® Park' => 'available',
+                ],
+            ],
+        ];
+
+        Http::fake(['dis-obs.redeam.io/disney/park/availability*' => Http::response($feed)]);
+
+        $this->assertSame($feed, $this->adapter()->getParkAvailabilityData('2026-06-15', '2026-06-20'));
+    }
+
     public function test_get_park_availability_strips_registered_trademark_and_reverses_park_order(): void
     {
         // Real feed shape: each entry keys the parks map BY PARK NAME

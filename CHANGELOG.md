@@ -4,6 +4,20 @@ All notable changes to `laravel-themepark-booking-adapters` will be documented i
 
 ## Unreleased
 
+### Added
+
+- `DisneyRedeamAdapter::getParkAvailabilityData()` — the raw park-availability feed, decoded exactly
+  as the observability endpoint returns it (each date maps to a status plus a parks map keyed by
+  park name). This is the boundary-correct primitive: shaping the feed for display belongs to the
+  consuming app.
+
+### Deprecated
+
+- `DisneyRedeamAdapter::getParkAvailability()` — the transformed calendar shape (full/partial/none
+  rollup, reversed park order, `®` stripping, `nice_date` with embedded HTML) is presentation logic,
+  not provider data. Kept as a drop-in parity wrapper over `getParkAvailabilityData()`; will be
+  removed in the next major version.
+
 ### Fixed
 
 - Result DTOs no longer serialize their adapter back-reference — queued DTOs (e.g. a sync job

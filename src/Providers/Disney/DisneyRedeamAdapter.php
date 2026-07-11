@@ -224,25 +224,42 @@ class DisneyRedeamAdapter extends AbstractRedeamAdapter implements ProvidesTicke
     }
 
     /**
-     * Disney park-level availability from the public observability endpoint.
+     * Raw Disney park-level availability from the public observability endpoint,
+     * decoded exactly as the feed returns it: each date maps to a status plus a
+     * parks map keyed by park name ("Magic Kingdom® Park" => "available").
+     * Shaping the feed for display is the consuming app's concern.
      *
      * @return array<string, mixed>
      */
-    public function getParkAvailability(DateTimeInterface|string $startDate, DateTimeInterface|string $endDate): array
+    public function getParkAvailabilityData(DateTimeInterface|string $startDate, DateTimeInterface|string $endDate): array
     {
         $startDate = $startDate instanceof DateTimeInterface ? Carbon::instance($startDate)->format('Y-m-d') : $startDate;
         $endDate = $endDate instanceof DateTimeInterface ? Carbon::instance($endDate)->format('Y-m-d') : $endDate;
 
         $url = (string) $this->getConfig('park_availability_url', 'https://dis-obs.redeam.io/disney/park/availability');
 
-        $response = $this->decodeOrThrow(
+        return $this->decodeOrThrow(
             $this->retryReads($this->http()->asForm())->get($url, [
                 'startDate' => $startDate,
                 'endDate' => $endDate,
             ])
         );
+    }
 
-        return collect($response)
+    /**
+     * Disney park-level availability transformed into the legacy calendar shape of
+     * the upstream client (full/partial/none rollup, reversed parks, ® stripped,
+     * display date with embedded HTML). Kept only for drop-in parity.
+     *
+     * @deprecated The transform is presentation logic that belongs in the consuming
+     * app — call getParkAvailabilityData() and shape the feed there. This wrapper
+     * will be removed in the next major version.
+     *
+     * @return array<string, mixed>
+     */
+    public function getParkAvailability(DateTimeInterface|string $startDate, DateTimeInterface|string $endDate): array
+    {
+        return collect($this->getParkAvailabilityData($startDate, $endDate))
             ->transform(function ($value, $key) {
                 $value = (array) $value;
                 $status = 'full';
