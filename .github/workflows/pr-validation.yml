@@ -75,7 +75,7 @@ jobs:
           - php: 8.2
             laravel: '13.*'
 
-    name: 🧪 PHP ${{ matrix.php }} - Laravel ${{ matrix.laravel }} (${{ matrix.dependency-version }})
+    name: PHP ${{ matrix.php }} - Laravel ${{ matrix.laravel }} (${{ matrix.dependency-version }})
 
     steps:
       - name: Checkout code
@@ -113,7 +113,7 @@ jobs:
     runs-on: ubuntu-latest
     if: ${{ !github.event.pull_request.draft }}
     needs: [changes]
-    name: 📋 Code Quality
+    name: Code Quality
     
     steps:
       - name: Checkout code
@@ -142,7 +142,7 @@ jobs:
     runs-on: ubuntu-latest
     if: ${{ !github.event.pull_request.draft && needs.changes.outputs.php == 'true' }}
     needs: [changes]
-    name: ⚡ Performance Tests
+    name: Performance Tests
 
     steps:
       - name: Checkout code
@@ -165,7 +165,7 @@ jobs:
     runs-on: ubuntu-latest
     if: ${{ !github.event.pull_request.draft && needs.changes.outputs.php == 'true' }}
     needs: [changes]
-    name: 🔗 Integration Tests
+    name: Integration Tests
 
     steps:
       - name: Checkout code
@@ -197,16 +197,16 @@ jobs:
     runs-on: ubuntu-latest
     if: ${{ !github.event.pull_request.draft }}
     needs: [security-scan, comprehensive-tests, code-quality, performance-tests, integration-tests]
-    name: 📋 PR Validation Summary
+    name: PR Validation Summary
 
     steps:
       - name: All checks passed
         run: |
-          echo "🎉 All PR validation checks have passed!"
-          echo "✅ Security scan completed"
-          echo "✅ Comprehensive tests completed" 
-          echo "✅ Code quality checks passed"
-          echo "✅ Performance tests completed"
-          echo "✅ Integration tests completed"
+          echo "All PR validation checks have passed!"
+          echo "Security scan completed"
+          echo "Comprehensive tests completed"
+          echo "Code quality checks passed"
+          echo "Performance tests completed"
+          echo "Integration tests completed"
           echo ""
-          echo "This PR is ready for review! 🚀"
+          echo "This PR is ready for review!"

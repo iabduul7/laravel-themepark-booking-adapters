@@ -65,6 +65,10 @@ All notable changes to `laravel-themepark-booking-adapters` will be documented i
 
 - README now documents `deleteBooking()`'s raw-Response return.
 
+### Internal / CI
+
+- Removed emojis from the GitHub workflows, git hooks, WORKFLOW.md and README.
+
 ## 4.0.0 - 2026-06-28
 
 ### Changed (breaking)
