@@ -2,6 +2,14 @@
 
 All notable changes to `laravel-themepark-booking-adapters` will be documented in this file.
 
+## 4.1.1 - 2026-11-07
+
+### Internal / CI
+
+- Pinned all 26 third-party GitHub Actions `uses:` references across `.github/workflows/*.yml` to full 40-character commit SHAs (`actions/checkout`, `shivammathur/setup-php`, `dorny/paths-filter`, `codecov/codecov-action`, and `dependabot/fetch-metadata`) to prevent tag-mutation supply-chain attacks.
+- Added the `npm` package ecosystem to `.github/dependabot.yml` so the committed `package-lock.json` receives automated dependency updates.
+- Configured a 7-day release cooldown (`cooldown.default-days: 7`) across all ecosystems in `.github/dependabot.yml`.
+
 ## 4.1.0 - 2026-07-12
 
 ### Added

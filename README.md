@@ -2,7 +2,7 @@
 
 [![Latest Version on Packagist](https://img.shields.io/packagist/v/iabduul7/laravel-themepark-booking-adapters.svg?style=flat-square)](https://packagist.org/packages/iabduul7/laravel-themepark-booking-adapters)
 [![GitHub Tests Action Status](https://img.shields.io/github/actions/workflow/status/iabduul7/laravel-themepark-booking-adapters/run-tests.yml?branch=main&label=tests&style=flat-square)](https://github.com/iabduul7/laravel-themepark-booking-adapters/actions?query=workflow%3Arun-tests+branch%3Amain)
-[![GitHub PHPStan Action Status](https://img.shields.io/github/actions/workflow/status/iabduul7/laravel-themepark-booking-adapters/phpstan.yml?branch=dev&label=phpstan&style=flat-square)](https://github.com/iabduul7/laravel-themepark-booking-adapters/actions?query=workflow%3Aphpstan+branch%3Adev)
+[![GitHub PHPStan Action Status](https://img.shields.io/github/actions/workflow/status/iabduul7/laravel-themepark-booking-adapters/phpstan.yml?branch=main&label=phpstan&style=flat-square)](https://github.com/iabduul7/laravel-themepark-booking-adapters/actions?query=workflow%3Aphpstan+branch%3Amain)
 [![Total Downloads](https://img.shields.io/packagist/dt/iabduul7/laravel-themepark-booking-adapters.svg?style=flat-square)](https://packagist.org/packages/iabduul7/laravel-themepark-booking-adapters)
 
 A Laravel package providing self-contained, drop-in booking adapters for major theme park
