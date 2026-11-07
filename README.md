@@ -19,7 +19,7 @@ schedules, holds/bookings for Redeam; events/orders for SmartOrder) and returns 
 DTOs over the raw responses. Auth, retries and OAuth token management are handled for you.
 
 > **What's working today:** all three adapters are contract-tested with `Http::fake` and analysed
-> with PHPStan (level 3). Read paths (catalog, rates, pricing, availability) are additionally
+> with PHPStan (level 8). Read paths (catalog, rates, pricing, availability) are additionally
 > verified against the live provider sandboxes, and the full write lifecycle is proven **live** for
 > **Disney** (Redeam hold → book → cancel) and **Universal** (SmartOrder place → cancel).
 > **SeaWorld / United Parks** is contract-tested only — its sandbox (Discovery Cove) exposes no
@@ -33,13 +33,13 @@ DTOs over the raw responses. Auth, retries and OAuth token management are handle
 - **Resilient transport**: idempotent reads retried on connection drops / 5xx; writes never retried (no double-booking)
 - **Typed result objects**: `Supplier`, `Product`, `Rate`, `PriceSchedule`, `RatePriceSchedule`, `Availability`, `Hold`, `Booking`, …
 - **Voucher data exposed**: `tickets()` normalises each booking/order response into typed `TicketArtifact`s (redeemable identifier + format + validity); barcode/PDF rendering stays in your app
-- **Capability interfaces**: `SupportsHolds`, `SupportsEvents`, `ProvidesTicketArtifacts` — type-hint a capability instead of a concrete park
+- **Capability interfaces**: `SupportsHolds`, `SupportsEvents`, `ProvidesTicketArtifacts` — type-hint a capability instead of a specific park
 - **No app coupling**: pure API integration; persistence, jobs, commission/margins and voucher *rendering* stay in your app
 - **Contract-tested** with `Http::fake()`, analysed with PHPStan, and exercised live against the provider sandboxes
 
 ## Requirements
 
-- **PHP** 8.2, 8.3 or 8.4
+- **PHP** 8.2, 8.3, 8.4 or 8.5
 - **Laravel** 12.x or 13.x (`illuminate/contracts ^12.0|^13.0`)
 
 > Earlier releases targeted PHP 8.1 / Laravel 10–11. Support for those was dropped in 3.0.0 to stay

@@ -2,11 +2,16 @@ name: PHPStan
 
 on:
   push:
+    branches: [main]
     paths:
       - '**.php'
       - 'phpstan.neon'
       - 'phpstan.neon.dist'
       - 'composer.json'
+
+concurrency:
+  group: phpstan-${{ github.ref }}
+  cancel-in-progress: true
 
 jobs:
   phpstan:

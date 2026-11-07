@@ -4,11 +4,11 @@ namespace Iabduul7\ThemeParkAdapters\Providers\SeaWorld;
 
 use DateTimeInterface;
 use Iabduul7\ThemeParkAdapters\Abstracts\AbstractRedeamAdapter;
+use Iabduul7\ThemeParkAdapters\Contracts\Capabilities\ProvidesTicketArtifacts;
 use Iabduul7\ThemeParkAdapters\DataTransferObjects\Results\PriceSchedule;
 use Iabduul7\ThemeParkAdapters\DataTransferObjects\Results\Product;
 use Iabduul7\ThemeParkAdapters\DataTransferObjects\Results\Rate;
 use Iabduul7\ThemeParkAdapters\DataTransferObjects\Results\RatePriceSchedule;
-use Iabduul7\ThemeParkAdapters\Contracts\Capabilities\ProvidesTicketArtifacts;
 use Iabduul7\ThemeParkAdapters\DataTransferObjects\Results\Supplier;
 use Iabduul7\ThemeParkAdapters\DataTransferObjects\Results\TicketArtifact;
 use Iabduul7\ThemeParkAdapters\Exceptions\ThemeParkApiException;
@@ -244,11 +244,17 @@ class SeaWorldRedeamAdapter extends AbstractRedeamAdapter implements ProvidesTic
      */
     public function tickets(?array $response): Collection
     {
+        if ($response === null) {
+            return collect();
+        }
+
         /** @var array<string, mixed> $booking */
         $booking = Arr::get($response, 'booking', $response);
         $status = Arr::get($booking, 'status', 'OPEN');
+        /** @var array<int, mixed> $tickets */
+        $tickets = (array) Arr::get($booking, 'tickets', []);
 
-        return collect(Arr::get($booking, 'tickets', []))
+        return collect($tickets)
             ->map(function ($ticket) use ($status): TicketArtifact {
                 $ticket = (array) $ticket;
                 /** @var array<string, mixed> $traveler */

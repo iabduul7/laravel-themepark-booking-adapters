@@ -2,6 +2,7 @@
 
 namespace Iabduul7\ThemeParkAdapters\DataTransferObjects\Results;
 
+use Iabduul7\ThemeParkAdapters\Contracts\ThemeParkAdapterInterface;
 use Illuminate\Support\Arr;
 
 /**
@@ -13,6 +14,9 @@ use Illuminate\Support\Arr;
  */
 abstract class Result
 {
+    /**
+     * @var array<string, mixed>
+     */
     protected array $data;
 
     /**
@@ -20,14 +24,17 @@ abstract class Result
      * relation-style accessors (e.g. Product::getRates()) lazily call back into
      * the provider without coupling to a global facade.
      */
-    protected ?object $adapter = null;
+    protected ?ThemeParkAdapterInterface $adapter = null;
 
+    /**
+     * @param  array<string, mixed>  $data
+     */
     public function __construct(array $data = [])
     {
         $this->data = $data;
     }
 
-    public function withAdapter(?object $adapter): static
+    public function withAdapter(?ThemeParkAdapterInterface $adapter): static
     {
         $this->adapter = $adapter;
 

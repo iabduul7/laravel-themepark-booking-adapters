@@ -159,8 +159,16 @@ class UniversalSmartOrder2Adapter extends AbstractSmartOrderAdapter implements P
      */
     public function tickets(?array $response): Collection
     {
-        return collect(Arr::get($response, 'createdTicketResponses', []))
-            ->map(function ($ticket) use ($response): TicketArtifact {
+        if ($response === null) {
+            return collect();
+        }
+
+        $status = Arr::get($response, 'success') ? 'CONFIRMED' : null;
+        /** @var array<int, mixed> $tickets */
+        $tickets = (array) Arr::get($response, 'createdTicketResponses', []);
+
+        return collect($tickets)
+            ->map(function ($ticket) use ($status): TicketArtifact {
                 $ticket = (array) $ticket;
                 $name = trim(Arr::get($ticket, 'firstName', '') . ' ' . Arr::get($ticket, 'lastName', ''));
 
@@ -174,7 +182,7 @@ class UniversalSmartOrder2Adapter extends AbstractSmartOrderAdapter implements P
                     'plu' => Arr::get($ticket, 'plu'),
                     'valid_from' => Arr::get($ticket, 'validityRules.0.calculatedStartDateTime'),
                     'valid_to' => Arr::get($ticket, 'validityRules.0.calculatedExpirationDateTime'),
-                    'status' => Arr::get($response, 'success') ? 'CONFIRMED' : null,
+                    'status' => $status,
                 ]);
             })
             ->values();
