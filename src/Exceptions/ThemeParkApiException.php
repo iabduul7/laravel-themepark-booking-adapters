@@ -6,6 +6,9 @@ use Exception;
 
 class ThemeParkApiException extends Exception
 {
+    /**
+     * @param  array<string, mixed>|null  $responseData
+     */
     public function __construct(
         string $message = '',
         int $code = 0,
@@ -15,6 +18,9 @@ class ThemeParkApiException extends Exception
         parent::__construct($message, $code, $previous);
     }
 
+    /**
+     * @return array<string, mixed>|null
+     */
     public function getResponseData(): ?array
     {
         return $this->responseData;
@@ -43,6 +49,9 @@ class ThemeParkApiException extends Exception
         return new self("ThemePark API request failed with HTTP {$status}.", $status, null, $responseData);
     }
 
+    /**
+     * @param  array<string, mixed>  $responseData
+     */
     public static function apiError(string $message, array $responseData = []): self
     {
         return new self($message, 0, null, $responseData);

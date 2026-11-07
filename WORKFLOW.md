@@ -13,13 +13,10 @@ This document explains the git workflow and quality gates implemented in this pa
 
 ### Git Hooks
 
-Local git hooks are automatically installed via composer to ensure quality:
+Local git hooks are configured via Composer to ensure quality:
 
 ```bash
-# Install hooks (automatic after composer install/update)
-composer hooks:install
-
-# Manually install if needed
+# Install hooks (sets git core.hooksPath to .githooks)
 composer hooks:install
 
 # Uninstall hooks
@@ -30,12 +27,12 @@ composer hooks:uninstall
 
 ### 1. **Push to Feature Branches** (`dev`, `feature/*`, `bugfix/*`, `hotfix/*`)
 
-**Triggers:** Any push to non-main branches
+**Triggers:** Any push to non-main branches or pull request targeting `dev`
 **Actions:**
 
--   **Code Style Auto-Fix**: Automatically runs Pint and commits fixes
--   **Basic Tests**: Runs test suite to ensure functionality
--   **Static Analysis**: PHPStan analysis for code quality
+-   **Code Style Auto-Fix**: Automatically runs Pint and checks style
+-   **Basic Tests**: Runs test suite across PHP 8.2–8.5 and Laravel 12.x / 13.x
+-   **Static Analysis**: PHPStan (level 8) analysis for code quality
 
 ### 2. **Pull Request to Main**
 
@@ -43,7 +40,7 @@ composer hooks:uninstall
 **Actions:**
 
 -   **Security Scan**: Composer audit for vulnerabilities
--   **Comprehensive Testing**: Full test matrix (PHP 8.2, 8.3, 8.4 × Laravel 12.x / 13.x)
+-   **Comprehensive Testing**: Full test matrix (PHP 8.2, 8.3, 8.4, 8.5 × Laravel 12.x / 13.x)
 -   **Code Quality**: Pint style check + PHPStan analysis + Composer validation
 -   **Performance Tests**: Parallel test execution
 -   **Integration Tests**: Feature tests + Package installation validation
@@ -128,11 +125,11 @@ composer test:coverage
 
 -   **Full Style Validation**: Pre-push hook runs complete Pint check
 -   **Main Branch Protection**: Prevents accidental direct pushes
--   **Auto Style Fix**: CI automatically fixes and commits style issues
+-   **Auto Style Fix**: CI automatically checks style issues
 
 ### PR Level
 
--   **Multi-Environment Testing**: PHP 8.2, 8.3, 8.4 with different dependencies
+-   **Multi-Environment Testing**: PHP 8.2, 8.3, 8.4, 8.5 with different dependencies
 -   **Security Validation**: Dependency vulnerability scanning
 -   **Performance Validation**: Parallel test execution
 -   **Integration Validation**: Real package installation testing
@@ -140,14 +137,10 @@ composer test:coverage
 
 ## Configuration
 
-### Git Hooks Configuration (`.simple-git-hooks.json`)
+### Git Hooks Directory (`.githooks/`)
 
-```json
-{
-    "pre-commit": ".githooks/pre-commit",
-    "pre-push": ".githooks/pre-push"
-}
-```
+-   `.githooks/pre-commit`: Staged PHP file style check
+-   `.githooks/pre-push`: Full Pint check and main branch guard
 
 ### Pint Configuration (`pint.json`)
 
@@ -157,9 +150,11 @@ composer test:coverage
 
 ### GitHub Actions
 
--   **`tests.yml`**: Basic CI for feature branches
--   **`pr-validation.yml`**: Comprehensive PR validation
--   **`style-fix.yml`**: Automatic code style fixing
+-   **`tests.yml`**: CI for feature branches and PRs targeting `dev`
+-   **`pr-validation.yml`**: Comprehensive PR validation targeting `main`
+-   **`run-tests.yml`**: Test suite status on `main` pushes
+-   **`phpstan.yml`**: Static analysis status on `main` pushes
+-   **`style-fix.yml`**: Code style check on feature branches
 
 ## Troubleshooting
 
