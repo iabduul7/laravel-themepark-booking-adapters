@@ -61,9 +61,8 @@
         "format:check": "vendor/bin/pint --test",
         "quality": "vendor/bin/pint --test && vendor/bin/phpstan analyse --memory-limit=1G && vendor/bin/phpunit tests/Adapters",
         "quality:fix": "vendor/bin/pint && vendor/bin/phpunit tests/Adapters",
-        "hooks:install": "npx simple-git-hooks",
-        "hooks:uninstall": "git config --unset-all core.hooksPath || true",
-        "refactor": "vendor/bin/rector process"
+        "hooks:install": "git config core.hooksPath .githooks",
+        "hooks:uninstall": "git config --unset-all core.hooksPath || true"
     },
     "config": {
         "sort-packages": true,

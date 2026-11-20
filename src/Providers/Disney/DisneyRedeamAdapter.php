@@ -4,11 +4,11 @@ namespace Iabduul7\ThemeParkAdapters\Providers\Disney;
 
 use DateTimeInterface;
 use Iabduul7\ThemeParkAdapters\Abstracts\AbstractRedeamAdapter;
+use Iabduul7\ThemeParkAdapters\Contracts\Capabilities\ProvidesTicketArtifacts;
 use Iabduul7\ThemeParkAdapters\DataTransferObjects\Results\PriceSchedule;
 use Iabduul7\ThemeParkAdapters\DataTransferObjects\Results\Product;
 use Iabduul7\ThemeParkAdapters\DataTransferObjects\Results\Rate;
 use Iabduul7\ThemeParkAdapters\DataTransferObjects\Results\RatePriceSchedule;
-use Iabduul7\ThemeParkAdapters\Contracts\Capabilities\ProvidesTicketArtifacts;
 use Iabduul7\ThemeParkAdapters\DataTransferObjects\Results\Supplier;
 use Iabduul7\ThemeParkAdapters\DataTransferObjects\Results\TicketArtifact;
 use Iabduul7\ThemeParkAdapters\Exceptions\ThemeParkApiException;
@@ -302,6 +302,10 @@ class DisneyRedeamAdapter extends AbstractRedeamAdapter implements ProvidesTicke
      */
     public function tickets(?array $response): Collection
     {
+        if ($response === null) {
+            return collect();
+        }
+
         /** @var array<string, mixed> $booking */
         $booking = Arr::get($response, 'booking', $response);
         /** @var array<string, mixed> $ext */
